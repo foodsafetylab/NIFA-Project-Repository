@@ -1,4 +1,5 @@
 ##C:/Users/jorge/Box Sync/NIFA Project/CA 9-2021/Plate results/
+##No need if you open the project on C:\Users\jfq\Box Sync\NIFA Project\NIFA Project Repository
 library(tidyverse)
 library(MASS)
 library(car)

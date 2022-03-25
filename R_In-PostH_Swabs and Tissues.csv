@@ -1,0 +1,270 @@
+Sampling Day,Sample Type,Location,Class,Strata,Test,Sample ID,Best Estimate log(CFU/g)
+InHarvest D1,MT,Chute,Round 1,,APC,UI15,5.394436872
+InHarvest D1,MT,Bins,Round 1,,APC,UI16,5.174409923
+InHarvest D1,MT,Chute,Round 2,,APC,UI17,4.796522226
+InHarvest D1,MT,Chute,Round 3,,APC,UI18,4.995547318
+InHarvest D1,MT,Bins,Round 3,,APC,UI19,4.377870923
+InHarvest D1,MT,Bins,Round 2,,APC,UI29,4.410926836
+InHarvest D1,Tissue,Bins,Round 1,,APC,UI290,4.526753811
+InHarvest D1,Tissue,Bins,Round 2,,APC,UI291,4.115437436
+InHarvest D1,Tissue,Bins,Round 3,,APC,UI292,4.182117764
+InHarvest D1,Tissue,Leftover,Round 1,,APC,UI295,4.901569899
+InHarvest D1,Tissue,Leftover,Round 1,,APC,UI296,4.734137829
+InHarvest D1,Tissue,Leftover,Round 2,,APC,UI297,4.439963936
+InHarvest D1,Tissue,Leftover,Round 2,,APC,UI298,4.46478752
+InHarvest D1,Tissue,Leftover,Round 3,,APC,UI307,3.704239663
+InHarvest D1,Gloves,Gloves,Round 1,,APC,UI318,5.094975472
+InHarvest D1,Gloves,Gloves,Round 1,,APC,UI319,4.837102393
+InHarvest D1,Gloves,Gloves,Round 3,,APC,UI320,4.825260215
+InHarvest D1,Gloves,Gloves,Round 2,,APC,UI326,4.9980655
+InHarvest D1,Gloves,Gloves,Round 2,,APC,UI327,5.109083036
+InHarvest D1,MT,Chute,Round 4,,APC,UI020,4.865184642
+InHarvest D1,MT,Chute,Round 4,,APC,UI021,4.438337186
+InHarvest D1,MT,Bins,Round 5,,APC,UI022,4.956322177
+InHarvest D1,MT,Bins,Round 5,,APC,UI023,4.397108124
+InHarvest D1,Tissue,Leftover,Round 4,,APC,UI093,4.46478752
+InHarvest D1,Tissue,Leftover,Round 5,,APC,UI096,4.571242851
+InHarvest D1,Tissue,Bins,Round 4,,APC,UI293,4.273284108
+InHarvest D1,Tissue,Bins,Round 5,,APC,UI294,4.14441709
+InHarvest D1,Tissue,Leftover,Round 5,,APC,UI299,4.452553063
+InHarvest D1,Tissue,Leftover,Round 4,,APC,UI300,4.160851292
+InHarvest D1,Gloves,Gloves,Round 5,,APC,UI322,4.98357326
+InHarvest D1,Gloves,Gloves,Round 5,,APC,UI323,4.825610012
+InHarvest D1,Gloves,Gloves,Round 4,,APC,UI324,5.77366966
+InHarvest D1,Gloves,Gloves,Round 4,,APC,UI325,4.688772052
+InHarvest D1,MT,Chute,Round 1,,Coliforms,UI15,0.584051626
+InHarvest D1,MT,Bins,Round 1,,Coliforms,UI16,0.743676281
+InHarvest D1,MT,Chute,Round 2,,Coliforms,UI17,0.6554004
+InHarvest D1,MT,Chute,Round 3,,Coliforms,UI18,0.627987487
+InHarvest D1,MT,Bins,Round 3,,Coliforms,UI19,0.477121255
+InHarvest D1,MT,Bins,Round 2,,Coliforms,UI29,0.477121255
+InHarvest D1,Tissue,Bins,Round 1,,Coliforms,UI290,1.431363764
+InHarvest D1,Tissue,Bins,Round 2,,Coliforms,UI291,0.954242509
+InHarvest D1,Tissue,Bins,Round 3,,Coliforms,UI292,1.431363764
+InHarvest D1,Tissue,Leftover,Round 1,,Coliforms,UI295,2.5774918
+InHarvest D1,Tissue,Leftover,Round 1,,Coliforms,UI296,2.008600172
+InHarvest D1,Tissue,Leftover,Round 2,,Coliforms,UI297,1.51851394
+InHarvest D1,Tissue,Leftover,Round 2,,Coliforms,UI298,1.73239376
+InHarvest D1,Tissue,Leftover,Round 3,,Coliforms,UI307,2.982271233
+InHarvest D1,Gloves,Gloves,Round 1,,Coliforms,UI318,2.247973266
+InHarvest D1,Gloves,Gloves,Round 1,,Coliforms,UI319,2.537819095
+InHarvest D1,Gloves,Gloves,Round 3,,Coliforms,UI320,2.641474111
+InHarvest D1,Gloves,Gloves,Round 2,,Coliforms,UI326,2.450249108
+InHarvest D1,Gloves,Gloves,Round 2,,Coliforms,UI327,2.494154594
+InHarvest D1,MT,Chute,Round 4,,Coliforms,UI020,0.65444107
+InHarvest D1,MT,Chute,Round 4,,Coliforms,UI021,0.840922099
+InHarvest D1,MT,Bins,Round 5,,Coliforms,UI022,0.912994204
+InHarvest D1,MT,Bins,Round 5,,Coliforms,UI023,2.388811413
+InHarvest D1,Tissue,Leftover,Round 4,,Coliforms,UI093,1.819543936
+InHarvest D1,Tissue,Leftover,Round 5,,Coliforms,UI096,1.653212514
+InHarvest D1,Tissue,Bins,Round 4,,Coliforms,UI293,2.079181246
+InHarvest D1,Tissue,Bins,Round 5,,Coliforms,UI294,1.681241237
+InHarvest D1,Tissue,Leftover,Round 5,,Coliforms,UI299,2.59439255
+InHarvest D1,Tissue,Leftover,Round 4,,Coliforms,UI300,0.477121255
+InHarvest D1,Gloves,Gloves,Round 5,,Coliforms,UI322,1.943933974
+InHarvest D1,Gloves,Gloves,Round 5,,Coliforms,UI323,1.88203181
+InHarvest D1,Gloves,Gloves,Round 4,,Coliforms,UI324,2.907294101
+InHarvest D1,Gloves,Gloves,Round 4,,Coliforms,UI325,2.526644152
+InHarvest D2,MT,Chute,Round 2,,APC,UI032,4.680059425
+InHarvest D2,MT,Chute,Round 4,,APC,UI033,4.136814841
+InHarvest D2,MT,Chute,Round 3,,APC,UI034,4.110777119
+InHarvest D2,Tissue,Bins,Round 5,,APC,UI168,4.46478752
+InHarvest D2,Tissue,Bins,Round 4,,APC,UI169,4.370883017
+InHarvest D2,Tissue,Bins,Round 3,,APC,UI170,4.580582877
+InHarvest D2,Tissue,Bins,Round 2,,APC,UI171,3.597695186
+InHarvest D2,Tissue,Bins,Round 1,,APC,UI172,4.003460532
+InHarvest D2,Tissue,Leftover,Round 5,Bed 1,APC,UI173,4.399846713
+InHarvest D2,Tissue,Leftover,Round 5,Bed 5,APC,UI174,3.936513742
+InHarvest D2,Tissue,Leftover,Round 4,Bed 1,APC,UI175,3.995635195
+InHarvest D2,Tissue,Leftover,Round 4,Bed 5,APC,UI176,4.152899596
+InHarvest D2,Tissue,Leftover,Round 3,Bed 1,APC,UI177,4.656673046
+InHarvest D2,Tissue,Leftover,Round 1,Bed 1,APC,UI178,4.452553063
+InHarvest D2,Tissue,Leftover,Round 1,Bed 5,APC,UI179,4.521268876
+InHarvest D2,Tissue,Leftover,Round 2,Bed 1,APC,UI180,5.192213785
+InHarvest D2,Tissue,Leftover,Round 2,Bed 5,APC,UI181,4.14176323
+InHarvest D2,Tissue,Leftover,Round 3,Bed 5,APC,UI182,4.541953474
+InHarvest D2,Gloves,Gloves,Round 4,Bed 1,APC,UI183,5.128074094
+InHarvest D2,Gloves,Gloves,Round 2,Bed 1,APC,UI184,5.182757792
+InHarvest D2,Gloves,Gloves,Round 2,Bed 5,APC,UI185,4.898393474
+InHarvest D2,Gloves,Gloves,Round 5,Bed 1,APC,UI186,5.318700595
+InHarvest D2,Gloves,Gloves,Round 5,Bed 5,APC,UI187,5.174381991
+InHarvest D2,Gloves,Gloves,Round 3,Bed 5,APC,UI188,4.421885845
+InHarvest D2,Gloves,Gloves,Round 4,Bed 5,APC,UI189,4.913769489
+InHarvest D2,Gloves,Gloves,Round 1,Bed 1,APC,UI190,4.672649128
+InHarvest D2,Gloves,Gloves,Round 3,Bed 1,APC,UI191,4.851596566
+InHarvest D2,MT,Chute,Round 1,,APC,UI192,4.86861876
+InHarvest D2,MT,Bins,Round 4,,APC,UI193,3.980494233
+InHarvest D2,MT,Bins,Round 5,,APC,UI196,4.153155214
+InHarvest D2,MT,Bins,Round 3,,APC,UI198,4.012610126
+InHarvest D2,MT,Bins,Round 1,,APC,UI199,4.130303129
+InHarvest D2,MT,Bins,Round 2,,APC,UI200,4.235444273
+InHarvest D2,Gloves,Gloves,Round 1,Bed 5,APC,UI321,4.186861154
+InHarvest D2,MT,Chute,Round 5,,APC,UI387,4.251090553
+InHarvest D2,MT,Chute,Round 2,,Coliforms,UI032,0.630607639
+InHarvest D2,MT,Chute,Round 4,,Coliforms,UI033,0.591507725
+InHarvest D2,MT,Chute,Round 3,,Coliforms,UI034,0.64688413
+InHarvest D2,Tissue,Bins,Round 5,,Coliforms,UI168,3.290034611
+InHarvest D2,Tissue,Bins,Round 4,,Coliforms,UI169,3.472756449
+InHarvest D2,Tissue,Bins,Round 3,,Coliforms,UI170,2.541579244
+InHarvest D2,Tissue,Bins,Round 2,,Coliforms,UI171,1.982271233
+InHarvest D2,Tissue,Bins,Round 1,,Coliforms,UI172,3.240549248
+InHarvest D2,Tissue,Leftover,Round 5,Bed 1,Coliforms,UI173,3.357934847
+InHarvest D2,Tissue,Leftover,Round 5,Bed 5,Coliforms,UI174,2.209515015
+InHarvest D2,Tissue,Leftover,Round 4,Bed 1,Coliforms,UI175,2.887054378
+InHarvest D2,Tissue,Leftover,Round 4,Bed 5,Coliforms,UI176,2.201397124
+InHarvest D2,Tissue,Leftover,Round 3,Bed 1,Coliforms,UI177,2.23299611
+InHarvest D2,Tissue,Leftover,Round 3,Bed 1,E. coli,UI177,1.322219295
+InHarvest D2,Tissue,Leftover,Round 1,Bed 1,Coliforms,UI178,3.217483944
+InHarvest D2,Tissue,Leftover,Round 1,Bed 5,Coliforms,UI179,2.46834733
+InHarvest D2,Tissue,Leftover,Round 2,Bed 1,Coliforms,UI180,2.683947131
+InHarvest D2,Tissue,Leftover,Round 2,Bed 5,Coliforms,UI181,2.29666519
+InHarvest D2,Tissue,Leftover,Round 3,Bed 5,Coliforms,UI182,2.26245109
+InHarvest D2,Gloves,Gloves,Round 4,Bed 1,Coliforms,UI183,1.892423209
+InHarvest D2,Gloves,Gloves,Round 2,Bed 1,Coliforms,UI184,1.815163592
+InHarvest D2,Gloves,Gloves,Round 2,Bed 5,Coliforms,UI185,2.290034611
+InHarvest D2,Gloves,Gloves,Round 5,Bed 1,Coliforms,UI186,2.266127123
+InHarvest D2,Gloves,Gloves,Round 5,Bed 5,Coliforms,UI187,2.241878383
+InHarvest D2,Gloves,Gloves,Round 3,Bed 5,Coliforms,UI188,2.089447385
+InHarvest D2,Gloves,Gloves,Round 4,Bed 5,Coliforms,UI189,2.559697413
+InHarvest D2,Gloves,Gloves,Round 1,Bed 1,Coliforms,UI190,2.1834802
+InHarvest D2,Gloves,Gloves,Round 3,Bed 1,Coliforms,UI191,2.208839723
+InHarvest D2,MT,Chute,Round 1,,Coliforms,UI192,1.941609134
+InHarvest D2,MT,Bins,Round 4,,Coliforms,UI193,0.634141259
+InHarvest D2,MT,Bins,Round 5,,Coliforms,UI196,1.441347985
+InHarvest D2,MT,Bins,Round 3,,Coliforms,UI198,0.779614015
+InHarvest D2,MT,Bins,Round 1,,Coliforms,UI199,1.675458269
+InHarvest D2,MT,Bins,Round 2,,Coliforms,UI200,0.799281626
+InHarvest D2,Gloves,Gloves,Round 1,Bed 5,Coliforms,UI321,1.747166398
+InHarvest D2,MT,Chute,Round 5,,Coliforms,UI387,1.547192967
+PostHarvest D1,MT,Chute,Round 1, ,APC,UI24,3.576186435
+PostHarvest D1,MT,Chute,Round 2,,APC,UI25,3.966157514
+PostHarvest D1,MT,Interior,Round 2,,APC,UI26,3.404719714
+PostHarvest D1,MT,Interior,Round 3,,APC,UI27,3.566037591
+PostHarvest D1,MT,Chute,Round 3,,APC,UI28,4.242798476
+PostHarvest D1,MT,Interior,Round 1,,APC,UI40,3.738051805
+PostHarvest D1,Tissue,Sides,Round 3,Comp2,APC,UI160,4.734559822
+PostHarvest D1,Tissue,Sides,Round 3,Comp1,APC,UI328,4.180554125
+PostHarvest D1,Tissue,Interior,Round 3,Comp1,APC,UI329,3.725863493
+PostHarvest D1,Tissue,Sides,Round 2,,APC,UI330,4.118062056
+PostHarvest D1,Tissue,Interior,Round 2,,APC,UI331,3.670245853
+PostHarvest D1,Gloves,Gloves,Round 2,,APC,UI332,4.314621203
+PostHarvest D1,Gloves,Gloves,Round 3,,APC,UI333,4.23855983
+PostHarvest D1,Gloves,Gloves,Round 1,,APC,UI334,3.545307116
+PostHarvest D1,MT,Chute,Round 4,,APC,UI035,3.648737102
+PostHarvest D1,MT,Chute,Round 5,,APC,UI036,3.624104201
+PostHarvest D1,MT,Interior,Round 4,,APC,UI037,3.049407795
+PostHarvest D1,MT,Interior,Round 5,,APC,UI038,3.095310746
+PostHarvest D1,Tissue,Sides,Round 1,,APC,UI285,3.859479521
+PostHarvest D1,Tissue,Interior,Round 1,,APC,UI286,3.033423755
+PostHarvest D1,Tissue,Sides,Round 4,Comp1,APC,UI287,3.777634541
+PostHarvest D1,Tissue,Interior,Round 4,Comp1,APC,UI288,2.653212514
+PostHarvest D1,Tissue,Interior,Round 3,Comp2,APC,UI289,3.556302501
+PostHarvest D1,Tissue,Sides,Round 4,Comp2,APC,UI301,3.81756537
+PostHarvest D1,Gloves,Gloves,Round 4,,APC,UI335,3.522444234
+PostHarvest D1,Gloves,Gloves,Round 5,,APC,UI336,3.522444234
+PostHarvest D1,Tissue,Sides,Round 5,Comp2,APC,UI399,3.747520395
+PostHarvest D1,Tissue,Interior,Round 5,Comp2,APC,UI400,2.431363764
+PostHarvest D1,Tissue,Sides,Round 5,Comp1,APC,UI401,4.032581283
+PostHarvest D1,Tissue,Interior,Round 5,Comp1,APC,UI402,3.209515015
+PostHarvest D1,Tissue,Interior,Round 4,Comp2,APC,UI403,4.46478752
+PostHarvest D1,MT,Chute,Round 1, ,Coliforms,UI24,1.057672495
+PostHarvest D1,MT,Chute,Round 2,,Coliforms,UI25,1.057672495
+PostHarvest D1,MT,Interior,Round 2,,Coliforms,UI26,1.819543936
+PostHarvest D1,MT,Interior,Round 3,,Coliforms,UI27,2.81756537
+PostHarvest D1,MT,Chute,Round 3,,Coliforms,UI28,1.022777215
+PostHarvest D1,MT,Interior,Round 1,,Coliforms,UI40,2.887054378
+PostHarvest D1,Tissue,Sides,Round 3,Comp2,Coliforms,UI160,1.838849091
+PostHarvest D1,Tissue,Sides,Round 3,Comp1,Coliforms,UI328,0.77815125
+PostHarvest D1,Tissue,Interior,Round 3,Comp1,Coliforms,UI329,2.895422546
+PostHarvest D1,Tissue,Sides,Round 2,,Coliforms,UI330,2.426511261
+PostHarvest D1,Tissue,Interior,Round 2,,Coliforms,UI331,2.045322979
+PostHarvest D1,Gloves,Gloves,Round 2,,Coliforms,UI332,0.828707624
+PostHarvest D1,Gloves,Gloves,Round 3,,Coliforms,UI333,0.705773712
+PostHarvest D1,Gloves,Gloves,Round 1,,Coliforms,UI334,0.954242509
+PostHarvest D1,MT,Chute,Round 4,,Coliforms,UI035,1.358702491
+PostHarvest D1,MT,Chute,Round 5,,Coliforms,UI036,1.0678017
+PostHarvest D1,MT,Interior,Round 4,,Coliforms,UI037,1.841131853
+PostHarvest D1,MT,Interior,Round 5,,Coliforms,UI038,1.192220759
+PostHarvest D1,Tissue,Sides,Round 1,,Coliforms,UI285,2.875061263
+PostHarvest D1,Tissue,Interior,Round 1,,Coliforms,UI286,1.62324929
+PostHarvest D1,Tissue,Sides,Round 4,Comp1,Coliforms,UI287,1.380211242
+PostHarvest D1,Tissue,Interior,Round 4,Comp1,Coliforms,UI288,0.477121255
+PostHarvest D1,Tissue,Interior,Round 3,Comp2,Coliforms,UI289,1.681241237
+PostHarvest D1,Tissue,Sides,Round 4,Comp2,Coliforms,UI301,2.786751422
+PostHarvest D1,Gloves,Gloves,Round 4,,Coliforms,UI335,1.556302501
+PostHarvest D1,Gloves,Gloves,Round 5,,Coliforms,UI336,2.36456186
+PostHarvest D1,Tissue,Sides,Round 5,Comp2,Coliforms,UI399,1.681241237
+PostHarvest D1,Tissue,Interior,Round 5,Comp2,Coliforms,UI400,0.954242509
+PostHarvest D1,Tissue,Sides,Round 5,Comp1,Coliforms,UI401,1.995635195
+PostHarvest D1,Tissue,Interior,Round 5,Comp1,Coliforms,UI402,2.008600172
+PostHarvest D1,Tissue,Interior,Round 4,Comp2,Coliforms,UI403,3.844477176
+PostHarvest D2,MT,Interior,Round 1,,APC,UI031,3.158552265
+PostHarvest D2,MT,Interior,Round 2,,APC,UI039,2.493466125
+PostHarvest D2,MT,Chute,Round 1,,APC,UI213,3.949775076
+PostHarvest D2,MT,Chute,Round 2,,APC,UI214,4.305136319
+PostHarvest D2,Tissue,Interior,Round 1,Comp2,APC,UI215,4.169086357
+PostHarvest D2,Tissue,Sides,Round 1,Comp2,APC,UI216,4.84298347
+PostHarvest D2,Tissue,Sides,Round 1,Comp1,APC,UI217,4.439963936
+PostHarvest D2,Tissue,Interior,Round 1,Comp1,APC,UI218,3.846337112
+PostHarvest D2,Tissue,Interior,Round 2,Comp1,APC,UI219,2.908485019
+PostHarvest D2,Tissue,Interior,Round 2,Comp2,APC,UI220,3.51054501
+PostHarvest D2,Tissue,Sides,Round 2,Comp1,APC,UI221,4.51054501
+PostHarvest D2,Tissue,Sides,Round 2,Comp1,APC,UI222,4.721398376
+PostHarvest D2,Gloves,Gloves,Round 2,,APC,UI308,4.102187401
+PostHarvest D2,Gloves,Gloves,Round 1,,APC,UI316,3.927393579
+PostHarvest D2,MT,Interior,Round 5,,APC,UI030,2.764902328
+PostHarvest D2,Tissue,Sides,Round 3,Comp2,APC,UI206,3.927370363
+PostHarvest D2,Tissue,Sides,Round 3,Comp1,APC,UI207,4.589726256
+PostHarvest D2,MT,Interior,Round 3,,APC,UI208,3.220865878
+PostHarvest D2,MT,Chute,Round 4,,APC,UI209,4.396649008
+PostHarvest D2,MT,Interior,Round 4,,APC,UI210,3.847811798
+PostHarvest D2,MT,Chute,Round 3,,APC,UI211,3.586908647
+PostHarvest D2,MT,Chute,Round 5,,APC,UI212,3.5075588
+PostHarvest D2,Tissue,Interior,Round 3,Comp1,APC,UI223,3.201397124
+PostHarvest D2,Tissue,Interior,Round 3,Comp2,APC,UI224,4.087781418
+PostHarvest D2,Gloves,Gloves,Round 3,,APC,UI313,7.172809281
+PostHarvest D2,Gloves,Gloves,Round 4,,APC,UI314,3.293543773
+PostHarvest D2,Gloves,Gloves,Round 5,,APC,UI315,3.296742145
+PostHarvest D2,Tissue,Interior,Round 4,Comp2,APC,UI383,4.531734309
+PostHarvest D2,Tissue,Interior,Round 4,Comp1,APC,UI384,3.936513742
+PostHarvest D2,Tissue,Sides,Round 4,Comp1,APC,UI385,4.648847708
+PostHarvest D2,Tissue,Sides,Round 4,Comp2,APC,UI386,4.607455023
+PostHarvest D2,Tissue,Sides,Round 5,Comp2,APC,UI395,4.632760888
+PostHarvest D2,Tissue,Sides,Round 5,Comp1,APC,UI396,4.531734309
+PostHarvest D2,Tissue,Interior,Round 5,Comp2,APC,UI397,4.571242851
+PostHarvest D2,Tissue,Interior,Round 5,Comp1,APC,UI398,2.653212514
+PostHarvest D2,MT,Interior,Round 1,,Coliforms,UI031,1.630278487
+PostHarvest D2,MT,Interior,Round 2,,Coliforms,UI039,0.414284879
+PostHarvest D2,MT,Chute,Round 1,,Coliforms,UI213,1.551835068
+PostHarvest D2,MT,Chute,Round 2,,Coliforms,UI214,1.103739195
+PostHarvest D2,Tissue,Interior,Round 1,Comp2,Coliforms,UI215,2.411619706
+PostHarvest D2,Tissue,Sides,Round 1,Comp2,Coliforms,UI216,3.056904851
+PostHarvest D2,Tissue,Sides,Round 1,Comp1,Coliforms,UI217,2.79518459
+PostHarvest D2,Tissue,Interior,Round 1,Comp1,Coliforms,UI218,1.954242509
+PostHarvest D2,Tissue,Interior,Round 2,Comp1,Coliforms,UI219,1.51851394
+PostHarvest D2,Tissue,Interior,Round 2,Comp2,Coliforms,UI220,1.477121255
+PostHarvest D2,Tissue,Sides,Round 2,Comp1,Coliforms,UI221,0.48
+PostHarvest D2,Tissue,Sides,Round 2,Comp1,Coliforms,UI222,2.799340549
+PostHarvest D2,Gloves,Gloves,Round 2,,Coliforms,UI308,2.257089361
+PostHarvest D2,Gloves,Gloves,Round 1,,Coliforms,UI316,1.704305758
+PostHarvest D2,MT,Interior,Round 5,,Coliforms,UI030,1.325569634
+PostHarvest D2,Tissue,Sides,Round 3,Comp2,Coliforms,UI206,2.139879086
+PostHarvest D2,Tissue,Sides,Round 3,Comp1,Coliforms,UI207,1.176091259
+PostHarvest D2,MT,Interior,Round 3,,Coliforms,UI208,2.207501917
+PostHarvest D2,MT,Chute,Round 4,,Coliforms,UI209,1.099983818
+PostHarvest D2,MT,Interior,Round 4,,Coliforms,UI210,1.671720539
+PostHarvest D2,MT,Chute,Round 3,,Coliforms,UI211,1.081758669
+PostHarvest D2,MT,Chute,Round 5,,Coliforms,UI212,2.133978137
+PostHarvest D2,Tissue,Interior,Round 3,Comp1,Coliforms,UI223,1.838849091
+PostHarvest D2,Tissue,Interior,Round 3,Comp2,Coliforms,UI224,1.819543936
+PostHarvest D2,Gloves,Gloves,Round 3,,Coliforms,UI313,1.864142671
+PostHarvest D2,Gloves,Gloves,Round 4,,Coliforms,UI314,2.240298261
+PostHarvest D2,Gloves,Gloves,Round 5,,Coliforms,UI315,1.81962089
+PostHarvest D2,Tissue,Interior,Round 4,Comp2,Coliforms,UI383,2.699837726
+PostHarvest D2,Tissue,Interior,Round 4,Comp1,Coliforms,UI384,2.240549248
+PostHarvest D2,Tissue,Sides,Round 4,Comp1,Coliforms,UI385,1.892094603
+PostHarvest D2,Tissue,Sides,Round 4,Comp2,Coliforms,UI386,1.838849091
+PostHarvest D2,Tissue,Sides,Round 5,Comp2,Coliforms,UI395,2.673020907
+PostHarvest D2,Tissue,Sides,Round 5,Comp1,Coliforms,UI396,2.73239376
+PostHarvest D2,Tissue,Interior,Round 5,Comp2,Coliforms,UI397,1.255272505
+PostHarvest D2,Tissue,Interior,Round 5,Comp1,Coliforms,UI398,0.477121255

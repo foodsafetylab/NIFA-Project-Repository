@@ -7,10 +7,12 @@ library(ggplot2)
 library(tidyverse)
 library(reshape2)
 ```
+
 ```{r}
 Main_DF<-read.csv("Initial vs freeze,thaw results.csv")
 
 ```
+ 
 ```{r}
 
 APC_DataFrame<-Main_DF[,c(1:3,5)]
