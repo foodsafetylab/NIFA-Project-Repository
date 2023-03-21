@@ -29,8 +29,13 @@ mean(metadata$Total.reads)
 library(dada2)
 library(ggplot2)
 library(tidyverse)
+
 library(devtools)
 library(fantaxtic)
+
+#library(devtools)
+#library(fantaxtic)
+
 #library(MicEco)
 library(microbiome)
 library(phyloseq)
