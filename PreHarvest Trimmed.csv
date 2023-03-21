@@ -1,0 +1,259 @@
+Sampling.Day,Sample.Type,Area,Field.Loc,Class,Strata,Test,Best.Estimate
+Preharvest D2,Swab,Center,Bed 1,Sides,Inner ,APC,6.620137471
+Preharvest D2,Swab,Center,Bed 1,Bottom,Inner ,APC,6.526236899
+Preharvest D1,Swab,Center,Bed 1,Sides,Inner ,APC,5.56110528
+Preharvest D1,Swab,Center,Bed 1,Bottom,Inner ,APC,5.387214712
+Preharvest D2,Grab,Center,Bed 1,Sides,Inner ,APC,5.075802354
+Preharvest D2,Grab,Center,Bed 1,Bottom,Inner ,APC,4.476686743
+Preharvest D1,Grab,Center,Bed 1,Sides,Inner ,APC,4.364816544
+Preharvest D1,Grab,Center,Bed 1,Bottom,Inner ,APC,4.033441441
+Preharvest D2,Grab,Center,Bed 1,Sides,Inner ,Coliforms,3.079181246
+Preharvest D1,Grab,Center,Bed 1,Sides,Inner ,Coliforms,2.11058971
+Preharvest D2,Swab,Center,Bed 1,Sides,Inner ,Coliforms,1.57
+Preharvest D1,Grab,Center,Bed 1,Bottom,Inner ,Coliforms,1.47
+Preharvest D2,Swab,Center,Bed 1,Bottom,Inner ,Coliforms,1.4
+Preharvest D1,Swab,Center,Bed 1,Sides,Inner ,Coliforms,1.1
+Preharvest D1,Swab,Center,Bed 1,Bottom,Inner ,Coliforms,1.08
+Preharvest D2,Grab,Center,Bed 1,Bottom,Inner ,Coliforms,0.48
+Preharvest D2,Swab,Bed 1,Bed 1,Bottom,Outer,APC,6.011113106
+Preharvest D1,Swab,Bed 1,Bed 1,Bottom,Outer,APC,5.273049442
+Preharvest D2,Swab,Bed 1,Bed 1,Sides,Outer,APC,5.139136199
+Preharvest D1,Swab,Bed 1,Bed 1,Sides,Outer,APC,5.063312187
+Preharvest D2,Grab,Bed 1,Bed 1,Sides,Outer,Coliforms,4.58
+Preharvest D2,Grab,Bed 1,Bed 1,Bottom,Outer,APC,4.777716739
+Preharvest D1,Grab,Bed 1,Bed 1,Sides,Outer,APC,4.323458367
+Preharvest D2,Grab,Bed 1,Bed 1,Sides,Outer,APC,4.137030905
+Preharvest D1,Grab,Bed 1,Bed 1,Bottom,Outer,APC,4.064532158
+Preharvest D2,Grab,Bed 1,Bed 1,Bottom,Outer,Coliforms,3.694605199
+Preharvest D1,Grab,Bed 1,Bed 1,Sides,Outer,Coliforms,3.580924976
+Preharvest D1,Grab,Bed 1,Bed 1,Bottom,Outer,Coliforms,3.346352974
+Preharvest D2,Swab,Bed 1,Bed 1,Sides,Outer,Coliforms,1.2
+Preharvest D2,Swab,Bed 1,Bed 1,Bottom,Outer,Coliforms,1.14
+Preharvest D1,Swab,Bed 1,Bed 1,Bottom,Outer,Coliforms,1.1
+Preharvest D1,Swab,Bed 1,Bed 1,Sides,Outer,Coliforms,1.09
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 1,APC,4.890756252
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 1,APC,4.084194657
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 1,APC,3.830993688
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 1,Coliforms,2.41
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 1,Coliforms,2.079181246
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 1,Coliforms,0.48
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 1 ,APC,4.000442932
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 1 ,Coliforms,1.939519253
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 2,APC,5.051499819
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 2,APC,4.765817515
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 2,APC,4.163370428
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 2,Coliforms,3.93
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 2,APC,3.913107783
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 2,Coliforms,2.545307116
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 2,Coliforms,2.209515015
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 2,Coliforms,1.68
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 3,APC,4.205671675
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 3,APC,4.180057446
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 3,APC,4.059594462
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 3,APC,4.025471277
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 3,Coliforms,1.322219295
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 3,Coliforms,1.079181246
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 3,Coliforms,0.48
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 3,Coliforms,0.48
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 4,APC,4.306425028
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 4,APC,4.087781418
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 4,APC,4.054670661
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 4,APC,4.002026384
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 4,Coliforms,3.53
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 4,Coliforms,2.26245109
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 4,Coliforms,2.15
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 4,Coliforms,1.875061263
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 5,APC,4.426998959
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 5,APC,4.339848783
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 5,APC,3.779780471
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 5,APC,3.759644466
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 5,Coliforms,2.76
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 5,Coliforms,1.52
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 5,Coliforms,1.431363764
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 5,Coliforms,1.176091259
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 6,APC,4.899711095
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 6,APC,4.052370435
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 6,APC,3.745689065
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 6,Coliforms,2.65
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 6,Coliforms,1.079181246
+Preharvest D1,Grab HR,Bed 1,Bed 1,Sides,St 6,Coliforms,0.48
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 6 ,APC,4.155639634
+Preharvest D2,Grab HR,Bed 1,Bed 1,Sides,St 6 ,Coliforms,1.255272505
+Preharvest D2,Swab,Center,Bed 3,Sides,Inner ,APC,5.112410256
+Preharvest D2,Swab,Center,Bed 3,Bottom,Inner ,APC,5.102818581
+Preharvest D2,Grab,Center,Bed 3,Bottom,Inner ,APC,4.890756252
+Preharvest D2,Grab,Center,Bed 3,Sides,Inner ,APC,4.51054501
+Preharvest D2,Grab,Center,Bed 3,Bottom,Inner ,Coliforms,2.838849091
+Preharvest D2,Swab,Center,Bed 3,Bottom,Inner ,Coliforms,1.193407619
+Preharvest D2,Grab,Center,Bed 3,Sides,Inner ,Coliforms,1.079181246
+Preharvest D2,Swab,Center,Bed 3,Sides,Inner ,Coliforms,0.721082202
+Preharvest D1,Swab,Center,Bed 5,Bottom,Inner ,APC,6.12993093
+Preharvest D2,Swab,Center,Bed 5,Bottom,Inner ,APC,5.841713802
+Preharvest D2,Swab,Center,Bed 5,Sides,Inner ,APC,5.527308899
+Preharvest D1,Swab,Center,Bed 5,Sides,Inner ,APC,4.962173882
+Preharvest D2,Grab,Center,Bed 5,Sides,Inner ,APC,4.721398376
+Preharvest D2,Grab,Center,Bed 5,Bottom,Inner ,APC,4.580582877
+Preharvest D1,Grab,Center,Bed 5,Bottom,Inner ,APC,4.380417742
+Preharvest D1,Grab,Center,Bed 5,Sides,Inner ,APC,4.246097193
+Preharvest D1,Grab,Center,Bed 5,Sides,Inner ,Coliforms,3.945468585
+Preharvest D2,Grab,Center,Bed 5,Sides,Inner ,Coliforms,3.23299611
+Preharvest D2,Grab,Center,Bed 5,Bottom,Inner ,Coliforms,1.875061263
+Preharvest D2,Swab,Center,Bed 5,Sides,Inner ,Coliforms,1.613782006
+Preharvest D1,Grab,Center,Bed 5,Bottom,Inner ,Coliforms,1.18
+Preharvest D2,Swab,Center,Bed 5,Bottom,Inner ,Coliforms,1.11
+Preharvest D1,Swab,Center,Bed 5,Sides,Inner ,Coliforms,1.09
+Preharvest D1,Swab,Center,Bed 5,Bottom,Inner ,Coliforms,1.08
+Preharvest D1,Swab,Center,Bed 6,Bottom,Inner ,APC,6.052258299
+Preharvest D1,Swab,Center,Bed 6,Sides,Inner ,APC,5.663603593
+Preharvest D1,Swab,Center,Bed 6,Bottom,Inner ,APC,5.507222912
+Preharvest D1,Swab,Center,Bed 6,Sides,Inner ,APC,4.875892767
+Preharvest D1,Grab,Center,Bed 6,Bottom,Inner ,APC,4.465872795
+Preharvest D1,Grab,Center,Bed 6,Sides,Inner ,APC,4.439647685
+Preharvest D1,Swab,Center,Bed 6,Sides,Inner ,Coliforms,1.09
+Preharvest D1,Swab,Center,Bed 6,Bottom,Inner ,Coliforms,1.082
+Preharvest D1,Grab,Center,Bed 6,Bottom,Inner ,Coliforms,0.954242509
+Preharvest D1,Grab,Center,Bed 6,Sides,Inner ,Coliforms,0.477121255
+Preharvest D2,Swab,Center,Bed 7,Bottom,Inner ,APC,6.129673205
+Preharvest D1,Swab,Center,Bed 7,Bottom,Inner ,APC,5.541646242
+Preharvest D2,Swab,Center,Bed 7,Sides,Inner ,APC,5.356578559
+Preharvest D1,Grab,Center,Bed 7,Bottom,Inner ,APC,4.84298347
+Preharvest D1,Swab,Center,Bed 7,Sides,Inner ,APC,4.789101396
+Preharvest D1,Grab,Center,Bed 7,Bottom,Inner ,APC,4.717820919
+Preharvest D2,Grab,Center,Bed 7,Bottom,Inner ,APC,4.693814854
+Preharvest D2,Grab,Center,Bed 7,Sides,Inner ,APC,4.561697533
+Preharvest D1,Grab,Center,Bed 7,Sides,Inner ,APC,4.551937695
+Preharvest D1,Grab,Center,Bed 7,Sides,Inner ,APC,4.200521741
+Preharvest D1,Grab,Center,Bed 7,Bottom,Inner ,Coliforms,4.144574208
+Preharvest D2,Grab,Center,Bed 7,Bottom,Inner ,Coliforms,2.857332496
+Preharvest D1,Grab,Center,Bed 7,Sides,Inner ,Coliforms,2.421603927
+Preharvest D2,Swab,Center,Bed 7,Bottom,Inner ,Coliforms,1.188045073
+Preharvest D1,Swab,Center,Bed 7,Sides,Inner ,Coliforms,1.085
+Preharvest D1,Swab,Center,Bed 7,Bottom,Inner ,Coliforms,1.082
+Preharvest D2,Swab,Center,Bed 7,Sides,Inner ,Coliforms,0.985486143
+Preharvest D2,Grab,Center,Bed 7,Sides,Inner ,Coliforms,0.477121255
+Preharvest D2,Swab,Center,Bed 8,Bottom,Inner ,APC,6.193878427
+Preharvest D1,Swab,Center,Bed 8,Bottom,Inner ,APC,5.532426155
+Preharvest D1,Swab,Center,Bed 8,Sides,Inner ,APC,4.751668459
+Preharvest D2,Swab,Center,Bed 8,Sides,Inner ,APC,4.707543805
+Preharvest D1,Grab,Center,Bed 8,Sides,Inner ,APC,4.624488363
+Preharvest D2,Grab,Center,Bed 8,Sides,Inner ,APC,4.589726256
+Preharvest D1,Grab,Center,Bed 8,Sides,Inner ,Coliforms,4.39
+Preharvest D1,Grab,Center,Bed 8,Bottom,Inner ,APC,4.157285242
+Preharvest D2,Grab,Center,Bed 8,Bottom,Inner ,APC,4.045287944
+Preharvest D2,Grab,Center,Bed 8,Sides,Inner ,Coliforms,3.5774918
+Preharvest D2,Swab,Center,Bed 8,Sides,Inner ,Coliforms,2.529085391
+Preharvest D1,Grab,Center,Bed 8,Bottom,Inner ,Coliforms,1.982271233
+Preharvest D2,Swab,Center,Bed 8,Bottom,Inner ,Coliforms,1.16
+Preharvest D1,Swab,Center,Bed 8,Sides,Inner ,Coliforms,1.1
+Preharvest D2,Grab,Center,Bed 8,Bottom,Inner ,Coliforms,1.079181246
+Preharvest D1,Swab,Center,Bed 8,Bottom,Inner ,Coliforms,1.07
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 1,APC,4.783546282
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 1,APC,4.740993932
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 1,Coliforms,3.92
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 1,APC,3.970308959
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 1,APC,3.969625598
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 1,Coliforms,1.954242509
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 1,Coliforms,0.95
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 2,APC,4.370883017
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 2,APC,4.207260837
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 2,APC,4.188101706
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 2,APC,4.019478353
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 2,Coliforms,3.421603927
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 2,Coliforms,2.995635195
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 2,Coliforms,2.686636269
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 2,Coliforms,1.681241237
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 3,APC,4.323458367
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 3,APC,4.228962512
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 3,APC,4.167228189
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 3,APC,4.09611241
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 3,Coliforms,2.584331224
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 3,Coliforms,1.77
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 3,Coliforms,1.322219295
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 3,Coliforms,0.48
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 4,APC,5.422011867
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 4,APC,4.399846713
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 4,APC,4.234415109
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 4,APC,4.054410579
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 4,Coliforms,3.045322979
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 4,Coliforms,2.545307116
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 4,Coliforms,1.819543936
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 5,APC,4.370883017
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 5,APC,4.288696261
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 5,APC,4.000095392
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 5,APC,3.951875786
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 5,Coliforms,2.5774918
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 5,Coliforms,2.11058971
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 5,Coliforms,1.08
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 5,Coliforms,0.48
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 6,APC,4.072627636
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 6,APC,4.020837605
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 6,APC,4.018369731
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 6,Coliforms,1.65
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 6,Coliforms,1.51851394
+Preharvest D1,Grab HR,Center,Bed 8,Sides,St 6,Coliforms,0.48
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 6 ,APC,4.18723862
+Preharvest D2,Grab HR,Center,Bed 8,Sides,St 6 ,Coliforms,1.079181246
+Preharvest D2,Swab,Edge,Edge,Bottom,Inner ,APC,6.278889727
+Preharvest D2,Swab,Edge,Edge,Sides,Inner ,APC,5.994229811
+Preharvest D2,Grab,Edge,Edge,Sides,Inner ,APC,4.771807879
+Preharvest D2,Grab,Edge,Edge,Bottom,Inner ,APC,4.413634997
+Preharvest D2,Grab,Edge,Edge,Sides,Inner ,Coliforms,3.563481085
+Preharvest D2,Grab,Edge,Edge,Bottom,Inner ,Coliforms,3.100370545
+Preharvest D2,Swab,Edge,Edge,Sides,Inner ,Coliforms,2.182920441
+Preharvest D2,Swab,Edge,Edge,Bottom,Inner ,Coliforms,1.14
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 1,APC,4.621669675
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 1,APC,4.452553063
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 1,APC,4.339848783
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 1,Coliforms,2.930439595
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 1,Coliforms,2.537819095
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 1,Coliforms,2.201397124
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 1 ,APC,4.439963936
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 1 ,Coliforms,0.48
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 2,APC,4.580582877
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 2,APC,4.541953474
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 2,APC,4.521268876
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 2,APC,4.46478752
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 2,Coliforms,3.686636269
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 2,Coliforms,1.838849091
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 2,Coliforms,0.954242509
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 2,Coliforms,0.48
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 3,APC,4.881612872
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 3,APC,4.413634997
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 3,APC,4.250237229
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 3,APC,4.210408765
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 3,Coliforms,1.51851394
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 3,Coliforms,1.322219295
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 3,Coliforms,1.32
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 3,Coliforms,1.07
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 4,APC,4.46478752
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 4,APC,4.370883017
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 4,APC,4.095974407
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 4,APC,3.768615473
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 4,Coliforms,2.803457116
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 4,Coliforms,1.73239376
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 4,Coliforms,0.95
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 4,Coliforms,0.48
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 5,APC,4.580582877
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 5,APC,4.348041773
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 5,APC,4.323458367
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 5,APC,4.076378851
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 5,Coliforms,2.635483747
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 5,Coliforms,2.340444115
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 5,Coliforms,1.954242509
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 5,Coliforms,0.954242509
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 6,APC,4.426014699
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 6,APC,4.385606274
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 6,APC,4.314618017
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 6,APC,3.829303773
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 6,Coliforms,3.167317335
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 6,Coliforms,2.604226053
+Preharvest D1,Grab HR,Edge,Edge,Sides,St 6,Coliforms,1.52
+Preharvest D2,Grab HR,Edge,Edge,Sides,St 6,Coliforms,0.48
+Preharvest D1,Swab,Edge,Edge,Bottom,,APC,6.079822211
+Preharvest D1,Swab,Edge,Edge,Sides,,APC,5.640060034
+Preharvest D1,Grab,Edge,Edge,Bottom,,APC,4.434452472
+Preharvest D1,Grab,Edge,Edge,Sides,,APC,4.300767768
+Preharvest D1,Grab,Edge,Edge,Sides,,Coliforms,2.3
+Preharvest D1,Swab,Edge,Edge,Bottom,,Coliforms,1.08
+Preharvest D1,Swab,Edge,Edge,Sides,,Coliforms,1.07
+Preharvest D1,Grab,Edge,Edge,Bottom,,Coliforms,0.78

@@ -1,0 +1,493 @@
+---
+title: "Romaine Rally Sequencing Analysis"
+output: html_document
+---
+
+##Loading in packages
+```{r setup, eval=FALSE}
+library(dada2)
+library(ggplot2)
+library(tidyverse)
+library(devtools)
+library(fantaxtic)
+library(MicEco)
+library(microbiome)
+library(phyloseq)
+library(vegan)
+library(ggpubr)
+library(rstatix)
+library(RVAideMemoire)
+library(eulerr)
+library(microbiomeMarker)
+```
+ 
+#Define a path to the fastq files
+##Path to the folder
+Note: The data used here is demulitplexed with each sample having its own fastq file
+```{r setup, eval=FALSE}
+path<- "/data/Rachel/RR1_16S/fastq_files/Raw_fastq"
+```
+Change code above to the folder where your fastq files are located
+
+##Path to the specific fastq files within the folder
+```{r setup, eval=FALSE}
+fn1<- file.path(path, c("IT1_bc1009--bc1060.hifi_reads.fastq.gz", "IT2_bc1006--bc1060.hifi_reads.fastq.gz", "IT3_bc1010--bc1060.hifi_reads.fastq.gz", "MT1_bc1005--bc1057.hifi_reads.fastq.gz", "MT2_bc1002--bc1057.hifi_reads.fastq.gz",
+                      "MT3_bc1003--bc1057.hifi_reads.fastq.gz", "MT4_bc1004--bc1057.hifi_reads.fastq.gz", "MT5_bc1009--bc1057.hifi_reads.fastq.gz", "MT6_bc1006--bc1057.hifi_reads.fastq.gz", "MT7_bc1010--bc1057.hifi_reads.fastq.gz", "MT8_bc1011--bc1057.hifi_reads.fastq.gz",
+                      "MT9_bc1005--bc1059.hifi_reads.fastq.gz", "MT10_bc1002--bc1059.hifi_reads.fastq.gz", "MT11_bc1003--bc1059.hifi_reads.fastq.gz", "MT12_bc1004--bc1059.hifi_reads.fastq.gz", "R1_bc1009--bc1059.hifi_reads.fastq.gz", "R2_bc1006--bc1059.hifi_reads.fastq.gz",
+                      "R3_bc1010--bc1059.hifi_reads.fastq.gz", "R4_bc1011--bc1059.hifi_reads.fastq.gz", "R5_bc1005--bc1060.hifi_reads.fastq.gz", "R6_bc1002--bc1060.hifi_reads.fastq.gz", "SS1_bc1005--bc1056.hifi_reads.fastq.gz", "SS2_bc1002--bc1056.hifi_reads.fastq.gz",
+                      "SS3_bc1003--bc1056.hifi_reads.fastq.gz", "SS4_bc1004--bc1056.hifi_reads.fastq.gz", "SS5_bc1009--bc1056.hifi_reads.fastq.gz", "SS6_bc1006--bc1056.hifi_reads.fastq.gz", "SS7_bc1010--bc1056.hifi_reads.fastq.gz", "SS8_bc1011--bc1056.hifi_reads.fastq.gz", "UT1_bc1003--bc1060.hifi_reads.fastq.gz", "UT3_bc1004--bc1060.hifi_reads.fastq.gz"))
+```
+Change the above file names to the names of your fastq files
+
+#Look at read quality profiles
+```{r}
+plotQualityProfile(fn1[1:2])
+```
+
+#Preprocessing
+##Remove primer sequences
+Place the sequences with removed primers in a subdirectory using the following code.
+```{r setup, eval=FALSE}
+FiltPrimeRemove<- file.path(path, "FiltPrimeRemove", basename(fn1))
+```
+Then define the forward and reverse primer sequences. The function "rc" reverse complements DNA sequences and is used on the reverse primer sequence.
+```{r setup, eval=FALSE}
+FWprimer<- "AGRGTTYGATYMTGGCTCAG"
+RVprimer<- "RGYTACCTTGTTACGACTT"
+rc<- dada2::rc
+```
+Remove the forward and reverse primers and orient the reads in the input fastq files. Reads that do not contain the primers are discarded.
+```{r setup, eval=FALSE}
+removeprimer<- dada2::removePrimers(fn1, FiltPrimeRemove, primer.fwd = FWprimer, primer.rev = rc(RVprimer), orient = T, verbose = T)
+```
+
+##Filter and trim fastq files
+In this study, the full length of the 16S gene was sequenced. Min and max lengths were set to 1200 and 1600 bp since sequences were expected to be ~1500 bp. These lengths and the other parameters used here were determined using reference papers.
+```{r setup, eval=FALSE}
+filtered<- file.path(path, "FiltPrimeRemove", "filtered", basename(fn1))
+track<- filterAndTrim(FiltPrimeRemove, filtered,  maxLen = 1600, minLen = 1200, minQ = 3, rm.phix = FALSE, maxEE = 2, verbose = TRUE)
+```
+
+##Dereplicate amplicon sequences from fastq
+```{r setup, eval=FALSE}
+drpRemovePrime<- derepFastq(filtered, verbose=T)
+```
+
+##Learn and plot the error rates
+```{r setup, eval=FALSE}
+errRemovePrime<- learnErrors(drpRemovePrime, errorEstimationFunction = PacBioErrfun, BAND_SIZE=32, multithread = T)
+plotErrors(errRemovePrime, nominalQ = TRUE)
+```
+
+##High resolution sample inference
+This takes the dereplicated amplicon sequence reads and returns the inferred composition of the sample.
+```{r setup, eval=FALSE}
+ddRemovePrime<- dada(drpRemovePrime, err= errRemovePrime, BAND_SIZE=32, multithread=T)
+```
+
+##Make a sequence table of the amplicon sequence variants (ASVs)
+```{r setup, eval=FALSE}
+seqtabRemovePrime<- makeSequenceTable(ddRemovePrime)
+dim(seqtabRemovePrime)
+seqtableRemovePrime<- table(nchar(getSequences(seqtabRemovePrime)))
+```
+
+##Remove chimeras and make a table
+```{r setup, eval=FALSE}
+seqtab.nochimRemovePrime<- removeBimeraDenovo(seqtabRemovePrime, method = "consensus", multithread=TRUE, verbose = TRUE)
+dim(seqtab.nochimRemovePrime)
+write.csv(seqtab.nochimRemovePrime, "seqtab_nochimRemovePrime.csv")
+```
+
+#Assign taxonomy using the Silva database
+Databases that are formatted for use with the DADA2 R package can be found at: https://benjjneb.github.io/dada2/training.html
+The Silva database is used here.
+```{r setup, eval=FALSE}
+taxaSilvaRemovePrime<- assignTaxonomy(seqtab.nochimRemovePrime, "silva_nr99_v138.1_wSpecies_train_set.fa.gz", tryRC = TRUE, verbose = TRUE)
+write.table(taxaSilvaRemovePrime, "taxaSilvaRemovePrime.csv")
+```
+
+#Create a phyloseq object 
+The phyloseq object here contains three components: 
+1) An ASV table which contains the number of times each ASV sequence appears in each sample
+2) A taxa table which contains the assigned taxonomy of each ASV sequence
+3) A meta data file that contains information on each sample such as the sample type and inoculation status
+```{r setup, eval=FALSE}
+ASV_tablePrimeRemove<- otu_table(seqtab.nochimRemovePrime, taxa_are_rows = FALSE)
+taxa_tablePrimeRemove<- tax_table(taxaSilvaRemovePrime)
+meta_file_store<- read.csv("RR1_metadata.csv", header = T, row.names=1)
+sample.data.PrimeRemove.store<- sample_data(meta_file_store)
+
+phyloseqStorePrimeRemove<- phyloseq(ASV_tablePrimeRemove, sample.data.PrimeRemove.store, taxa_tablePrimeRemove)
+```
+
+#Rarefication of sample reads
+Rarefication is done so each sample contains the same number of reads. 
+Here the seed was set at 711 so the random subsampling can be reproducible.
+```{r setup, eval=FALSE}
+phyloseq.rarefiedStorePrimeRemove<- rarefy_even_depth(phyloseqStorePrimeRemove, rngseed = 711)
+```
+
+##Alpha diveristy analysis
+#Obtaining alpha diveristy 
+This function will you give you alpha diversity using the following measures: Observed, Chao1, ACE, Shannon, Simpson, InvSimpson, and Fisher. You can specify one or measures if wanted.
+```{r}
+rarefied_alpha_diveristy_store_remove<- estimate_richness(phyloseq.rarefiedStorePrimeRemove)
+```
+#Plotting alpha diveristy
+This will plot the alpha diversity measures in the form of boxplots.In this case Shannon was used as the measurement of alpha diversity since this was a common measure of alpha diversity in papers about leafy green microbial communities.
+```{r}
+alphaplot<- plot_richness(phyloseq.rarefiedStorePrimeRemove, x="Sample.Type", color="Type", title = "Alpha Diversity of Sample Types", measures="Shannon") + geom_boxplot() + theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15)) +
+  xlab("Sample Type") + labs(color= "Sample Types") + geom_point(alpha = 0.75)
+
+SampleTypeOrder<- c("Inoculated Store Tissue", "Uninoculated Store Tissue", "Inoculated Swab", "Uninoculated Swab", "Inoculated Tissue", "Uninoculated Tissue")
+alphaplot$data$Sample.Type<- as.character(alphaplot$data$Sample.Type)
+alphaplot$data$Sample.Type<- factor(alphaplot$data$Sample.Type, levels = SampleTypeOrder)
+alphaplot
+```
+
+#Running an ANOVA on the alpha diversities 
+Sample type and inoculation status were added as columns before performing the ANOVA.
+```{r setup, eval=FALSE}
+rarefied_alpha_diveristy_store_remove$Type<- meta_file_store$Type
+rarefied_alpha_diveristy_store_remove$Inoculation<- meta_file_store$Inoculation
+
+AlphaDiv<- rarefied_alpha_diveristy_store_remove
+```
+
+```{r}
+#Two-way ANOVA
+AlphaModel<- lm(Shannon ~ Type*Inoculation, data= AlphaDiv)
+AlphaANOVA2<- anova_test(AlphaModel)
+AlphaANOVA2
+
+#tukey post-hoc
+tukey_hsd(AlphaDiv, Shannon ~ Type)
+tukey_hsd(AlphaDiv, Shannon ~ Inoculation)
+```
+
+##Beta diversity analysis
+#Plotting beta diveristy 
+Beta diversity can be analyzed using different methods and different distances. In this case, PCoA was used as the method and Bray-Curtis distance was used for the distance. First an ordination is done and then the ordination is plotted.
+```{r}
+PCoA.phylo.rarefied.store_remove<- ordinate(phyloseq.rarefiedStorePrimeRemove, method="PCoA", distance="bray")
+
+plot_ordination(phyloseq.rarefiedStorePrimeRemove, PCoA.phylo.rarefied.store_remove, color = "Type", title="Bray-Curtis PCoA of Swabs and Tissues") + stat_ellipse()+
+  geom_point(aes(shape=Inoculation), size=3) + theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15)) +
+  labs(shape="Inoculation Status") + labs(color= "Sample Type")
+```
+#PERMANOVA for beta diversity
+A permutational multivariate analysis of variance (PERMANOVA) was used for the statistical analysis of beta diversity. Pairwise PERMANOVAs were used as a post-hoc test.
+```{r}
+distance_matrix_rare_remove<- phyloseq::distance(phyloseq.rarefiedStorePrimeRemove, method = "bray")
+
+#Two-way PERMANOVA
+permanova_two<- adonis(distance_matrix_rare_remove ~ phyloseq::sample_data(phyloseq.rarefiedStorePrimeRemove)$Type*phyloseq::sample_data(phyloseq.rarefiedStorePrimeRemove)$Inoculation, method = "bray")
+permanova_two
+
+#Pairwise comparisons
+pairwise.perm.manova(distance_matrix_rare_remove, phyloseq::sample_data(phyloseq.rarefiedStorePrimeRemove)$Type)
+pairwise.perm.manova(distance_matrix_rare_remove, phyloseq::sample_data(phyloseq.rarefiedStorePrimeRemove)$Inoculation)
+```
+
+##Investigating the taxa present 
+#Add genus name to the species name in the phyloseq object
+This was done for visualization purposes. Originally, when you look at the taxonomic rank of species you will just see the species name and not the corresponding genus name. This code chunk makes it so the species ranking will now appear as the genus and species name. For example, instead of just "coli", the species name will now appear as "Escherichia coli". 
+```{r setup, eval=FALSE}
+no.na = !is.na(tax_table(phyloseq.rarefiedStorePrimeRemove)[,"Genus"]) & !is.na(tax_table(phyloseq.rarefiedStorePrimeRemove)[,"Species"])
+tax_table(phyloseq.rarefiedStorePrimeRemove)[no.na][,"Species"] = paste(tax_table(phyloseq.rarefiedStorePrimeRemove)[no.na][,"Genus"], tax_table(phyloseq.rarefiedStorePrimeRemove)[no.na][,"Species"])
+```
+
+#Subsetting sample types - JQ edit: Use the grouping argument in the "toptaxa" function (line 237 - beyond)
+Subsetting was done to split sample types into separate lists to get the most abundant taxa for just that particular sample type.
+```{r setup, eval=FALSE}
+swabsRarefiedStore<- phyloseq::subset_samples(phyloseq.rarefiedStorePrimeRemove, Type== "Swab")
+tissueRarefiedStore<- phyloseq::subset_samples(phyloseq.rarefiedStorePrimeRemove, Type== "Tissue")
+storeRarefiedStore<- phyloseq::subset_samples(phyloseq.rarefiedStorePrimeRemove, Type== "Store Tissue")
+```
+
+#Agglomerate taxa of the same type
+This was done to merge taxa that have the same taxonomy classification at a specified taxonomic rank. 
+```{r setup, eval=FALSE}
+tax.glom.phylum.rarefied.swabs<- tax_glom(swabsRarefiedStore, taxrank="Phylum")
+tax.glom.phylum.rarefied.tissue<- tax_glom(tissueRarefiedStore, taxrank="Phylum")
+tax.glom.phylum.rarefied.store<- tax_glom(storeRarefiedStore, taxrank="Phylum")
+
+tax.glom.class.rarefied.swabs<- tax_glom(swabsRarefiedStore, taxrank="Class")
+tax.glom.class.rarefied.tissue<- tax_glom(tissueRarefiedStore, taxrank="Class")
+tax.glom.class.rarefied.store<- tax_glom(storeRarefiedStore, taxrank="Class")
+
+tax.glom.order.rarefied.swabs<- tax_glom(swabsRarefiedStore, taxrank="Order")
+tax.glom.order.rarefied.tissue<- tax_glom(tissueRarefiedStore, taxrank="Order")
+tax.glom.order.rarefied.store<- tax_glom(storeRarefiedStore, taxrank="Order")
+
+tax.glom.family.rarefied.swabs<- tax_glom(swabsRarefiedStore, taxrank="Family")
+tax.glom.family.rarefied.tissue<- tax_glom(tissueRarefiedStore, taxrank="Family")
+tax.glom.family.rarefied.store<- tax_glom(storeRarefiedStore, taxrank="Family")
+
+tax.glom.genus.rarefied.swabs<- tax_glom(swabsRarefiedStore, taxrank="Genus")
+tax.glom.genus.rarefied.tissue<- tax_glom(tissueRarefiedStore, taxrank="Genus")
+tax.glom.genus.rarefied.store<- tax_glom(storeRarefiedStore, taxrank="Genus")
+
+tax.glom.species.rarefied.swabs<- tax_glom(swabsRarefiedStore, taxrank="Species")
+tax.glom.species.rarefied.tissue<- tax_glom(tissueRarefiedStore, taxrank="Species")
+tax.glom.species.rarefied.store<- tax_glom(storeRarefiedStore, taxrank="Species")
+```
+
+#Obtaining the 5 most abundant taxa at each rank for each sample type
+In this case, the 5 most abundant taxa from each sample type were investigated. Other taxa present in that sample type will be placed in an "Other" category. After getting the top taxa, the three sample types were merged into a single phyloseq object to be used for making plots.
+```{r setup, eval=FALSE}
+top5phylumRarefiedSwabs<- get_top_taxa(tax.glom.phylum.rarefied.swabs, n=5, relative=TRUE)
+top5phylumRarefiedTissue<- get_top_taxa(tax.glom.phylum.rarefied.tissue, n=5, relative=TRUE)
+top5phylumRarefiedStore<- get_top_taxa(tax.glom.phylum.rarefied.store, n=5, relative=TRUE)
+top5phylumStore<- merge_phyloseq(top5phylumRarefiedSwabs, top5phylumRarefiedTissue, top5phylumRarefiedStore)
+
+top5classRarefiedSwabs<- get_top_taxa(tax.glom.class.rarefied.swabs, n=5, relative=TRUE)
+top5classRarefiedTissue<- get_top_taxa(tax.glom.class.rarefied.tissue, n=5, relative=TRUE)
+top5classRarefiedStore<- get_top_taxa(tax.glom.class.rarefied.store, n=5, relative=TRUE)
+top5classStore<- merge_phyloseq(top5classRarefiedSwabs, top5classRarefiedTissue, top5classRarefiedStore)
+
+top5orderRarefiedSwabs<- get_top_taxa(tax.glom.order.rarefied.swabs, n=5, relative=TRUE)
+top5orderRarefiedTissue<- get_top_taxa(tax.glom.order.rarefied.tissue, n=5, relative=TRUE)
+top5orderRarefiedStore<- get_top_taxa(tax.glom.order.rarefied.store, n=5, relative=TRUE)
+top5orderStore<- merge_phyloseq(top5orderRarefiedSwabs, top5orderRarefiedTissue, top5orderRarefiedStore)
+
+top5familyRarefiedSwabs<- get_top_taxa(tax.glom.family.rarefied.swabs, n=5, relative=TRUE)
+top5familyRarefiedTissue<- get_top_taxa(tax.glom.family.rarefied.tissue, n=5, relative=TRUE)
+top5familyRarefiedStore<- get_top_taxa(tax.glom.family.rarefied.store, n=5, relative=TRUE)
+top5familyStore<- merge_phyloseq(top5familyRarefiedSwabs, top5familyRarefiedTissue, top5familyRarefiedStore)
+
+top5genusRarefiedSwabs<- get_top_taxa(tax.glom.genus.rarefied.swabs, n=5, relative=TRUE)
+top5genusRarefiedTissue<- get_top_taxa(tax.glom.genus.rarefied.tissue, n=5, relative=TRUE)
+top5genusRarefiedStore<- get_top_taxa(tax.glom.genus.rarefied.store, n=5, relative=TRUE)
+top5genusStore<- merge_phyloseq(top5genusRarefiedSwabs, top5genusRarefiedTissue, top5genusRarefiedStore)
+```
+
+#Plotting the most abundant taxa
+Each taxonomic rank was plotted separately. Colors were specified to be able to follow taxa that belonged to different phyla and classes throughout the plots at lower taxonomy rankings. For example, all taxa in the Gammaproteobacteria class are shades of blue throughout the various plots. The plots were then stacked on top of eachother to form one cohesive figure.
+```{r}
+plot0store<- plot_bar(top5phylumStore, x="Sample.Name", fill="Phylum", title="Most Abundant Phylas") + facet_wrap(~Type, scales="free_x") + scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+
+plot1Store<- plot_bar(top5classStore, x="Sample.Name", fill="Class", title="Most Abundant Classes") + facet_wrap(~Type, scales="free_x")  + scale_fill_manual(values = c("orchid3", "mediumseagreen", "gold", "tomato3", "rosybrown1", "royalblue1", "grey", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+
+plot2Store<- plot_bar(top5orderStore, x="Sample.Name", fill="Order", title="Most Abundant Orders") + facet_wrap(~Type, scales="free_x")  + scale_fill_manual(values = c("orange2", "olivedrab3", "rosybrown1", "lightskyblue", "gold", "tomato3", "orchid3", "grey", "royalblue1", "mediumseagreen")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+
+plot3Store<- plot_bar(top5familyStore, x="Sample.Name", fill="Family", title = "Most Abundant Families") + facet_wrap(~Type, scales="free_x")  + scale_fill_manual(values = c("orange2", "lightskyblue", "olivedrab3", "dodgerblue", "gold", "tomato3", "orchid3", "rosybrown1", "grey", "darkorange", "royalblue1", "mediumseagreen", "red4")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+
+plot4Store<- plot_bar(top5genusStore, x="Sample.Name", fill="Genus", title = "Most Abundant Genera") + facet_wrap(~Type, scales="free_x") + scale_fill_manual(values = c("mediumseagreen", "olivedrab3", "darkorange", "gold", "tomato3", "orange2", "grey", "dodgerblue", "red4", "olivedrab", "royalblue1", "blue")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+
+plot5Store<- plot_bar(top5speciesStore, x="Sample.Name", fill="Species") + facet_wrap(~Type, scales="free_x")
+
+taxafigureStore<- ggarrange(plot0store, plot1Store, plot2Store, plot3Store, plot4Store,
+                       labels=c("a.","b.","c.","d.", "e."),
+                       ncol=1, nrow=5, align= "hv", font.label = list(size=18)) 
+taxafigureStore1<- annotate_figure(taxafigureStore, top= text_grob("Most Abundant Taxonomical Ranks", size = 25))
+taxafigureStore1
+```
+
+#Writing csv files with abundance numbers of the top 5 taxa
+These files were created to help calculate percent abundance of each of the taxa in each sample type.
+```{r setup, eval=FALSE}
+phyloseqTop5PhylumStore<- psmelt(top5phylumStore)
+phyloseqTop5PhylumStore<- phyloseqTop5PhylumStore %>% 
+  group_by(Type,Phylum) %>% 
+  summarise(summarycol =sum(Abundance))
+write.csv(phyloseqTop5PhylumStore, "phyloseqTop5PhylumStore.csv")
+
+phyloseqTop5ClassStore<- psmelt(top5classStore)
+phyloseqTop5ClassStore<- phyloseqTop5ClassStore %>% 
+  group_by(Type,Class) %>% 
+  summarise(summarycol =sum(Abundance))
+write.csv(phyloseqTop5ClassStore, "phyloseqTop5ClassStore.csv")
+
+phyloseqTop5OrderStore<- psmelt(top5orderStore)
+phyloseqTop5OrderStore<- phyloseqTop5OrderStore %>% 
+  group_by(Type,Order) %>% 
+  summarise(summarycol =sum(Abundance))
+write.csv(phyloseqTop5OrderStore, "phyloseqTop5OrderStore.csv")
+
+phyloseqTop5FamilyStore<- psmelt(top5familyStore)
+phyloseqTop5FamilyStore<- phyloseqTop5FamilyStore %>% 
+  group_by(Type,Family) %>% 
+  summarise(summarycol =sum(Abundance))
+write.csv(phyloseqTop5FamilyStore, "phyloseqTop5FamilyStore.csv")
+
+phyloseqTop5GenusStore<- psmelt(top5genusStore)
+phyloseqTop5GenusStore<- phyloseqTop5GenusStore %>% 
+  group_by(Type,Genus) %>% 
+  summarise(summarycol =sum(Abundance))
+write.csv(phyloseqTop5GenusStore, "phyloseqTop5GenusStore.csv")
+```
+
+#Expressing the abundance counts as relative abundance
+The same figure as above, which contains the top 5 most abundant taxa at each taxonomical rank, was recreated. However, this time the abundance counts were first transformed to a relative abundance between 0 and 1.
+```{r}
+phyloRareTrans<- transform_sample_counts(phyloseq.rarefiedStorePrimeRemove, function(x) x/sum(x))
+
+swabsTrans<- phyloseq::subset_samples(phyloRareTrans, Type== "Swab")
+tissueTrans<- phyloseq::subset_samples(phyloRareTrans, Type== "Tissue")
+storeTrans<- phyloseq::subset_samples(phyloRareTrans, Type== "Store Tissue")
+
+tax.glom.phylum.trans.swabs<- tax_glom(swabsTrans, taxrank="Phylum")
+tax.glom.phylum.trans.tissue<- tax_glom(tissueTrans, taxrank="Phylum")
+tax.glom.phylum.trans.store<- tax_glom(storeTrans, taxrank="Phylum")
+
+tax.glom.class.trans.swabs<- tax_glom(swabsTrans, taxrank="Class")
+tax.glom.class.trans.tissue<- tax_glom(tissueTrans, taxrank="Class")
+tax.glom.class.trans.store<- tax_glom(storeTrans, taxrank="Class")
+
+tax.glom.order.trans.swabs<- tax_glom(swabsTrans, taxrank="Order")
+tax.glom.order.trans.tissue<- tax_glom(tissueTrans, taxrank="Order")
+tax.glom.order.trans.store<- tax_glom(storeTrans, taxrank="Order")
+
+tax.glom.family.trans.swabs<- tax_glom(swabsTrans, taxrank="Family")
+tax.glom.family.trans.tissue<- tax_glom(tissueTrans, taxrank="Family")
+tax.glom.family.trans.store<- tax_glom(storeTrans, taxrank="Family")
+
+tax.glom.genus.trans.swabs<- tax_glom(swabsTrans, taxrank="Genus")
+tax.glom.genus.trans.tissue<- tax_glom(tissueTrans, taxrank="Genus")
+tax.glom.genus.trans.store<- tax_glom(storeTrans, taxrank="Genus")
+
+tax.glom.species.trans.swabs<- tax_glom(swabsTrans, taxrank="Species")
+tax.glom.species.trans.tissue<- tax_glom(tissueTrans, taxrank="Species")
+tax.glom.species.trans.store<- tax_glom(storeTrans, taxrank="Species")
+
+top5phylumTransSwabs<- get_top_taxa(tax.glom.phylum.trans.swabs, n=5, relative=TRUE)
+top5phylumTransTissue<- get_top_taxa(tax.glom.phylum.trans.tissue, n=5, relative=TRUE)
+top5phylumTransStore<- get_top_taxa(tax.glom.phylum.trans.store, n=5, relative=TRUE)
+top5phylumTrans<- merge_phyloseq(top5phylumTransSwabs, top5phylumTransTissue, top5phylumTransStore)
+
+top5classTransSwabs<- get_top_taxa(tax.glom.class.trans.swabs, n=5, relative=TRUE)
+top5classTransTissue<- get_top_taxa(tax.glom.class.trans.tissue, n=5, relative=TRUE)
+top5classTransStore<- get_top_taxa(tax.glom.class.trans.store, n=5, relative=TRUE)
+top5classTrans<- merge_phyloseq(top5classTransSwabs, top5classTransTissue, top5classTransStore)
+
+top5orderTransSwabs<- get_top_taxa(tax.glom.order.trans.swabs, n=5, relative=TRUE)
+top5orderTransTissue<- get_top_taxa(tax.glom.order.trans.tissue, n=5, relative=TRUE)
+top5orderTransStore<- get_top_taxa(tax.glom.order.trans.store, n=5, relative=TRUE)
+top5orderTrans<- merge_phyloseq(top5orderTransSwabs, top5orderTransTissue, top5orderTransStore)
+
+top5familyTransSwabs<- get_top_taxa(tax.glom.family.trans.swabs, n=5, relative=TRUE)
+top5familyTransTissue<- get_top_taxa(tax.glom.family.trans.tissue, n=5, relative=TRUE)
+top5familyTransStore<- get_top_taxa(tax.glom.family.trans.store, n=5, relative=TRUE)
+top5familyTrans<- merge_phyloseq(top5familyTransSwabs, top5familyTransTissue, top5familyTransStore)
+
+top5genusTransSwabs<- get_top_taxa(tax.glom.genus.trans.swabs, n=5, relative=TRUE)
+top5genusTransTissue<- get_top_taxa(tax.glom.genus.trans.tissue, n=5, relative=TRUE)
+top5genusTransStore<- get_top_taxa(tax.glom.genus.trans.store, n=5, relative=TRUE)
+top5genusTrans<- merge_phyloseq(top5genusTransSwabs, top5genusTransTissue, top5genusTransStore)
+
+plot0Trans<- plot_bar(top5phylumTrans, x="Sample.Name", fill="Phylum", title="Most Abundant Phylas") + facet_wrap(~Type, scales="free_x") + scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15)) + ylab("Relative Abundance")
+
+plot1Trans<- plot_bar(top5classTrans, x="Sample.Name", fill="Class", title="Most Abundant Classes") + facet_wrap(~Type, scales="free_x")  + scale_fill_manual(values = c("orchid3", "mediumseagreen", "gold", "tomato3", "rosybrown1", "royalblue1", "grey", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))+ ylab("Relative Abundance")
+
+plot2Trans<- plot_bar(top5orderTrans, x="Sample.Name", fill="Order", title="Most Abundant Orders") + facet_wrap(~Type, scales="free_x")  + scale_fill_manual(values = c("orange2", "olivedrab3", "rosybrown1", "lightskyblue", "gold", "tomato3", "orchid3", "grey", "royalblue1", "mediumseagreen")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))+ ylab("Relative Abundance")
+
+plot3Trans<- plot_bar(top5familyTrans, x="Sample.Name", fill="Family", title = "Most Abundant Families") + facet_wrap(~Type, scales="free_x")  + scale_fill_manual(values = c("orange2", "lightskyblue", "olivedrab3", "dodgerblue", "gold", "tomato3", "orchid3", "rosybrown1", "grey", "darkorange", "royalblue1", "mediumseagreen", "red4")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))+ ylab("Relative Abundance")
+
+plot4Trans<- plot_bar(top5genusTrans, x="Sample.Name", fill="Genus", title = "Most Abundant Genera") + facet_wrap(~Type, scales="free_x") + scale_fill_manual(values = c("mediumseagreen", "olivedrab3", "darkorange", "gold", "tomato3", "orange2", "grey", "dodgerblue", "red4", "olivedrab", "royalblue1", "blue")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))+ ylab("Relative Abundance")
+
+taxafigureTrans<- ggarrange(plot0Trans, plot1Trans, plot2Trans, plot3Trans, plot4Trans,
+                            labels=c("a.","b.","c.","d.", "e."),
+                            ncol=1, nrow=5, align= "hv", font.label = list(size=18)) 
+taxafigureTrans1<- annotate_figure(taxafigureTrans, top= text_grob("Most Abundant Taxonomical Ranks", size = 25))
+taxafigureTrans1
+```
+
+
+##Looking at rarer taxa
+In previous code chunks, rarefied data was used. However, some of the more rare taxa were of interest in this study, such as the Enterobacteriaceae family. Since these taxa were expected to be rare, the non-rarefied read data was used. 
+
+#Add genus name to the species name in the phyloseq object
+```{r setup, eval=FALSE}
+no.na = !is.na(tax_table(phyloseqStorePrimeRemove)[,"Genus"]) & !is.na(tax_table(phyloseqStorePrimeRemove)[,"Species"])
+tax_table(phyloseqStorePrimeRemove)[no.na][,"Species"] = paste(tax_table(phyloseqStorePrimeRemove)[no.na][,"Genus"], tax_table(phyloseqStorePrimeRemove)[no.na][,"Species"])
+```
+
+#Investigating the Enterobacteriaceae Family
+The following code creates a plot with the abundance counts, but these counts can be transformed to create a plot with the percent abundances.
+Subset and agglomerate genera of the same type.
+```{r setup, eval=FALSE}
+enterobact_store_remove<- subset_taxa(phyloseqStorePrimeRemove, Family == "Enterobacteriaceae")
+enterobact_store_remove<- tax_glom(enterobact_store_remove, taxrank = "Genus")
+```
+Create a plot of genera within the family that is separated by sample type.
+```{r}
+EnteroPlot<- plot_bar(enterobact_store_remove, x="Sample.Name", fill="Genus", title= "Abundances of Genera in the Enterobacteriaceae Family") + facet_wrap(~Sample.Type, scales = "free_x")
+EnteroPlot
+```
+Melt the phyloseq object into a large data.frame, group the data frame by sample type and genus, and write a csv that contains the abundance numbers of the different genera in the Enterobacteriaceae family for each sample type.
+```{r setup, eval=FALSE}
+enterbact_store_melt<- psmelt(enterobact_store_remove)
+enterbact_store_melt<- enterbact_store_melt %>%
+  group_by(Sample.Type, Genus) %>%
+  summarise(summarycol =sum(Abundance))
+write.csv(enterbact_store_melt, "enterbact_family_store_notRare_sampleType.csv")
+```
+
+#See if lactic acid bacteria genera are present
+```{r setup, eval=FALSE}
+lacticAcidGenera<- subset_taxa(phyloseqStorePrimeRemove, Genus=="Aerococcus" | Genus=="Enterococcus" | Genus=="Lactobacillus" | Genus=="Lactococcus" | Genus=="Leuconostoc" | Genus=="Streptococcus" | Genus=="Weissella")
+```
+
+#Look at the species of Pseudomonas present
+The Pseudomonas genus was the most abundant genus in this study and if often found to be the most abundant genus in several studies of leafy green microbial communities. The species of Pseudomonas were investigated to see if known spoilage or plant pathogen species within this genus were present.
+```{r setup, eval=FALSE}
+pseudo<- subset_taxa(phyloseqStorePrimeRemove, Genus == "Pseudomonas")
+pseudo<- tax_glom(pseudo, taxrank = "Species")
+psuedo_melt<- psmelt(pseudo)
+psuedo_melt<- psuedo_melt %>%
+  group_by(Type, Species) %>%
+  summarise(summarycol =sum(Abundance))
+write.csv(psuedo_melt, "PseudoGenus.csv")
+```
+
+```{r}
+pseudoplot<- plot_bar(pseudo, x= "Sample.Name", fill="Species", title = "Species in the Pseudomonas Genus") + facet_wrap(~Type, scales = "free_x")
+pseudoplot
+```
+
+#Agglomerate taxa with the same classification for each taxonomic rank
+Agglomeration of taxa names were done to compare how many phyla, classes, etc were shared and unique among sample types.
+```{r setup, eval=FALSE}
+taxGlomPhylum<- tax_glom(phyloseq.rarefiedStorePrimeRemove, taxrank= "Phylum")
+taxGlomClass<- tax_glom(phyloseq.rarefiedStorePrimeRemove, taxrank = "Class")
+taxGlomOrder<- tax_glom(phyloseq.rarefiedStorePrimeRemove, taxrank = "Order")
+taxGlomFamily<- tax_glom(phyloseq.rarefiedStorePrimeRemove, taxrank = "Family")
+taxGlomGenus<- tax_glom(phyloseq.rarefiedStorePrimeRemove, taxrank = "Genus")
+```
+
+#Create Euler or venn diagrams
+These will show how many taxa at a specified rank are shared and unique among sample types. 
+```{r}
+#Venn diagram
+ps_venn(taxGlomClass, group = "Type", relative = TRUE, plot = TRUE, quantities= T, main = "Number of shared and unique classes")
+
+#Euler diagram
+ps_euler(taxGlomClass, group = "Type", relative = TRUE, plot = TRUE, quantities= T, main = "Number of shared and unique classes")
+```
+
+#Create a heatmap
+```{r}
+ps_pheatmap(phyloseq.rarefiedStorePrimeRemove, annot_samp = "Type", tax_agg = "Class", relative = TRUE, label_rank = "Class", drop_levels= T)
+```
+
+#Run an ANOVA-like differential expression (ALDEx) analysis
+In this example, family taxa rank was used since the family level showed more variation among sample types compared to at higher taxa ranks.
+```{r}
+aledexFam<- run_aldex(phyloseq.rarefiedStorePrimeRemove, group = "Type", taxa_rank = "Family", transform = "identity", norm = "none", method = "kruskal", p_adjust = "hochberg", pvalue_cutoff = 0.05, denom = "all")
+microbiomeMarker::plot_heatmap(aledexFam, group = "Type")
+
+aldexFamAbun<- microbiomeMarker::plot_abundance(aledexFam, group = "Type") + labs(title = "Abundances of Differentially Expressed Families") + geom_boxplot(outlier.colour = NULL)
+aldexFamAbun
+```

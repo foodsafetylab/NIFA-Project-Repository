@@ -1,4 +1,5 @@
 ##C:/Users/jorge/Box Sync/NIFA Project/CA 9-2021/Plate results/
+##"C:/Users/rgathm2/Box Sync/NIFA Project/CA 9-2021/Plate results"
 ##No need if you open the project on C:\Users\jfq\Box Sync\NIFA Project\NIFA Project Repository
 library(tidyverse)
 library(MASS)
@@ -57,6 +58,7 @@ leveneTest(newlocAPClm)
 newLOCanova<-anova(newlocAPClm)
 APCaov<-aov(((Best.Estimate^lambda-1)/lambda)~Sample.Type, data= PreHarvestAPC)
 APCdiff<-TukeyHSD(APCaov)
+APCdiff2<-TukeyHSD(testanova)
 plot(APCdiff) #Check for intervals in Tukey HSD
 
 #SimTestDiff(data=PreHarvestAPC, grp= "Sample.Type", resp = "Best.Estimate", type= "Tukey", covar.equal = TRUE)
@@ -93,3 +95,97 @@ var.test(Best.Estimate~Sample.Type, data=cASCT)
 # Bed8<-
 # 
 # Bed1<-
+#########################
+##In- and post-harvest
+InPostHarvest<- read.csv("In-PostHarvest Trimmed.csv")
+
+##Subsetting for in harvest
+InHarvest<- InPostHarvest%>%filter(Sampling.Day=="InHarvest D1"|Sampling.Day=="InHarvest D2")
+
+InHarvestAPC<- InHarvest%>%filter(Test=="APC")
+InHarvestColi<- InHarvest%>%filter(Test=="Coliforms")
+
+#On the ground (glove vs leftover trims)
+InHarvestGroundAPC<- InHarvestAPC%>%filter(Location=="Leftover"|Location=="Gloves")
+InHarvestGroundColi<- InHarvestColi%>%filter(Location=="Leftover"|Location=="Gloves")
+
+#Stats on the ground (APC)
+#Check Assumptions
+InHarvestGroundAPC_lm<-lm(Best.Estimate.log.CFU.g. ~ Sample.Type, data=InHarvestGroundAPC)
+shapiro.test(residuals(InHarvestGroundAPC_lm))##normatility p=0.34
+leveneTest(InHarvestGroundAPC_lm)#heterogenous p=0.94
+#Anova
+anova(InHarvestGroundAPC_lm) #p=3.47e-05
+#Variance
+var.test(Best.Estimate.log.CFU.g. ~ Sample.Type, data=InHarvestGroundAPC) #p=0.91
+
+#Stats on the ground (Coliforms)
+#Check Assumptions
+InHarvestGroundColi_lm<-lm(Best.Estimate.log.CFU.g. ~ Sample.Type, data=InHarvestGroundColi)
+shapiro.test(residuals(InHarvestGroundColi_lm))##normatility p=0.05
+leveneTest(InHarvestGroundColi_lm)#heterogenous p=0.04
+#Anova
+anova(InHarvestGroundColi_lm) #p=0.94
+#Variance
+var.test(Best.Estimate.log.CFU.g. ~ Sample.Type, data=InHarvestGroundColi) #p=0.0023
+
+#On the trailer
+TrailerBinsAPC<- InHarvestAPC%>%filter(Location=="Bins")
+
+#######################################################
+#For prelim analysis
+
+#Removal of Grab HR
+ASCT_APClm<-lm(Best.Estimate ~ Sample.Type, data=ASCT)
+ASCT_locAPClm<-lm(Best.Estimate ~ Sample.Type*Area, data=ASCT)
+shapiro.test(residuals(ASCT_APClm))##normatility p=0.9038
+leveneTest(Best.Estimate~Sample.Type, data=ASCT)#heterogeneous 0.00058
+
+#Boxcox Transf = ASCT_lambda: -1.7979798/ ASCT_lambdaloc= -1.7171717172
+t_ASCT_APClm<-boxcox(Best.Estimate~Sample.Type, data=ASCT)
+ASCT_lambda<-t_ASCT_APClm$x[which.max(t_ASCT_APClm$y)]
+
+t_ASCT_LocAPClm<-boxcox(Best.Estimate~Sample.Type*Area, data=ASCT)
+ASCT_lambdaloc<-t_ASCT_LocAPClm$x[which.max(t_ASCT_LocAPClm$y)]
+
+ASCT_newAPClm<-lm(((Best.Estimate^ASCT_lambda-1)/ASCT_lambda)~Sample.Type, data= ASCT)
+shapiro.test(residuals(ASCT_newAPClm))
+leveneTest(ASCT_newAPClm)#homogeneous variance p=0.51
+ASCT_newanova<-anova(ASCT_newAPClm)#significant effect of sample type p<1.447e-15
+
+ASCT_locnewAPClm<-lm(((Best.Estimate^ASCT_lambdaloc-1)/ASCT_lambdaloc)~Sample.Type+Area+Class+Sample.Type*Area+Sample.Type*Class+Area*Class, data= ASCT)
+shapiro.test(residuals(ASCT_locnewAPClm))
+leveneTest(ASCT_locnewAPClm)#homogeneous variance p=0.51
+ASCT_locnewanova<-anova(ASCT_locnewAPClm)
+ASCT_locAOV<-aov(((Best.Estimate^ASCT_lambdaloc-1)/ASCT_lambdaloc)~Sample.Type+Area+Class+Sample.Type*Area+Sample.Type*Class+Area*Class, data= ASCT)
+APCdiff3<-TukeyHSD(ASCT_locAOV)
+##
+
+##Coliforms
+cASCT_CClm<-lm(Best.Estimate ~ Sample.Type, data=cASCT)
+cASCT_locCClm<-lm(Best.Estimate ~ Sample.Type*Area, data=cASCT)
+shapiro.test(residuals(cASCT_CClm))##normatility p=0.9038
+leveneTest(Best.Estimate~Sample.Type, data=cASCT)#heterogeneous 0.00058
+
+#Boxcox Transf = cASCT_lambda: 0.10101010/ cASCT_lambdaloc= 0.181818182
+t_cASCT_CClm<-boxcox(Best.Estimate~Sample.Type, data=cASCT)
+cASCT_lambda<-t_cASCT_CClm$x[which.max(t_cASCT_CClm$y)]
+
+t_cASCT_LocCClm<-boxcox(Best.Estimate~Sample.Type*Area, data=cASCT)
+cASCT_lambdaloc<-t_cASCT_LocCClm$x[which.max(t_cASCT_LocCClm$y)]
+
+cASCT_newCClm<-lm(((Best.Estimate^cASCT_lambda-1)/cASCT_lambda)~Sample.Type, data= cASCT)
+shapiro.test(residuals(cASCT_newCClm))
+leveneTest(cASCT_newCClm)#homogeneous variance p=0.51
+cASCT_newanova<-anova(cASCT_newCClm)#significant effect of sample type p<1.447e-15
+
+cASCT_locnewCClm<-lm(((Best.Estimate^cASCT_lambdaloc-1)/cASCT_lambdaloc)~Sample.Type+Area+Class+Sample.Type*Area+Sample.Type*Class+Area*Class, data= cASCT)
+shapiro.test(residuals(cASCT_locnewCClm))#non normal p=0.0034
+leveneTest(cASCT_locnewCClm)#Model must be completely crossed formula only
+ASCT_locnewanova<-anova(ASCT_locnewAPClm)
+cASCT_locAOV<-aov(((Best.Estimate^cASCT_lambdaloc-1)/cASCT_lambdaloc)~Sample.Type+Area+Class+Sample.Type*Area+Sample.Type*Class+Area*Class, data= cASCT)
+CCdiff4<-TukeyHSD(cASCT_locAOV)
+
+ 
+
+

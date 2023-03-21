@@ -1,0 +1,63 @@
+Samples.ID,Sample.Type,Bed.number,Hand.msd,Wet.dry,Top.bottom,Date.collected,Date.processed,Weight.g.,PBS.added.ml.,Log.APC.,Log.Coli.,Log.E.coli.,Opportunity,Zone
+Tis8,Produce Sample,Edge Creek,NA,NA,Top,6/27/2022,6/29/2022,214.44,194.44,5.672097858,6.122875576,2.531478917,Original,Edge Creek
+Tis59,Produce Sample,4,NA,NA,Top,6/27/2022,6/29/2022,439.15,419.15,5.755874856,5.826288443,NA,Original,Center
+Tis60,Produce Sample,4,NA,NA,Top,6/27/2022,6/29/2022,316.02,296.02,NA,4.079181246,NA,Original,Center
+Tis3,Produce Sample,Edge Creek,NA,NA,Bottom,6/27/2022,6/29/2022,480.96,460.96,5,5.068185862,NA,Original,Edge Creek
+Tis10,Produce Sample,Edge Creek,NA,NA,Top,6/27/2022,6/29/2022,495.22,475.22,NA,4.556302501,2.903089987,Original,Edge Creek
+Tis32,Produce Sample,6,NA,NA,Bottom,6/27/2022,6/29/2022,503.01,483.01,5.51851394,NA,NA,Original,Center
+Tis27,Produce Sample,4,NA,NA,Top,6/27/2022,6/29/2022,197.3,177.3,5.929418926,6.130562405,NA,Original,Center
+Tis11,Produce Sample,Edge Creek,NA,NA,Top,6/27/2022,6/29/2022,260.43,240.43,5.591064607,NA,NA,Original,Edge Creek
+Tis28,Produce Sample,4,NA,NA,Bottom,6/27/2022,6/29/2022,467.78,447.78,NA,4.653212514,NA,Original,Center
+Tis24,Produce Sample,1,NA,NA,Top,6/27/2022,6/29/2022,357.85,337.85,5.041392685,5.123851641,NA,Original,Center
+Tis26,Produce Sample,1,NA,NA,Bottom,6/27/2022,6/29/2022,334.74,314.74,NA,4.173186268,2.602059991,Original,Center
+Tis9,Produce Sample,Edge Creek,NA,NA,Top,6/27/2022,6/29/2022,367.51,347.51,5.602059991,5.893201489,NA,Original,Edge Creek
+Tis5,Produce Sample,Edge Creek,NA,NA,Bottom,6/27/2022,6/29/2022,380.6,360.6,5.51851394,5.833350297,NA,Original,Edge Creek
+MT19,Aggregative Swab,Edge Creek,MSD,WET,Bottom,6/27/2022,6/29/2022,33.58,30.12,NA,6.758032962,1.977723605,Original,Edge Creek
+MT23,Aggregative Swab,Edge Creek,MSD,WET,Top,6/27/2022,6/29/2022,31.11,32.59,NA,NA,NA,Original,Edge Creek
+MT10,Aggregative Swab,4,MSD,WET,Bottom,6/27/2022,6/29/2022,31.64,32.06,NA,6.265429321,NA,Original,Center
+MT7,Aggregative Swab,6,MSD,WET,Top,6/27/2022,6/29/2022,30.84,32.86,NA,6.731299961,NA,Original,Center
+MT13,Aggregative Swab,6,MSD,WET,Bottom,6/27/2022,6/29/2022,31.39,32.31,NA,6.389822118,NA,Original,Center
+MT24,Aggregative Swab,1,MSD,WET,Top,6/27/2022,6/29/2022,24.2,39.5,6.755874856,6.750479824,NA,Original,Center
+MT27,Aggregative Swab,1,HAND,WET,Top,6/27/2022,6/29/2022,32.62,31.08,6.482950798,6.362775592,3.230448921,Original,Center
+MT28,Aggregative Swab,2,HAND,WET,Top,6/27/2022,6/29/2022,34.45,29.25,5.826074803,5.916266793,NA,Original,Center
+MT29,Aggregative Swab,2,HAND,WET,Top,6/27/2022,6/29/2022,30.22,33.48,7.746394654,NA,NA,Original,Center
+MT25,Aggregative Swab,Edge Creek,MSD,WET,Top,6/27/2022,6/29/2022,31.91,31.79,NA,NA,NA,Original,Edge Creek
+MT9,Aggregative Swab,5,MSD,WET,Top,6/27/2022,6/29/2022,31.46,32.24,NA,6.463505893,4.26760624,Original,Center
+MT18,Aggregative Swab,Edge Creek,MSD,WET,Bottom,6/27/2022,6/29/2022,33.84,29.86,5.681241237,5.88667959,NA,Original,Edge Creek
+MT36,Aggregative Swab,Edge Creek,HAND,WET,Top,6/27/2022,6/29/2022,32.88,30.82,NA,6.529039054,NA,Original,Edge Creek
+MT3,Aggregative Swab,5,MSD,DRY,Bottom,6/27/2022,6/29/2022,22.26,41.44,NA,1.176091259,NA,Original,Center
+MT5,Aggregative Swab,6,MSD,DRY,Bottom,6/27/2022,6/29/2022,21.8,41.9,5.052294502,0.698970004,NA,Original,Center
+MT26,Aggregative Swab,1,MSD,WET,Bottom,6/27/2022,6/29/2022,31.62,32.08,6.255272505,NA,NA,Original,Center
+MT15,Aggregative Swab,Edge Creek,MSD,DRY,Top,6/27/2022,6/29/2022,22.97,40.73,NA,2.267171728,NA,Original,Edge Creek
+MT35,Aggregative Swab,Edge Creek,HAND,WET,Top,6/27/2022,6/29/2022,34.06,29.64,6.544068044,6.519140176,2.462397998,Original,Edge Creek
+Tis8,Produce Sample,Edge Creek,NA,NA,Top,6/27/2022,6/29/2022,214.44,194.44,7.424458141,7.389822118,4.505149978,Repeat,Edge Creek
+Tis59,Produce Sample,4,NA,NA,Top,6/27/2022,6/29/2022,439.15,419.15,7.278330106,7.231394068,NA,Repeat,Center
+Tis60,Produce Sample,4,NA,NA,Top,6/27/2022,6/29/2022,316.02,296.02,7.594881407,7.100599181,NA,Repeat,Center
+Tis3,Produce Sample,Edge Creek,NA,NA,Bottom,6/27/2022,6/29/2022,480.96,460.96,7.286722531,6.947559151,NA,Repeat,Edge Creek
+Tis10,Produce Sample,Edge Creek,NA,NA,Top,6/27/2022,6/29/2022,495.22,475.22,7.299014704,6.456366033,NA,Repeat,Edge Creek
+Tis32,Produce Sample,6,NA,NA,Bottom,6/27/2022,6/29/2022,503.01,483.01,7.659606736,7.510644289,5.597695186,Repeat,Center
+Tis27,Produce Sample,4,NA,NA,Top,6/27/2022,6/29/2022,197.3,177.3,7.500602351,7.386531993,NA,Repeat,Center
+Tis11,Produce Sample,Edge Creek,NA,NA,Top,6/27/2022,6/29/2022,260.43,240.43,7.45371462,7.04120553,NA,Repeat,Edge Creek
+Tis28,Produce Sample,4,NA,NA,Bottom,6/27/2022,6/29/2022,467.78,447.78,7.43639826,,NA,Repeat,Center
+Tis24,Produce Sample,1,NA,NA,Top,6/27/2022,6/29/2022,357.85,337.85,7.71001624,7.822890465,NA,Repeat,Center
+Tis26,Produce Sample,1,NA,NA,Bottom,6/27/2022,6/29/2022,334.74,314.74,7.416825353,TNTC,5.334453751,Repeat,Center
+Tis9,Produce Sample,Edge Creek,NA,NA,Top,6/27/2022,6/29/2022,367.51,347.51,7.646033929,7.460730839,NA,Repeat,Edge Creek
+Tis5,Produce Sample,Edge Creek,NA,NA,Bottom,6/27/2022,6/29/2022,380.6,360.6,7.73506011,7.68763546,NA,Repeat,Edge Creek
+MT19,Aggregative Swab,Edge Creek,MSD,WET,Bottom,6/27/2022,6/29/2022,33.58,30.12,8.431959096,7.622425156,NA,Repeat,Edge Creek
+MT23,Aggregative Swab,Edge Creek,MSD,WET,Top,6/27/2022,6/29/2022,31.11,32.59,8.178763849,8.138115543,NA,Repeat,Edge Creek
+MT10,Aggregative Swab,4,MSD,WET,Bottom,6/27/2022,6/29/2022,31.64,32.06,8.254377974,7.970545021,NA,Repeat,Center
+MT7,Aggregative Swab,6,MSD,WET,Top,6/27/2022,6/29/2022,30.84,32.86,8.466263327,6.666785321,NA,Repeat,Center
+MT13,Aggregative Swab,6,MSD,WET,Bottom,6/27/2022,6/29/2022,31.39,32.31,8.463505893,7.723680564,NA,Repeat,Center
+MT24,Aggregative Swab,1,MSD,WET,Top,6/27/2022,6/29/2022,24.2,39.5,7.882543421,7.62484463,NA,Repeat,Center
+MT27,Aggregative Swab,1,HAND,WET,Top,6/27/2022,6/29/2022,32.62,31.08,8.670602121,TNTC,NA,Repeat,Center
+MT28,Aggregative Swab,2,HAND,WET,Top,6/27/2022,6/29/2022,34.45,29.25,7.4,TNTC,NA,Repeat,Center
+MT29,Aggregative Swab,2,HAND,WET,Top,6/27/2022,6/29/2022,30.22,33.48,8.774405842,8.733184105,NA,Repeat,Center
+MT25,Aggregative Swab,Edge Creek,MSD,WET,Top,6/27/2022,6/29/2022,31.91,31.79,8.303035978,8.243038049,NA,Repeat,Edge Creek
+MT9,Aggregative Swab,5,MSD,WET,Top,6/27/2022,6/29/2022,31.46,32.24,8.216996247,TNTC,NA,Repeat,Center
+MT18,Aggregative Swab,Edge Creek,MSD,WET,Bottom,6/27/2022,6/29/2022,33.84,29.86,7.816730156,7.01616166,NA,Repeat,Edge Creek
+MT36,Aggregative Swab,Edge Creek,HAND,WET,Top,6/27/2022,6/29/2022,32.88,30.82,8.466263327,TNTC,NA,Repeat,Edge Creek
+MT3,Aggregative Swab,5,MSD,DRY,Bottom,6/27/2022,6/29/2022,22.26,41.44,5.361727836,,NA,Repeat,Center
+MT5,Aggregative Swab,6,MSD,DRY,Bottom,6/27/2022,6/29/2022,21.8,41.9,5.556302501,,NA,Repeat,Center
+MT26,Aggregative Swab,1,MSD,WET,Bottom,6/27/2022,6/29/2022,31.62,32.08,8.643729974,8.490322711,NA,Repeat,Center
+MT15,Aggregative Swab,Edge Creek,MSD,DRY,Top,6/27/2022,6/29/2022,22.97,40.73,5.908485019,5.544068044,NA,Repeat,Edge Creek
+MT35,Aggregative Swab,Edge Creek,MSD,WET,Top,6/27/2022,6/29/2022,34.06,29.64,,TNTC,NA,Repeat,Edge Creek
