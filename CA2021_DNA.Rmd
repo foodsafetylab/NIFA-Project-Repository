@@ -32,10 +32,8 @@ library(tidyverse)
 
 library(devtools)
 library(fantaxtic)
-
-#library(devtools)
-#library(fantaxtic)
-
+library(devtools)
+library(fantaxtic)
 #library(MicEco)
 library(microbiome)
 library(phyloseq)
