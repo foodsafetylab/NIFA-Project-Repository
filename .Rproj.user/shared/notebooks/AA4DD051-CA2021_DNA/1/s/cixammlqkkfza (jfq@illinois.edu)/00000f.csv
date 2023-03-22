@@ -1,0 +1,16 @@
+"0","phyloPrH_2KPrune550_rare<- rarefy_even_depth(twoK_prune_phylopreharvest, sample.size = 550, rngseed = 19)
+"
+"2","`set.seed(19)` was used to initialize repeatable random subsampling.
+"
+"2","Please record this for your records so others can reproduce.
+"
+"2","Try `set.seed(19); .Random.seed` for the full vector
+"
+"2","...
+"
+"2","5187OTUs were removed because they are no longer 
+present in any sample after random subsampling
+
+"
+"2","...
+"

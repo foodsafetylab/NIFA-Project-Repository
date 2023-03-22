@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1643774211879.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2619765653",
+    "id" : "A950CB39",
+    "lastKnownWriteTime" : 1642183462,
+    "last_content_update" : 1642183462,
+    "path" : "C:/Users/jorge/Box Sync/NIFA Project/NIFA Project Repository/Subsetting PR dataset.R",
+    "project_path" : "Subsetting PR dataset.R",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

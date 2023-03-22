@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1643774218392.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4134776069",
+    "id" : "7618C45E",
+    "lastKnownWriteTime" : 1643774233,
+    "last_content_update" : 1643774233032,
+    "path" : "C:/Users/jorge/Box Sync/NIFA Project/NIFA Project Repository/CA Total Swabs and Tissues 09_06-10_21.R",
+    "project_path" : "CA Total Swabs and Tissues 09_06-10_21.R",
+    "properties" : {
+        "cursorPosition" : "9,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

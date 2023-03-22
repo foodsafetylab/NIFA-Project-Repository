@@ -1,0 +1,54 @@
+library(tidyverse)
+library(MASS)
+library(car)
+library(FSA)
+
+###Bacterial attachment for APC/Coliforms statistics
+adj_Fanoe<-read.csv("Experiment_1_adjusted trim.csv")
+adj_Fanoe$Zone<-as.factor(adj_Fanoe$Zone)
+adj_Fanoe$Top.bottom<-as.factor(adj_Fanoe$Top.bottom)
+adj_Fanoe$Wet.dry<-as.factor(adj_Fanoe$Wet.dry)
+adj_Fanoe$Hand.msd<-as.factor(adj_Fanoe$Hand.msd)
+adj_Fanoe$Opportunity<-as.factor(adj_Fanoe$Opportunity)
+adj_Fanoe$Sample.Type<-as.factor(adj_Fanoe$Sample.Type)
+
+lm_APC<-lm(Log.APC. ~ Sample.Type, data=adj_Fanoe)
+locAPClm<-lm(Log.APC. ~ Sample.Type*Zone, data=adj_Fanoe)
+shapiro.test(residuals(lm_APC))##normatility p=0.008401
+leveneTest(Log.APC.~Sample.Type, data=adj_Fanoe)#heterogenous p=0.00039
+#leveneTest(APClm)
+anova(lm_APC) #effect in sample type p<0.01212 -- poshoc test needed
+
+lm_colif<-lm(Log.Coli. ~ Sample.Type, data=adj_Fanoe)
+loccoliflm<-lm(Log.Coli. ~ Sample.Type*Zone, data=adj_Fanoe)
+shapiro.test(residuals(lm_colif))##normatility p=0.00532
+leveneTest(Log.Coli.~Sample.Type, data=adj_Fanoe)#heterogenous p=0.003754
+#leveneTest(APClm)
+anova(lm_colif) #fail to reject null Ha in effect in sample type p=0.9385
+
+
+
+###Pathogen Testing Statistics
+
+#Presumptive Ecoli df building - manually (I can just upload a csv next time)
+Ecolidf<-data.frame(Sample.Type = rep(c("Aggregative Swab", "Produce Sample"), times=c(25,26)), EcoliTest=rep(c("Positive", "Negative","Positive", "Negative"), times = c(19,6,15,11)) )
+#Take df info and tranlaste to contingency table (more cells to less cells with the same amount of info)
+Ecoliconttable<-addmargins(table(Ecolidf$Sample.Type, Ecolidf$EcoliTest))
+#Test are the same as the if you run the table in df-matrix layout below
+chisq.test(Ecoliconttable)
+fisher.test(Ecoliconttable)
+
+#For df-matrix layout (contingency table)
+EcoliTrialContTable<-as.data.frame.matrix(Ecoliconttable)
+
+#Presumptive Salmonella
+df<-data.frame(Sample.Type = rep(c("Aggregative Swab", "Produce Sample"), times=c(25,26)),Salmonella.test=rep(c("Positive", "Negative","Positive", "Negative"), times = c(13,12,7,19)))
+#Take df info and tranlaste to contingency table (more cells to less cells with the same amount of info) - addmargins to make the sums of each counts
+Salconttable<-addmargins(table(df$Sample.Type, df$Salmonella.test))
+#Test are the same as the if you run the table in df-matrix layout below
+chisq.test(Salconttable)
+fisher.test(Salconttable)
+
+#For df-matrix layout (contingency table)
+SalTrialContTable<-as.data.frame.matrix(Salconttable)
+

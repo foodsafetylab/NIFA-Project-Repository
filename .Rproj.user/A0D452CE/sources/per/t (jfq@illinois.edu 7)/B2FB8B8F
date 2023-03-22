@@ -1,0 +1,28 @@
+{
+    "id": "B2FB8B8F",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1669097055010.0,
+    "source_on_save": false,
+    "relative_order": 11,
+    "properties": {
+        "id": "df95749f08e6418dbf48e89f3cd460c1",
+        "name": "APClm",
+        "title": "APClm",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 7311156807234581072,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1669097055010,
+    "read_only": false,
+    "read_only_alternatives": []
+}

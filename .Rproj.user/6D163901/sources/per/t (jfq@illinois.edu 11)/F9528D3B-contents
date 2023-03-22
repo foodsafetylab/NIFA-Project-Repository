@@ -1,0 +1,184 @@
+library(tidyverse)
+library(MASS)
+library(car)
+library(FSA)
+
+###Bacterial attachment for APC/Coliforms statistics
+adj_Fanoe<-read.csv("Experiment_1_adjusted trim.csv")
+adj_Fanoe$Zone<-as.factor(adj_Fanoe$Zone)
+adj_Fanoe$Top.bottom<-as.factor(adj_Fanoe$Top.bottom)
+adj_Fanoe$Wet.dry<-as.factor(adj_Fanoe$Wet.dry)
+adj_Fanoe$Hand.msd<-as.factor(adj_Fanoe$Hand.msd)
+adj_Fanoe$Opportunity<-as.factor(adj_Fanoe$Opportunity)
+adj_Fanoe$Sample.Type<-as.factor(adj_Fanoe$Sample.Type)
+
+lm_APC<-lm(Log.APC. ~ Sample.Type, data=adj_Fanoe)
+locAPClm<-lm(Log.APC. ~ Sample.Type*Zone, data=adj_Fanoe)
+shapiro.test(residuals(lm_APC))##normatility p=0.008401
+leveneTest(Log.APC.~Sample.Type, data=adj_Fanoe)#heterogenous p=0.00039
+#leveneTest(APClm)
+anova(lm_APC) #effect in sample type p<0.01212 -- poshoc test needed
+
+#transformation
+tAPClm_1<-boxcox(Log.APC.~Sample.Type, data=adj_Fanoe)
+lambda_apc<-tAPClm_1$x[which.max(tAPClm_1$y)]
+newAPClm_1<-lm(((Log.APC.^lambda_apc-1)/lambda_apc)~Sample.Type, data= adj_Fanoe)
+shapiro.test(residuals(newAPClm_1))
+leveneTest(newAPClm_1)
+newanova_1<-anova(newAPClm_1)#### P=0.001832544 Sample type
+
+
+lm_colif<-lm(Log.Coli. ~ Sample.Type, data=adj_Fanoe)
+loccoliflm<-lm(Log.Coli. ~ Sample.Type*Zone, data=adj_Fanoe)
+shapiro.test(residuals(lm_colif))##normatility p=0.00532
+leveneTest(Log.Coli.~Sample.Type, data=adj_Fanoe)#heterogenous p=0.003754
+#leveneTest(APClm)
+anova(lm_colif) #fail to reject null Ha in effect in sample type p=0.9385
+
+tColiflm_1<-boxcox(Log.Coli.~Sample.Type, data=adj_Fanoe)
+lambda_colif<-tColiflm_1$x[which.max(tColiflm_1$y)]
+newColiflm_1<-lm(((Log.Coli.^lambda_colif-1)/lambda_colif)~Sample.Type, data= adj_Fanoe)
+shapiro.test(residuals(newColiflm_1))
+leveneTest(newColiflm_1)
+newanova_colif<-anova(newColiflm_1)##Still fail to reject p=0.5978187
+
+###Pathogen Testing Statistics
+##Overall Pathogen testing for total positives and negatives
+#Presumptive Ecoli df building - manually (I can just upload a csv next time)
+Ecolidf<-data.frame(Sample.Type = rep(c("Aggregative Swab", "Produce Sample"), times=c(25,26)), EcoliTest=rep(c("Positive", "Negative","Positive", "Negative"), times = c(19,6,15,11)) )
+#Take df info and tranlaste to contingency table (more cells to less cells with the same amount of info)
+Ecoliconttable<-addmargins(table(Ecolidf$Sample.Type, Ecolidf$EcoliTest))
+#Test are the same as the if you run the table in df-matrix layout below
+chisq.test(Ecoliconttable)
+fisher.test(Ecoliconttable)
+
+#For df-matrix layout (contingency table)``
+EcoliTrialContTable<-as.data.frame.matrix(Ecoliconttable)
+fisher.test(EcoliTrialContTable)
+
+#Presumptive Salmonella
+df<-data.frame(Sample.Type = rep(c("Aggregative Swab", "Produce Sample"), times=c(25,26)),Salmonella.test=rep(c("Positive", "Negative","Positive", "Negative"), times = c(13,12,7,19)))
+#Take df info and tranlaste to contingency table (more cells to less cells with the same amount of info) - addmargins to make the sums of each counts
+Salconttable<-addmargins(table(df$Sample.Type, df$Salmonella.test))
+#Test are the same as the if you run the table in df-matrix layout below
+chisq.test(Salconttable)
+fisher.test(Salconttable)
+
+#For df-matrix layout (contingency table)
+SalTrialContTable<-as.data.frame.matrix(Salconttable)
+fisher.test(SalTrialContTable)
+
+##Pathogen testing by zone
+
+patzone<-read.csv("Exp2_results_organized.csv")
+
+
+Zones<-patzone%>%
+  count(Sample.Type, Bed.number, Strata, Salmonella)
+
+strata_patzone<-Zones[-c(4,8),]
+write.csv(strata_patzone,"StrataPathogen.csv")
+
+
+Zones_EC<-patzone%>%
+  count(Sample.Type, Bed.number, Strata, E.coli)
+
+#################################
+###Bacterial attachment for APC/Coliforms statistics for prelim
+adj_Fanoe<-read.csv("Experiment_1_adjusted trim.csv")
+adj_Fanoe$Zone<-as.factor(adj_Fanoe$Zone)
+adj_Fanoe$Top.bottom<-as.factor(adj_Fanoe$Top.bottom)
+adj_Fanoe$Wet.dry<-as.factor(adj_Fanoe$Wet.dry)
+adj_Fanoe$Hand.msd<-as.factor(adj_Fanoe$Hand.msd)
+adj_Fanoe$Opportunity<-as.factor(adj_Fanoe$Opportunity)
+adj_Fanoe$Sample.Type<-as.factor(adj_Fanoe$Sample.Type)
+
+lm_APC_swabs<-lm(Best..Estimate ~ Wet.dry, data=Only_swabs_apc)
+lm_APC_presshydr<-lm(Best..Estimate ~ Hand.msd, data=Only_swabs_apc)
+locAPClm<-lm(Best..Estimate ~ Wet.dry*Zone, data=Only_swabs_apc)
+plantAPClm<-lm(Best..Estimate ~ Wet.dry*Top.bottom, data=Only_swabs_apc)
+shapiro.test(residuals(lm_APC))##normatility p=0.017
+leveneTest(lm_APC)#heterogenous p=0.03
+#leveneTest(APClm)
+anova(lm_APC) #effect in wet-dry p<6.753-6 -- poshoc test needed
+anova(lm_APC_presshydr)#
+anova(locAPClm) #zones had no effect
+anova(plantAPClm)#place in plant had no effect
+
+lm_colif<-lm(Best..Estimate ~ Wet.dry + Hand.msd + Wet.dry*Hand.msd, data=Only_swabs_colif)
+locColilm<-lm(Best..Estimate ~ Wet.dry + Hand.msd + Zone + Wet.dry*Hand.msd + Wet.dry*Zone + Hand.msd*Zone + Hand.msd*Zone*Wet.dry, data=Only_swabs_colif)
+plantColiflm<-lm(Best..Estimate ~ Wet.dry + Hand.msd + Top.bottom + Wet.dry*Hand.msd + Wet.dry*Top.bottom + Hand.msd*Top.bottom + Hand.msd*Top.bottom*Wet.dry + Wet.dry*Top.bottom, data=Only_swabs_colif)
+anova(lm_colif) #effect in wet-dry p<2.92e-12 -- poshoc test needed
+anova(locColilm) #zones had no effect
+anova(plantColiflm)#place in plant had no effect
+
+lm_APC_ASvCP<-lm(Best..Estimate ~ Sample.Type, data=Everything_wet_apc)
+locAPC_ASvCP<-lm(Best..Estimate ~ Sample.Type*Zone, data=Everything_wet_apc)
+plantAPC_ASvCP<-lm(Best..Estimate ~ Sample.Type*Top.bottom, data=Everything_wet_apc)
+anova(lm_APC_ASvCP) #effect in wet-dry p<1.53e-07 -- poshoc test needed
+anova(locAPC_ASvCP) #zones had no effect
+anova(plantAPC_ASvCP)#place in plant had no effect
+
+lm_Colif_ASvCP<-lm(Best..Estimate ~ Sample.Type, data=Everything_wet_colif)
+locColif_ASvCP<-lm(Best..Estimate ~ Sample.Type*Zone, data=Everything_wet_colif)
+plantColif_ASvCP<-lm(Best..Estimate ~ Sample.Type*Top.bottom, data=Everything_wet_colif)
+anova(lm_Colif_ASvCP) #effect in wet-dry p<5.48e-07 -- poshoc test needed
+anova(locColif_ASvCP) #zones had no effect
+anova(plantColif_ASvCP)#place in plant had no effect
+
+
+#transformation
+tAPClm_1<-boxcox(Log.APC.~Sample.Type, data=adj_Fanoe)
+lambda_apc<-tAPClm_1$x[which.max(tAPClm_1$y)]
+newAPClm_1<-lm(((Log.APC.^lambda_apc-1)/lambda_apc)~Sample.Type, data= adj_Fanoe)
+shapiro.test(residuals(newAPClm_1))
+leveneTest(newAPClm_1)
+newanova_1<-anova(newAPClm_1)#### P=0.001832544 Sample type
+
+
+lm_colif<-lm(Log.Coli. ~ Sample.Type, data=adj_Fanoe)
+loccoliflm<-lm(Log.Coli. ~ Sample.Type*Zone, data=adj_Fanoe)
+shapiro.test(residuals(lm_colif))##normatility p=0.00532
+leveneTest(Log.Coli.~Sample.Type, data=adj_Fanoe)#heterogenous p=0.003754
+#leveneTest(APClm)
+anova(lm_colif) #fail to reject null Ha in effect in sample type p=0.9385
+
+tColiflm_1<-boxcox(Log.Coli.~Sample.Type, data=adj_Fanoe)
+lambda_colif<-tColiflm_1$x[which.max(tColiflm_1$y)]
+newColiflm_1<-lm(((Log.Coli.^lambda_colif-1)/lambda_colif)~Sample.Type, data= adj_Fanoe)
+shapiro.test(residuals(newColiflm_1))
+leveneTest(newColiflm_1)
+newanova_colif<-anova(newColiflm_1)##Still fail to reject p=0.5978187
+
+
+####################################################01/16/23
+#Test for variances - Prior performing F-tests, we split the data into the groups we desire to compare:
+#Swabs v Tissues
+##Prehydrated Swabs v Dry Swabs
+##Prehydrated swabs - Hand v MSD swabs 
+##DRy swabs- Hand v MSD swabs 
+
+LabPPT_AdjustedFanoe_Exp_1 <- read.csv("LabPPT_AdjustedFanoe Exp_1.csv", header = T)
+Only_Swabs<-LabPPT_AdjustedFanoe_Exp_1%>% filter(Sample.Type=="Aggregative Swab")
+Only_Swabs_noEcoli<-Only_Swabs%>%filter((Test != "E.coli"))
+Everything_but_Ecoli<-LabPPT_AdjustedFanoe_Exp_1%>% filter(Test != "E.coli")
+Everything_wet<-Everything_but_Ecoli%>%filter(Sample.Type=="Produce Sample"|Sample.Type=="Aggregative Swab" & Wet.dry!="DRY")
+
+var_APC<-Everything_wet%>%filter(Test== "APC")
+var_colif<-Everything_wet%>%filter(Test== "Coliforms")
+
+APCvariance<-var_APC%>% #Aggregative Swab= 0.8790569; Produce Sample=0.1278418
+   group_by(Sample.Type)%>%
+   summarise(var=var(Best..Estimate))
+
+Colivariance<-var_colif%>% #Aggregative Swab= 0.88091162; Produce Sample=0.6376682
+  group_by(Sample.Type)%>%
+  summarise(var=var(Best..Estimate))
+
+
+#variance test
+var.test(Best..Estimate~Sample.Type, data=var_APC)
+var.test(Best..Estimate~Sample.Type, data=var_colif)
+
+var.test(Best..Estimate~Sample.Type, data=cASCT)
+

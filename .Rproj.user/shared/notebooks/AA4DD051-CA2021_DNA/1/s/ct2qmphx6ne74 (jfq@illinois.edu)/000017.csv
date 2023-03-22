@@ -1,0 +1,29 @@
+"0","library(microbiomeMarker)
+"
+"2","Registered S3 method overwritten by 'ggtree':
+  method      from 
+  identify.gg ggfun
+"
+"2","Registered S3 method overwritten by 'gplots':
+  method    from  
+  plot.venn eulerr
+"
+"2","
+Attaching package: ‘microbiomeMarker’
+
+"
+"2","The following objects are masked from ‘package:microbiome’:
+
+    abundances, aggregate_taxa
+
+"
+"2","The following object is masked from ‘package:phyloseq’:
+
+    plot_heatmap
+
+"
+"0","library(microbiomeMarker)"
+"0","library(RVAideMemoire)"
+"2","Warning: package ‘RVAideMemoire’ was built under R version 4.1.3"
+"2","*** Package RVAideMemoire v 0.9-81-2 ***
+"

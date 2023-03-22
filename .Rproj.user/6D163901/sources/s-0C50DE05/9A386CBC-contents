@@ -1,0 +1,232 @@
+#libraries
+library(ggplot2)
+library(tidyverse)
+
+#raw data
+raw<-read.csv("Exp_1_results_organized.csv")
+str(raw)
+
+#DF cleaning
+
+raw$Zone<- ifelse(raw$Bed.number == "Edge Creek", "Edge Creek", "Center")
+raw$Zone<-as.factor(raw$Zone)
+raw$Top.bottom<-as.factor(raw$Top.bottom)
+raw$Wet.dry<-as.factor(raw$Wet.dry)
+raw$Hand.msd<-as.factor(raw$Hand.msd)
+write.csv(raw, "Experiment_1_trimmed.csv")
+
+Fanoe<-read.csv("Experiment_1_trimmed.csv")
+Fanoe$Zone<-as.factor(Fanoe$Zone)
+Fanoe$Top.bottom<-as.factor(Fanoe$Top.bottom)
+Fanoe$Wet.dry<-as.factor(Fanoe$Wet.dry)
+Fanoe$Hand.msd<-as.factor(Fanoe$Hand.msd)
+Fanoe$Opportunity<-as.factor(Fanoe$Opportunity)
+Fanoe$Sample.Type<-as.factor(Fanoe$Sample.Type)
+##Columns removal
+Fanoe<-Fanoe[,-c(7,8,9,10)]
+#For MT only 
+T_Fanoe<-Fanoe%>% filter(Sample.Type == "Aggregative Swab")
+#For Tissue only
+Tissue_Fanoe<-Fanoe%>% filter(Sample.Type == "Produce Sample")
+#For repeated comparison
+original<-Fanoe[!(duplicated(Fanoe) | duplicated(Fanoe, fromLast = TRUE)), ]
+
+##############################################
+#Overall Visuals
+OvPH_MTvTissue<-ggplot(data= Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Swab v Composite Tissue ")
+OvPH_MTvTissue
+
+OvPH_MTvTissue_Colif<-ggplot(data= Fanoe, aes(x=Zone, y=Log.Coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Coliforms (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Swab v Composite Tissue ")
+OvPH_MTvTissue_Colif
+
+#Comparisons between original v Repeat
+Fanoe_Rep<-read.csv("Experiment_1_Repeats.csv")
+Fanoe_Rep$Zone<-as.factor(Fanoe_Rep$Zone)
+Fanoe_Rep$Top.bottom<-as.factor(Fanoe_Rep$Top.bottom)
+Fanoe_Rep$Wet.dry<-as.factor(Fanoe_Rep$Wet.dry)
+Fanoe_Rep$Hand.msd<-as.factor(Fanoe_Rep$Hand.msd)
+Fanoe_Rep$Opportunity<-as.factor(Fanoe_Rep$Opportunity)
+Fanoe_Rep$Sample.Type<-as.factor(Fanoe_Rep$Sample.Type)
+
+OvPH_MTvTissue_repeat<-ggplot(data= Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)")+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Aggregative Swab v Composite Produce Sample")
+OvPH_MTvTissue_repeat+facet_grid(.~Opportunity)
+str(Fanoe_Rep)
+
+#Use the distinct function in dplyr to find uniques in dataframes
+#Removal of repeated 
+OrigSamples_Fanoe<-Fanoe%>% filter(Opportunity=="Original")
+OvPH_MTvTissue_original<-ggplot(data= OrigSamples_Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)")+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Aggregative Swab v Composite Produce Sample")
+OvPH_MTvTissue_original
+
+#Repeated samples included in the original dataset
+Fanoe_Comb<-read.csv("Experiment_1_Repeats_Original.csv")
+Fanoe_Comb<-Fanoe_Comb[,-c(7,8,9,10,16,17,18,19,20,21,22,23,24)]
+
+OvPH_MTvTissue_Comb<-ggplot(data= Fanoe_Comb, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)")+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Aggregative Swab v Composite Produce Sample")
+OvPH_MTvTissue_Comb
+
+#Following discussion 07/11 we decided to keep the originals adjusting using repeats for the samples we had no info for 
+adj_Fanoe<-read.csv("Experiment_1_adjusted trim.csv")
+adj_Fanoe$Zone<-as.factor(adj_Fanoe$Zone)
+adj_Fanoe$Top.bottom<-as.factor(adj_Fanoe$Top.bottom)
+adj_Fanoe$Wet.dry<-as.factor(adj_Fanoe$Wet.dry)
+adj_Fanoe$Hand.msd<-as.factor(adj_Fanoe$Hand.msd)
+adj_Fanoe$Opportunity<-as.factor(adj_Fanoe$Opportunity)
+adj_Fanoe$Sample.Type<-as.factor(adj_Fanoe$Sample.Type)
+
+#Visuals - APC+Colif+GenEcoli
+OvPH_MTvTissue_APC<-ggplot(data= adj_Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=20),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest APC Recovery Comparison - Aggregative Swab v Composite Produce Samples")
+OvPH_MTvTissue_APC
+
+OvPH_MTvTissue_Colif<-ggplot(data= adj_Fanoe, aes(x=Zone, y=Log.Coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=20),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Coliforms (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Coliform Recovery Comparison - Aggregative Swab v Composite Produce Samples")
+OvPH_MTvTissue_Colif
+
+OvPH_MTvTissue_genEcoli<-ggplot(data= adj_Fanoe, aes(x=Zone, y=Log.E.coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=20),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Gen. E. coli (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Generic E.coli Recovery Comparison - Aggregative Swab v Composite Produce Samples")
+OvPH_MTvTissue_genEcoli
+### To check top v bottom
+OvPH_MTvTissue_APC<-ggplot(data= adj_Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=20),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest APC Recovery Comparison top v bottom- Aggregative Swab v Composite Produce Samples")
+OvPH_MTvTissue_APC +facet_grid(.~ Top.bottom)
+
+OvPH_MTvTissue_Colif<-ggplot(data= adj_Fanoe, aes(x=Zone, y=Log.Coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=20),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Coliforms (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Coliform Recovery Comparison top v bottom- Aggregative Swab v Composite Produce Samples")
+OvPH_MTvTissue_Colif+facet_grid(.~ Top.bottom)
+
+OvPH_MTvTissue_genEcoli<-ggplot(data= adj_Fanoe, aes(x=Zone, y=Log.E.coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=15),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Gen. E. coli (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Generic E.coli Recovery Comparison top v bottom- Aggregative Swab v Composite Produce Samples")
+OvPH_MTvTissue_genEcoli +facet_grid(.~ Top.bottom)
+
+###Check Wet v Dry
+MT_Fanoe<-adj_Fanoe%>% filter(Sample.Type == "Aggregative Swab")
+OvPH_MT_APC<-ggplot(data= MT_Fanoe, aes(x=Zone, y=Log.APC., col=Hand.msd))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=15),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g of swab)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest APC Recovery Comparison of Aggregative Swabs - Dry v Wet")
+OvPH_MT_APC +facet_grid(.~ Wet.dry)
+
+OvPH_MT_Colif<-ggplot(data= MT_Fanoe, aes(x=Zone, y=Log.Coli., col=Hand.msd))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=15),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Coliforms (Log CFU/g of swab)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Coliforms Recovery Comparison of Aggregative Swabs - Dry v Wet")
+OvPH_MT_Colif +facet_grid(.~ Wet.dry)
+
+OvPH_MT_Ecoli<-ggplot(data= MT_Fanoe, aes(x=Zone, y=Log.E.coli., col=Hand.msd))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=15),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Generic E.coli (Log CFU/g of swab)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Generic E.coli Recovery Comparison of Aggregative Swabs - Dry v Wet")
+OvPH_MT_Ecoli +facet_grid(.~ Wet.dry)
+
+##Revised following discussion 07/12/22 we decided to present wet swabs only. For Eric's presentation
+
+adjforWetMT_Fanoe<-adj_Fanoe%>% filter(Sample.Type=="Produce Sample"| Wet.dry == "WET")
+Adj_OvPH_MTvTissue_APC<-ggplot(data= adjforWetMT_Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=16),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest APC Recovery Comparison - Aggregative Swab v Composite Produce Samples")
+Adj_OvPH_MTvTissue_APC
+
+Adj_OvPH_MTvTissue_Colif<-ggplot(data= adjforWetMT_Fanoe, aes(x=Zone, y=Log.Coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=16),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Coliforms (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Coliform Recovery Comparison - Aggregative Swab v Composite Produce Samples")
+Adj_OvPH_MTvTissue_Colif
+
+#counts for each factor
+MT_Fanoe%>%
+  count(Zone,Wet.dry,Hand.msd, sort=T)
+
+adj_Fanoe%>%
+  count(Sample.Type)
+
+raw%>%
+  count(Zone, Wet.dry, Hand.msd, sort = T)
+
+#for variance
+AggS<-adjforWetMT_Fanoe%>%
+  filter(Sample.Type == "Aggregative Swab")
+CPr<-adjforWetMT_Fanoe%>%
+  filter(Sample.Type=="Produce Sample")
+
+############################################################
+
+#Extract miscellaneous data from it - Output a clean data frame
+#One way to filter it - Add the additional weights to substract as extra columns
+adjforWetMT_Fanoe$Bag.Weight<-ifelse(adjforWetMT_Fanoe$Sample.Type =="Produce Sample", "20", "11.2")
+adjforWetMT_Fanoe$Bag.Weight<-as.numeric(adjforWetMT_Fanoe$Bag.Weight)
+adjforWetMT_Fanoe$Baseline_Weight<-ifelse(adjforWetMT_Fanoe$Sample.Type == "Aggregative Swab", "10.5", "0")
+adjforWetMT_Fanoe$Baseline_Weight<-as.numeric(adjforWetMT_Fanoe$Baseline_Weight)
+
+Exp1_Clean<-adjforWetMT_Fanoe%>%
+  group_by(Sample.Type)%>%
+  mutate(Sample.Weight = Weight.g. - Bag.Weight - Baseline_Weight)
+
+Sample.Weight_stats<-Exp1_Clean%>%
+  group_by(Sample.Type)%>%
+  summarise(mean(Sample.Weight), median(Sample.Weight), sd(Sample.Weight), min(Sample.Weight), max(Sample.Weight), n=n())
+
+
+Weights_CP<-CPr%>%
+  summarise(mean(Weight.g.))
+
