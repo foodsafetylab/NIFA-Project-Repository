@@ -29,14 +29,11 @@ mean(metadata$Total.reads)
 library(dada2)
 library(ggplot2)
 library(tidyverse)
-
 library(devtools)
 library(fantaxtic)
-
 #library(devtools)
 #library(fantaxtic)
-
-#library(MicEco)
+library(MicEco)
 library(microbiome)
 library(phyloseq)
 library(vegan)
@@ -224,8 +221,6 @@ hist(sample_sums(phyloseqAll), main="Histogram: Read Counts", xlab="Total Reads"
      border="blue", col="green", las=1, breaks=60)
 meta_File_4test$filtered.reads<-sample_sums(phyloseqAll)
 ```
-
-
 #Phyloseq by sample time point
 ```{r}
 phyloPreharvest<- subset_samples(phyloseqAll, Sample.Time.Point=="Preharvest")
@@ -271,7 +266,7 @@ remove taxa with kingdom Eukaryota, family and/or class of mitochondria and chlo
 ```
 
 
-#Alpha diveristy analysis- not rare, all samples
+#Alpha diveristy analysis- rarified above, preharvest only 
 ```{r}
 #getting alpha diversity
 alpha_2k400prune<- estimate_richness(phyloPrH_2KPrune400_rare, measures = "Simpson")
@@ -292,9 +287,8 @@ TestRunSimpson3<-data.frame(alpha_2k400prune, alpha_2k500prune, alpha_2k550prune
 colnames(TestRunSimpson3)<-c("Simp400", "Simp500", "Simp550", "Simp600", "Simp900", "Simp1400", "Simp1900")
 
 gathertest<- gather(TestRunSimpson2, Simpson, Value, Simp400:Simp1900)
-boxplot(Value~Simpson, data=gathertest)
-
 gathertest$Simpson<-factor(gathertest$Simpson, levels=c("Simp400", "Simp500", "Simp550", "Simp600", "Simp900", "Simp1400", "Simp1900"))
+boxplot(Value~Simpson, data=gathertest, xlab = "Sequences per samples", ylab="Simpson Diversity Index", las=1)
 
 #teting for diferences in diversity by reducing number of reads/sample
 myaov<-aov(Value~Simpson, data=gathertest)
@@ -359,7 +353,7 @@ tukey_hsd(alpha_pre_model_2way, Shannon ~ Sample.Type)
 tukey_hsd(alpha_pre_model_2way, Shannon ~ Field.Location)
 ```
 
-#Alpha diveristy analysis- rare, preharvest
+#Alpha diveristy analysis- rare, preharvest all samples with >=550 reads
 ```{r}
 #getting alpha diversity - this includes multiple measuremets of dversity - DADA2 doesnt call singletons in data, so this only makes Shannon and Simpson accurate (since they measure ad w/o singletons)
 alpha_pre_rare<- estimate_richness(phyloPreharvest_rare)
@@ -388,12 +382,13 @@ alpha_pre_model2_rare
 ##tukey post-hoc
 tukey_hsd(alpha_pre_model_rare, Shannon ~ Sample.Type)
 
-#different approach #Interpret tukey based on outputs 
+#different approach #Interpret tukey based on outputs - this was tried based on different command
 alpha_pre_model3_rare<-aov(Shannon~Sample.Type, data=alpha_pre_rare)%>% tukey_hsd()
 
 alpha_pre_model4_rare<-aov(Shannon~Sample.Type, data=alpha_pre_rare)
 TukeyHSD(alpha_pre_model4_rare, conf.level=.95)
 
+#Based on simpson index - The higher the index, the higher bacteria diversity within the sample
 alpha_pre_modelSimp_rare<-aov(Simpson~Sample.Type, data=alpha_pre_rare)
 TukeyHSD(alpha_pre_modelSimp_rare, conf.level=.95)
 
@@ -540,15 +535,15 @@ pairwise.perm.manova(distance_matrix_pre, phyloseq::sample_data(phyloPreharvest)
 ```{r}
 #Plot
 PCoA_pre_rare<- ordinate(phyloPreharvest_rare, method="PCoA", distance="bray")
-
+#plot of PCoA - using the rarafied to 550 reads of preharvest samples
 plot_ordination(phyloPreharvest_rare, PCoA_pre_rare, color = "Sample.Type", title="Bray-Curtis PCoA of preharvest samples, rare") + stat_ellipse()+
-  geom_point(aes(shape=Field.Location), size=3) + theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15)) +
+  geom_point(aes(), size=3) + theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15)) +
   labs(shape="Field Location") + labs(color= "Sample Type")
 
 #Two-way PERMANOVA
 distance_matrix_pre_rare<- phyloseq::distance(phyloPreharvest_rare, method = "bray")
 
-permanova_pre_rare<- adonis(distance_matrix_pre_rare ~ phyloseq::sample_data(phyloPreharvest_rare)$Sample.Type*phyloseq::sample_data(phyloPreharvest_rare)$Field.Location, method = "bray")
+permanova_pre_rare<- adonis2(distance_matrix_pre_rare ~ phyloseq::sample_data(phyloPreharvest_rare)$Sample.Type, method = "bray")
 permanova_pre_rare
 
 #Pairwise comparisons
@@ -597,7 +592,94 @@ pairwise.perm.manova(distance_matrix_harvest_rare, phyloseq::sample_data(phyloHa
 ```
 
 #Extract and plot the top10 taxa from cloths v produce
-```{r}
 
+#Combine "Genus" + "Species" for visualization in table purposes. i.e. instead of just having "coli (Species)" we'll have "Escherichia (Genus) coli (species)"
+```{r}
+no.na = !is.na(tax_table(phyloPreharvest_rare)[,"Genus"]) & !is.na(tax_table(phyloPreharvest_rare)[,"Species"])
+tax_table(phyloPreharvest_rare)[no.na][,"Species"] = paste(tax_table(phyloPreharvest_rare)[no.na][,"Genus"], tax_table(phyloPreharvest_rare)[no.na][,"Species"])
+```
+
+##Agglomerate taxa of the same name- for visualization purposes. For instance, if repeated taxa (up to genus) appears in our top 10, this would illustrate them nicely so we can distinguish between species. More important for class (the bigger the umbrella, the better the distinguish should be, since all came from the same place)
+```{r}
+#For obvious reasons, Kingdom and Domain is not here
+tax.glom.phylum.rarefied.PrH<- tax_glom(phyloPreharvest_rare, taxrank="Phylum")
+tax.glom.class.rarefied.PrH<- tax_glom(phyloPreharvest_rare, taxrank="Class")
+tax.glom.order.rarefied.PrH<- tax_glom(phyloPreharvest_rare, taxrank="Order")
+tax.glom.family.rarefied.PrH<- tax_glom(phyloPreharvest_rare, taxrank="Family")
+tax.glom.genus.rarefied.PrH<- tax_glom(phyloPreharvest_rare, taxrank="Genus")
+tax.glom.species.rarefied.PrH<- tax_glom(phyloPreharvest_rare, taxrank="Species")
+```
+#Using "fantaxtic" package,use "top_taxa" to get the top (rank) taxa per sample type or sample ID. Beware that the function might be masked by the function of the same name in microbiome package. Make sure that that you detach the microbiome package.
+
+```{r}
+##Test using Global patterns dataset
+data("GlobalPatterns")
+Test_Toptaxa<-top_taxa(GlobalPatterns, n_taxa = 10, grouping="SampleType")
+```
+
+#Does not work as expected, proceed using the agglomerated phyloseq object for each ranking
+```{r eval=FALSE}
+#Getting top 10 taxa for each agglomerated taxomic ranking from the same phyloseq Preharvest object
+top10phylum_PrHrarefied<-top_taxa(tax.glom.phylum.rarefied.PrH, n_taxa = 10, grouping="Sample.Type", tax_level = "Phylum")
+top10class_PrHrarefied<-top_taxa(tax.glom.class.rarefied.PrH, n_taxa = 10, grouping="Sample.Type", tax_level = "Class")
+top10order_PrHrarefied<-top_taxa(tax.glom.order.rarefied.PrH, n_taxa = 10, grouping="Sample.Type", tax_level = "Order")
+top10family_PrHrarefied<-top_taxa(tax.glom.family.rarefied.PrH, n_taxa = 10, grouping="Sample.Type", tax_level = "Family")
+top10genus_PrHrarefied<-top_taxa(tax.glom.genus.rarefied.PrH, n_taxa = 10, grouping="Sample.Type", tax_level = "Genus")
+top10species_PrHrarefied<-top_taxa(tax.glom.species.rarefied.PrH, n_taxa = 10, grouping="Sample.Type", tax_level = "Species")
+```
+
+```{r eval=FALSE}
+plot0test<- plot_bar(top10class_PrHrarefied[["ps_obj"]], x="Sample.Type", fill="Phylum", title="Most Abundant Phylas") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+```
+
+```{r}
+plot1test<- plot_bar(top10genus_PrHrarefied[["ps_obj"]], x="Sample.Type", fill="Genus", title="Most Abundant Genus") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+```
+
+```{r}
+plot2test<- plot_bar(top10family_PrHrarefied[["ps_obj"]], x="Sample.name", fill="Family", title="Most Abundant Families") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+```
+
+```{r}
+plot3test<- plot_bar(top10species_PrHrarefied[["ps_obj"]], x="Sample.name", fill="Species", title="Most Abundant Species") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+```
+
+```{r}
+plot4test<- plot_bar(top10order_PrHrarefied[["ps_obj"]], x="Sample.name", fill="Order", title="Most Abundant Orders") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+```
+
+```{r}
+plot5test<- plot_bar(top10class_PrHrarefied[["ps_obj"]], x="Sample.name", fill="Claslps", title="Most Abundant Classes") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
+```
+
+
+#Test function - Use to generate relative abundance barplots from agglomerated rankings using a phyloseq object. This transforms the OTUs to 0 - 1 numbers. 
+In this instances the top 20 taxa for "class" was plotted. 
+```{r eval=F}
+testfunction<-names(sort(taxa_sums(tax.glom.class.rarefied.PrH), decreasing=TRUE))[1:10]
+prune.dat_top20<-transform_sample_counts(tax.glom.class.rarefied.PrH, function(OTU) OTU/sum(OTU))
+prune.dat_top20 <- prune_taxa(testfunction, prune.dat_top20) 
+class_plot <- plot_bar(prune.dat_top20, x="Sample.name", fill="Class") + facet_wrap(~Sample.Type, scales="free_x")
+print(class_plot)
+```
+
+
+```{r}
+#<-names(sort(taxa_sums(tax.glom.class.rarefied.PrH), decreasing=TRUE))[1:10]
+```
+
+
+```{r}
+#Venn diagram
+ps_venn(taxGlomClass, group = "Type", relative = TRUE, plot = TRUE, quantities= T, main = "Number of shared and unique classes")
+
+#Euler diagram
+ps_euler(taxGlomClass, group = "Type", relative = TRUE, plot = TRUE, quantities= T, main = "Number of shared and unique classes")
 ```
 
