@@ -629,12 +629,12 @@ top10species_PrHrarefied<-top_taxa(tax.glom.species.rarefied.PrH, n_taxa = 10, g
 ```
 
 ```{r eval=FALSE}
-plot0test<- plot_bar(top10class_PrHrarefied[["ps_obj"]], x="Sample.Type", fill="Phylum", title="Most Abundant Phylas") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+plot0test<- plot_bar(top10class_PrHrarefied[["ps_obj"]], x="Sample.name", fill="Phylum", title="Most Abundant Phylas") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
   theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
 ```
 
 ```{r}
-plot1test<- plot_bar(top10genus_PrHrarefied[["ps_obj"]], x="Sample.Type", fill="Genus", title="Most Abundant Genus") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+plot1test<- plot_bar(top10genus_PrHrarefied[["ps_obj"]], x="Sample.name", fill="Genus", title="Most Abundant Genus") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
   theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
 ```
 
@@ -654,7 +654,7 @@ plot4test<- plot_bar(top10order_PrHrarefied[["ps_obj"]], x="Sample.name", fill="
 ```
 
 ```{r}
-plot5test<- plot_bar(top10class_PrHrarefied[["ps_obj"]], x="Sample.name", fill="Claslps", title="Most Abundant Classes") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
+plot5test<- plot_bar(top10class_PrHrarefied[["ps_obj"]], x="Sample.name", fill="Class", title="Most Abundant Classes") + facet_wrap(~Sample.Type, scales="free_x") + #+ scale_fill_manual(values = c("orchid3", "tomato3", "rosybrown1", "gold", "grey", "mediumturquoise", "lightcoral")) +
   theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size=12), axis.title = element_text(size=15), title=element_text(size=18), legend.text = element_text(size=15), strip.text=element_text(size=15))
 ```
 
