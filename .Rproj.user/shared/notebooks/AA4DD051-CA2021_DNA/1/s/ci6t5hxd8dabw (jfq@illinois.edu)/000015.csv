@@ -1,4 +1,0 @@
-"0","rarefcurvePreharvest<-rarecurve(t(otu_table(phyloPreharvest)), step=50, cex=0.5, label = F) 
-"
-"2","empty rows removed
-"
