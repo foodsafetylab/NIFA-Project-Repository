@@ -242,7 +242,7 @@ phyloPostHarvest<- subset_samples(phyloseqAll, Sample.Time.Point=="Post Harvest"
 ```{r}
 sort(sample_sums(phyloPreharvest))
 hist(log10(sample_sums(phyloPreharvest)), main="Preharvest samples - Reads after trimming", xlab="Log Scale Total Reads", 
-     border="black", col="darkseagreen", las=1, breaks=6)
+     border="black", col="darkseagreen", las=1, breaks=15)
 twoK_prune_phylopreharvest<-prune_samples(sample_sums(phyloPreharvest)>=2000, phyloPreharvest)
 oneK_prune_phylopreharvest<-prune_samples(sample_sums(phyloPreharvest)>=1000, phyloPreharvest)
 ```
@@ -446,6 +446,9 @@ metadata_1_<- sample_data(phyloPreharvest_rare)
 alpha_pre_rare$Sample.Type<- metadata_1_$Sample.Type
 alpha_pre_rare$Field.Location<- metadata_1_$Field.Location
 
+metadata_2_<- sample_data(two50phyloPreharvest_rare)
+two50alpha_pre_rare$Sample.Type<- metadata_2_$Sample.Type
+
 ##anova on sample type
 alpha_pre_model_rare<- lm(Shannon ~ Sample.Type, data= alpha_pre_rare)
 alpha_pre_model2_rare<- anova_test(alpha_pre_model_rare)
@@ -461,7 +464,7 @@ alpha_pre_model4_rare<-aov(Shannon~Sample.Type, data=alpha_pre_rare)
 TukeyHSD(alpha_pre_model4_rare, conf.level=.95)
 
 #Based on simpson index - The higher the index, the higher bacteria diversity within the sample
-alpha_pre_modelSimp_rare<-aov(Simpson~Sample.Type, data=alpha_pre_rare)
+two50alpha_pre_modelSimp_rare<-aov(Simpson~Sample.Type, data=two50phyloPreharvest_rare)
 TukeyHSD(alpha_pre_modelSimp_rare, conf.level=.95)
 
 ########
