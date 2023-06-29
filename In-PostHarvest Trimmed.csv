@@ -1,0 +1,270 @@
+Sampling.Day,Sample.Type,Location,Class,Strata,Test,Best.Estimate.log.CFU.g.,Head Location,Sample.TypeLocation
+InHarvest D1,Swab,Chute,Round 1,,APC,5.394436872,,
+InHarvest D1,Swab,Bins,Round 1,,APC,5.174409923,,
+InHarvest D1,Swab,Chute,Round 2,,APC,4.796522226,,
+InHarvest D1,Swab,Chute,Round 3,,APC,4.995547318,,
+InHarvest D1,Swab,Bins,Round 3,,APC,4.377870923,,
+InHarvest D1,Swab,Bins,Round 2,,APC,4.410926836,,
+InHarvest D1,Grab,Bins,Round 1,,APC,4.526753811,,
+InHarvest D1,Grab,Bins,Round 2,,APC,4.115437436,,
+InHarvest D1,Grab,Bins,Round 3,,APC,4.182117764,,
+InHarvest D1,Grab,Leftover,Round 1,,APC,4.901569899,,
+InHarvest D1,Grab,Leftover,Round 1,,APC,4.734137829,,
+InHarvest D1,Grab,Leftover,Round 2,,APC,4.439963936,,
+InHarvest D1,Grab,Leftover,Round 2,,APC,4.46478752,,
+InHarvest D1,Grab,Leftover,Round 3,,APC,3.704239663,,
+InHarvest D1,Gloves,Gloves,Round 1,,APC,5.094975472,,
+InHarvest D1,Gloves,Gloves,Round 1,,APC,4.837102393,,
+InHarvest D1,Gloves,Gloves,Round 3,,APC,4.825260215,,
+InHarvest D1,Gloves,Gloves,Round 2,,APC,4.9980655,,
+InHarvest D1,Gloves,Gloves,Round 2,,APC,5.109083036,,
+InHarvest D1,Swab,Chute,Round 4,,APC,4.865184642,,
+InHarvest D1,Swab,Chute,Round 4,,APC,4.438337186,,
+InHarvest D1,Swab,Bins,Round 5,,APC,4.956322177,,
+InHarvest D1,Swab,Bins,Round 5,,APC,4.397108124,,
+InHarvest D1,Grab,Leftover,Round 4,,APC,4.46478752,,
+InHarvest D1,Grab,Leftover,Round 5,,APC,4.571242851,,
+InHarvest D1,Grab,Bins,Round 4,,APC,4.273284108,,
+InHarvest D1,Grab,Bins,Round 5,,APC,4.14441709,,
+InHarvest D1,Grab,Leftover,Round 5,,APC,4.452553063,,
+InHarvest D1,Grab,Leftover,Round 4,,APC,4.160851292,,
+InHarvest D1,Gloves,Gloves,Round 5,,APC,4.98357326,,
+InHarvest D1,Gloves,Gloves,Round 5,,APC,4.825610012,,
+InHarvest D1,Gloves,Gloves,Round 4,,APC,5.77366966,,
+InHarvest D1,Gloves,Gloves,Round 4,,APC,4.688772052,,
+InHarvest D1,Swab,Chute,Round 1,,Coliforms,0.584051626,,
+InHarvest D1,Swab,Bins,Round 1,,Coliforms,0.743676281,,
+InHarvest D1,Swab,Chute,Round 2,,Coliforms,0.6554004,,
+InHarvest D1,Swab,Chute,Round 3,,Coliforms,0.627987487,,
+InHarvest D1,Swab,Bins,Round 3,,Coliforms,0.477121255,,
+InHarvest D1,Swab,Bins,Round 2,,Coliforms,0.477121255,,
+InHarvest D1,Grab,Bins,Round 1,,Coliforms,1.431363764,,
+InHarvest D1,Grab,Bins,Round 2,,Coliforms,0.954242509,,
+InHarvest D1,Grab,Bins,Round 3,,Coliforms,1.431363764,,
+InHarvest D1,Grab,Leftover,Round 1,,Coliforms,2.5774918,,
+InHarvest D1,Grab,Leftover,Round 1,,Coliforms,2.008600172,,
+InHarvest D1,Grab,Leftover,Round 2,,Coliforms,1.51851394,,
+InHarvest D1,Grab,Leftover,Round 2,,Coliforms,1.73239376,,
+InHarvest D1,Grab,Leftover,Round 3,,Coliforms,2.982271233,,
+InHarvest D1,Gloves,Gloves,Round 1,,Coliforms,2.247973266,,
+InHarvest D1,Gloves,Gloves,Round 1,,Coliforms,2.537819095,,
+InHarvest D1,Gloves,Gloves,Round 3,,Coliforms,2.641474111,,
+InHarvest D1,Gloves,Gloves,Round 2,,Coliforms,2.450249108,,
+InHarvest D1,Gloves,Gloves,Round 2,,Coliforms,2.494154594,,
+InHarvest D1,Swab,Chute,Round 4,,Coliforms,0.65444107,,
+InHarvest D1,Swab,Chute,Round 4,,Coliforms,0.840922099,,
+InHarvest D1,Swab,Bins,Round 5,,Coliforms,0.912994204,,
+InHarvest D1,Swab,Bins,Round 5,,Coliforms,2.388811413,,
+InHarvest D1,Grab,Leftover,Round 4,,Coliforms,1.819543936,,
+InHarvest D1,Grab,Leftover,Round 5,,Coliforms,1.653212514,,
+InHarvest D1,Grab,Bins,Round 4,,Coliforms,2.079181246,,
+InHarvest D1,Grab,Bins,Round 5,,Coliforms,1.681241237,,
+InHarvest D1,Grab,Leftover,Round 5,,Coliforms,2.59439255,,
+InHarvest D1,Grab,Leftover,Round 4,,Coliforms,0.477121255,,
+InHarvest D1,Gloves,Gloves,Round 5,,Coliforms,1.943933974,,
+InHarvest D1,Gloves,Gloves,Round 5,,Coliforms,1.88203181,,
+InHarvest D1,Gloves,Gloves,Round 4,,Coliforms,2.907294101,,
+InHarvest D1,Gloves,Gloves,Round 4,,Coliforms,2.526644152,,
+InHarvest D2,Swab,Chute,Round 2,,APC,4.680059425,,
+InHarvest D2,Swab,Chute,Round 4,,APC,4.136814841,,
+InHarvest D2,Swab,Chute,Round 3,,APC,4.110777119,,
+InHarvest D2,Grab,Bins,Round 5,,APC,4.46478752,,
+InHarvest D2,Grab,Bins,Round 4,,APC,4.370883017,,
+InHarvest D2,Grab,Bins,Round 3,,APC,4.580582877,,
+InHarvest D2,Grab,Bins,Round 2,,APC,3.597695186,,
+InHarvest D2,Grab,Bins,Round 1,,APC,4.003460532,,
+InHarvest D2,Grab,Leftover,Round 5,Bed 1,APC,4.399846713,,
+InHarvest D2,Grab,Leftover,Round 5,Bed 5,APC,3.936513742,,
+InHarvest D2,Grab,Leftover,Round 4,Bed 1,APC,3.995635195,,
+InHarvest D2,Grab,Leftover,Round 4,Bed 5,APC,4.152899596,,
+InHarvest D2,Grab,Leftover,Round 3,Bed 1,APC,4.656673046,,
+InHarvest D2,Grab,Leftover,Round 1,Bed 1,APC,4.452553063,,
+InHarvest D2,Grab,Leftover,Round 1,Bed 5,APC,4.521268876,,
+InHarvest D2,Grab,Leftover,Round 2,Bed 1,APC,5.192213785,,
+InHarvest D2,Grab,Leftover,Round 2,Bed 5,APC,4.14176323,,
+InHarvest D2,Grab,Leftover,Round 3,Bed 5,APC,4.541953474,,
+InHarvest D2,Gloves,Gloves,Round 4,Bed 1,APC,5.128074094,,
+InHarvest D2,Gloves,Gloves,Round 2,Bed 1,APC,5.182757792,,
+InHarvest D2,Gloves,Gloves,Round 2,Bed 5,APC,4.898393474,,
+InHarvest D2,Gloves,Gloves,Round 5,Bed 1,APC,5.318700595,,
+InHarvest D2,Gloves,Gloves,Round 5,Bed 5,APC,5.174381991,,
+InHarvest D2,Gloves,Gloves,Round 3,Bed 5,APC,4.421885845,,
+InHarvest D2,Gloves,Gloves,Round 4,Bed 5,APC,4.913769489,,
+InHarvest D2,Gloves,Gloves,Round 1,Bed 1,APC,4.672649128,,
+InHarvest D2,Gloves,Gloves,Round 3,Bed 1,APC,4.851596566,,
+InHarvest D2,Swab,Chute,Round 1,,APC,4.86861876,,
+InHarvest D2,Swab,Bins,Round 4,,APC,3.980494233,,
+InHarvest D2,Swab,Bins,Round 5,,APC,4.153155214,,
+InHarvest D2,Swab,Bins,Round 3,,APC,4.012610126,,
+InHarvest D2,Swab,Bins,Round 1,,APC,4.130303129,,
+InHarvest D2,Swab,Bins,Round 2,,APC,4.235444273,,
+InHarvest D2,Gloves,Gloves,Round 1,Bed 5,APC,4.186861154,,
+InHarvest D2,Swab,Chute,Round 5,,APC,4.251090553,,
+InHarvest D2,Swab,Chute,Round 2,,Coliforms,0.630607639,,
+InHarvest D2,Swab,Chute,Round 4,,Coliforms,0.591507725,,
+InHarvest D2,Swab,Chute,Round 3,,Coliforms,0.64688413,,
+InHarvest D2,Grab,Bins,Round 5,,Coliforms,3.290034611,,
+InHarvest D2,Grab,Bins,Round 4,,Coliforms,3.472756449,,
+InHarvest D2,Grab,Bins,Round 3,,Coliforms,2.541579244,,
+InHarvest D2,Grab,Bins,Round 2,,Coliforms,1.982271233,,
+InHarvest D2,Grab,Bins,Round 1,,Coliforms,3.240549248,,
+InHarvest D2,Grab,Leftover,Round 5,Bed 1,Coliforms,3.357934847,,
+InHarvest D2,Grab,Leftover,Round 5,Bed 5,Coliforms,2.209515015,,
+InHarvest D2,Grab,Leftover,Round 4,Bed 1,Coliforms,2.887054378,,
+InHarvest D2,Grab,Leftover,Round 4,Bed 5,Coliforms,2.201397124,,
+InHarvest D2,Grab,Leftover,Round 3,Bed 1,Coliforms,2.23299611,,
+InHarvest D2,Grab,Leftover,Round 3,Bed 1,E. coli,1.322219295,,
+InHarvest D2,Grab,Leftover,Round 1,Bed 1,Coliforms,3.217483944,,
+InHarvest D2,Grab,Leftover,Round 1,Bed 5,Coliforms,2.46834733,,
+InHarvest D2,Grab,Leftover,Round 2,Bed 1,Coliforms,2.683947131,,
+InHarvest D2,Grab,Leftover,Round 2,Bed 5,Coliforms,2.29666519,,
+InHarvest D2,Grab,Leftover,Round 3,Bed 5,Coliforms,2.26245109,,
+InHarvest D2,Gloves,Gloves,Round 4,Bed 1,Coliforms,1.892423209,,
+InHarvest D2,Gloves,Gloves,Round 2,Bed 1,Coliforms,1.815163592,,
+InHarvest D2,Gloves,Gloves,Round 2,Bed 5,Coliforms,2.290034611,,
+InHarvest D2,Gloves,Gloves,Round 5,Bed 1,Coliforms,2.266127123,,
+InHarvest D2,Gloves,Gloves,Round 5,Bed 5,Coliforms,2.241878383,,
+InHarvest D2,Gloves,Gloves,Round 3,Bed 5,Coliforms,2.089447385,,
+InHarvest D2,Gloves,Gloves,Round 4,Bed 5,Coliforms,2.559697413,,
+InHarvest D2,Gloves,Gloves,Round 1,Bed 1,Coliforms,2.1834802,,
+InHarvest D2,Gloves,Gloves,Round 3,Bed 1,Coliforms,2.208839723,,
+InHarvest D2,Swab,Chute,Round 1,,Coliforms,1.941609134,,
+InHarvest D2,Swab,Bins,Round 4,,Coliforms,0.634141259,,
+InHarvest D2,Swab,Bins,Round 5,,Coliforms,1.441347985,,
+InHarvest D2,Swab,Bins,Round 3,,Coliforms,0.779614015,,
+InHarvest D2,Swab,Bins,Round 1,,Coliforms,1.675458269,,
+InHarvest D2,Swab,Bins,Round 2,,Coliforms,0.799281626,,
+InHarvest D2,Gloves,Gloves,Round 1,Bed 5,Coliforms,1.747166398,,
+InHarvest D2,Swab,Chute,Round 5,,Coliforms,1.547192967,,SwabChute
+PostHarvest D1,Swab,Chute,Round 1, ,APC,3.576186435,Exterior,SwabChute
+PostHarvest D1,Swab,Chute,Round 2,,APC,3.966157514,Exterior,SwabChute
+PostHarvest D1,Swab,Interior,Round 2,,APC,3.404719714,Interior,SwabInterior
+PostHarvest D1,Swab,Interior,Round 3,,APC,3.566037591,Interior,SwabInterior
+PostHarvest D1,Swab,Chute,Round 3,,APC,4.242798476,Exterior,SwabChute
+PostHarvest D1,Swab,Interior,Round 1,,APC,3.738051805,Interior,SwabInterior
+PostHarvest D1,Grab,Sides,Round 3,Comp2,APC,4.734559822,Exterior,GrabSides
+PostHarvest D1,Grab,Sides,Round 3,Comp1,APC,4.180554125,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 3,Comp1,APC,3.725863493,Interior,GrabInterior
+PostHarvest D1,Grab,Sides,Round 2,,APC,4.118062056,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 2,,APC,3.670245853,Interior,GrabInterior
+PostHarvest D1,Gloves,Gloves,Round 2,,APC,4.314621203,Exterior,Gloves
+PostHarvest D1,Gloves,Gloves,Round 3,,APC,4.23855983,Exterior,Gloves
+PostHarvest D1,Gloves,Gloves,Round 1,,APC,3.545307116,Exterior,Gloves
+PostHarvest D1,Swab,Chute,Round 4,,APC,3.648737102,Exterior,SwabChute
+PostHarvest D1,Swab,Chute,Round 5,,APC,3.624104201,Exterior,SwabChute
+PostHarvest D1,Swab,Interior,Round 4,,APC,3.049407795,Interior,SwabInterior
+PostHarvest D1,Swab,Interior,Round 5,,APC,3.095310746,Interior,SwabInterior
+PostHarvest D1,Grab,Sides,Round 1,,APC,3.859479521,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 1,,APC,3.033423755,Interior,GrabInterior
+PostHarvest D1,Grab,Sides,Round 4,Comp1,APC,3.777634541,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 4,Comp1,APC,2.653212514,Interior,GrabInterior
+PostHarvest D1,Grab,Interior,Round 3,Comp2,APC,3.556302501,Interior,GrabInterior
+PostHarvest D1,Grab,Sides,Round 4,Comp2,APC,3.81756537,Exterior,GrabSides
+PostHarvest D1,Gloves,Gloves,Round 4,,APC,3.522444234,Exterior,Gloves
+PostHarvest D1,Gloves,Gloves,Round 5,,APC,3.522444234,Exterior,Gloves
+PostHarvest D1,Grab,Sides,Round 5,Comp2,APC,3.747520395,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 5,Comp2,APC,2.431363764,Interior,GrabInterior
+PostHarvest D1,Grab,Sides,Round 5,Comp1,APC,4.032581283,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 5,Comp1,APC,3.209515015,Interior,GrabInterior
+PostHarvest D1,Grab,Interior,Round 4,Comp2,APC,4.46478752,Interior,GrabInterior
+PostHarvest D1,Swab,Chute,Round 1, ,Coliforms,1.057672495,Exterior,SwabChute
+PostHarvest D1,Swab,Chute,Round 2,,Coliforms,1.057672495,Exterior,SwabChute
+PostHarvest D1,Swab,Interior,Round 2,,Coliforms,1.819543936,Interior,SwabInterior
+PostHarvest D1,Swab,Interior,Round 3,,Coliforms,2.81756537,Interior,SwabInterior
+PostHarvest D1,Swab,Chute,Round 3,,Coliforms,1.022777215,Exterior,SwabChute
+PostHarvest D1,Swab,Interior,Round 1,,Coliforms,2.887054378,Interior,SwabInterior
+PostHarvest D1,Grab,Sides,Round 3,Comp2,Coliforms,1.838849091,Exterior,GrabSides
+PostHarvest D1,Grab,Sides,Round 3,Comp1,Coliforms,0.77815125,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 3,Comp1,Coliforms,2.895422546,Interior,GrabInterior
+PostHarvest D1,Grab,Sides,Round 2,,Coliforms,2.426511261,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 2,,Coliforms,2.045322979,Interior,GrabInterior
+PostHarvest D1,Gloves,Gloves,Round 2,,Coliforms,0.828707624,Exterior,Gloves
+PostHarvest D1,Gloves,Gloves,Round 3,,Coliforms,0.705773712,Exterior,Gloves
+PostHarvest D1,Gloves,Gloves,Round 1,,Coliforms,0.954242509,Exterior,Gloves
+PostHarvest D1,Swab,Chute,Round 4,,Coliforms,1.358702491,Exterior,SwabChute
+PostHarvest D1,Swab,Chute,Round 5,,Coliforms,1.0678017,Exterior,SwabChute
+PostHarvest D1,Swab,Interior,Round 4,,Coliforms,1.841131853,Interior,SwabInterior
+PostHarvest D1,Swab,Interior,Round 5,,Coliforms,1.192220759,Interior,SwabInterior
+PostHarvest D1,Grab,Sides,Round 1,,Coliforms,2.875061263,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 1,,Coliforms,1.62324929,Interior,GrabInterior
+PostHarvest D1,Grab,Sides,Round 4,Comp1,Coliforms,1.380211242,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 4,Comp1,Coliforms,0.477121255,Interior,GrabInterior
+PostHarvest D1,Grab,Interior,Round 3,Comp2,Coliforms,1.681241237,Interior,GrabInterior
+PostHarvest D1,Grab,Sides,Round 4,Comp2,Coliforms,2.786751422,Exterior,GrabSides
+PostHarvest D1,Gloves,Gloves,Round 4,,Coliforms,1.556302501,Exterior,Gloves
+PostHarvest D1,Gloves,Gloves,Round 5,,Coliforms,2.36456186,Exterior,Gloves
+PostHarvest D1,Grab,Sides,Round 5,Comp2,Coliforms,1.681241237,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 5,Comp2,Coliforms,0.954242509,Interior,GrabInterior
+PostHarvest D1,Grab,Sides,Round 5,Comp1,Coliforms,1.995635195,Exterior,GrabSides
+PostHarvest D1,Grab,Interior,Round 5,Comp1,Coliforms,2.008600172,Interior,GrabInterior
+PostHarvest D1,Grab,Interior,Round 4,Comp2,Coliforms,3.844477176,Interior,GrabInterior
+PostHarvest D2,Swab,Interior,Round 1,,APC,3.158552265,Interior,SwabInterior
+PostHarvest D2,Swab,Interior,Round 2,,APC,2.493466125,Interior,SwabInterior
+PostHarvest D2,Swab,Chute,Round 1,,APC,3.949775076,Exterior,SwabChute
+PostHarvest D2,Swab,Chute,Round 2,,APC,4.305136319,Exterior,SwabChute
+PostHarvest D2,Grab,Interior,Round 1,Comp2,APC,4.169086357,Interior,GrabInterior
+PostHarvest D2,Grab,Sides,Round 1,Comp2,APC,4.84298347,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 1,Comp1,APC,4.439963936,Exterior,GrabSides
+PostHarvest D2,Grab,Interior,Round 1,Comp1,APC,3.846337112,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 2,Comp1,APC,2.908485019,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 2,Comp2,APC,3.51054501,Interior,GrabInterior
+PostHarvest D2,Grab,Sides,Round 2,Comp1,APC,4.51054501,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 2,Comp1,APC,4.721398376,Exterior,GrabSides
+PostHarvest D2,Gloves,Gloves,Round 2,,APC,4.102187401,Exterior,Gloves
+PostHarvest D2,Gloves,Gloves,Round 1,,APC,3.927393579,Exterior,Gloves
+PostHarvest D2,Swab,Interior,Round 5,,APC,2.764902328,Interior,SwabInterior
+PostHarvest D2,Grab,Sides,Round 3,Comp2,APC,3.927370363,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 3,Comp1,APC,4.589726256,Exterior,GrabSides
+PostHarvest D2,Swab,Interior,Round 3,,APC,3.220865878,Interior,SwabInterior
+PostHarvest D2,Swab,Chute,Round 4,,APC,4.396649008,Exterior,SwabChute
+PostHarvest D2,Swab,Interior,Round 4,,APC,3.847811798,Interior,SwabInterior
+PostHarvest D2,Swab,Chute,Round 3,,APC,3.586908647,Exterior,SwabChute
+PostHarvest D2,Swab,Chute,Round 5,,APC,3.5075588,Exterior,SwabChute
+PostHarvest D2,Grab,Interior,Round 3,Comp1,APC,3.201397124,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 3,Comp2,APC,4.087781418,Interior,GrabInterior
+PostHarvest D2,Gloves,Gloves,Round 3,,APC,7.172809281,Exterior,Gloves
+PostHarvest D2,Gloves,Gloves,Round 4,,APC,3.293543773,Exterior,Gloves
+PostHarvest D2,Gloves,Gloves,Round 5,,APC,3.296742145,Exterior,Gloves
+PostHarvest D2,Grab,Interior,Round 4,Comp2,APC,4.531734309,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 4,Comp1,APC,3.936513742,Interior,GrabInterior
+PostHarvest D2,Grab,Sides,Round 4,Comp1,APC,4.648847708,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 4,Comp2,APC,4.607455023,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 5,Comp2,APC,4.632760888,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 5,Comp1,APC,4.531734309,Exterior,GrabSides
+PostHarvest D2,Grab,Interior,Round 5,Comp2,APC,4.571242851,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 5,Comp1,APC,2.653212514,Interior,GrabInterior
+PostHarvest D2,Swab,Interior,Round 1,,Coliforms,1.630278487,Interior,SwabInterior
+PostHarvest D2,Swab,Interior,Round 2,,Coliforms,0.414284879,Interior,SwabInterior
+PostHarvest D2,Swab,Chute,Round 1,,Coliforms,1.551835068,Exterior,SwabChute
+PostHarvest D2,Swab,Chute,Round 2,,Coliforms,1.103739195,Exterior,SwabChute
+PostHarvest D2,Grab,Interior,Round 1,Comp2,Coliforms,2.411619706,Interior,GrabInterior
+PostHarvest D2,Grab,Sides,Round 1,Comp2,Coliforms,3.056904851,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 1,Comp1,Coliforms,2.79518459,Exterior,GrabSides
+PostHarvest D2,Grab,Interior,Round 1,Comp1,Coliforms,1.954242509,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 2,Comp1,Coliforms,1.51851394,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 2,Comp2,Coliforms,1.477121255,Interior,GrabInterior
+PostHarvest D2,Grab,Sides,Round 2,Comp1,Coliforms,0.48,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 2,Comp1,Coliforms,2.799340549,Exterior,GrabSides
+PostHarvest D2,Gloves,Gloves,Round 2,,Coliforms,2.257089361,Exterior,Gloves
+PostHarvest D2,Gloves,Gloves,Round 1,,Coliforms,1.704305758,Exterior,Gloves
+PostHarvest D2,Swab,Interior,Round 5,,Coliforms,1.325569634,Interior,SwabInterior
+PostHarvest D2,Grab,Sides,Round 3,Comp2,Coliforms,2.139879086,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 3,Comp1,Coliforms,1.176091259,Exterior,GrabSides
+PostHarvest D2,Swab,Interior,Round 3,,Coliforms,2.207501917,Interior,SwabInterior
+PostHarvest D2,Swab,Chute,Round 4,,Coliforms,1.099983818,Exterior,SwabChute
+PostHarvest D2,Swab,Interior,Round 4,,Coliforms,1.671720539,Interior,SwabInterior
+PostHarvest D2,Swab,Chute,Round 3,,Coliforms,1.081758669,Exterior,SwabChute
+PostHarvest D2,Swab,Chute,Round 5,,Coliforms,2.133978137,Exterior,SwabChute
+PostHarvest D2,Grab,Interior,Round 3,Comp1,Coliforms,1.838849091,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 3,Comp2,Coliforms,1.819543936,Interior,GrabInterior
+PostHarvest D2,Gloves,Gloves,Round 3,,Coliforms,1.864142671,Exterior,Gloves
+PostHarvest D2,Gloves,Gloves,Round 4,,Coliforms,2.240298261,Exterior,Gloves
+PostHarvest D2,Gloves,Gloves,Round 5,,Coliforms,1.81962089,Exterior,Gloves
+PostHarvest D2,Grab,Interior,Round 4,Comp2,Coliforms,2.699837726,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 4,Comp1,Coliforms,2.240549248,Interior,GrabInterior
+PostHarvest D2,Grab,Sides,Round 4,Comp1,Coliforms,1.892094603,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 4,Comp2,Coliforms,1.838849091,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 5,Comp2,Coliforms,2.673020907,Exterior,GrabSides
+PostHarvest D2,Grab,Sides,Round 5,Comp1,Coliforms,2.73239376,Exterior,GrabSides
+PostHarvest D2,Grab,Interior,Round 5,Comp2,Coliforms,1.255272505,Interior,GrabInterior
+PostHarvest D2,Grab,Interior,Round 5,Comp1,Coliforms,0.477121255,Interior,GrabInterior

@@ -7,15 +7,25 @@ InPst<-read.csv("R_In-PostH_Swabs and Tissues.csv")
 #####Run from here
 library(tidyverse)
 library(ggplot2)
+library(RColorBrewer)
+library(ggsci)
 
 PreHarvest<-read.csv("PreHarvest Trimmed.csv")
-Pr0.1<-PreHarvest[,-1]
+#Pr0.1<-PreHarvest[,-1]
 # colnames(Pr0.1)<-c("Sampling Day", "Sample Type", "Area", "Field Location", "Class", "Strata", "Test", "Best Estimate Log(CFU/g)")
 # write.csv(Pr0.1, "PreHarvest Trimmed.csv")
 InPostharvest<-read.csv("In-PostHarvest Trimmed.csv")
 InPst0.1<-InPostharvest[,-1]
 # colnames(InPst0.1)<-c("Sampling Day", "Sample Type", "Location", "Class", "Strata", "Test", "Best Estimate Log(CFU/g)")
 # write.csv(InPst0.1, "In-PostHarvest Trimmed.csv")
+
+#Separate the In-harvest and Postharvest from the InPostharvest vector
+# InHarvest<-InPostharvest[1:137,]
+# PostHarvest<-InPostharvest[138:269,]
+# write.csv(InHarvest, "InHarvest_2021.csv", row.names = F)
+# write.csv(PostHarvest, "PostHarvest_2021.csv" , row.names = F)
+InHarvest<-read.csv("InHarvest_2021.csv")
+PostHarvest<-read.csv("PostHarvest_2021.csv")
 
 #Data Filtering and Tidying 
 ##PreHarvest - (1)Swab, Tissue and Tissue HR in Perimeter 
@@ -35,6 +45,7 @@ Pr5.1<-Pr5%>% filter(Field.Loc=="Bed 1" | Field.Loc== "Edge"|Field.Loc=="Bed 8")
 ####InHarvest and Post Harvest
 IH<- InPst0.1 %>% filter(Sampling.Day == "InHarvest D1"|Sampling.Day == "InHarvest D2")
 PH<- InPst0.1 %>% filter(Sampling.Day == "PostHarvest D1"|Sampling.Day == "PostHarvest D2")
+InHarvest_noEcoli<-InHarvest%>%filter(Test=="APC"|Test=="Coliforms")
 
 #InHarvest Swabs Bins v Chute  v Tissue Bins 
 IH_MTvTissue<-IH %>% filter(Sample.Type == "MT"| Sample.Type == "Tissue")
@@ -50,41 +61,79 @@ PH1<-PH %>% filter(Sample.Type == "Gloves"| Location == "Sides" | Location == "C
 PH2<-PH %>% filter(Location == "Interior")
 
 
-##Previous Trials
-# Pr4<-InPst%>% filter(Sampling.Day == "InHarvest D2")
-# Pr3.1<-Pr3%>% filter(Location == "Bins" | Location == "Chute" | Location == "Interior") 
-# Pr3.2<-Pr3%>% filter(Location == "Chute" ) 
-# Pr4<- InPst %>% filter(Sampling.Day == "InHarvest D2" | Strata == "Bed 1" | Strata == "Bed 5")
-# Pr5<- InPst %>% filter(Sampling.Day == "InHarvest D2" | Sampling.Day== "InHarvest D1")
-# Pr5<-Pr5[-115,]
-# 
-# PP<-Pr%>% filter(Sampling.Day == "Preharvest D2")
-# PPP<-PPP1%>%filter(Sample.Type == "Grab"|Sample.Type == "Swab")
-# PPP1<-PP%>% filter(Field.Loc=="Bed 1" | Field.Loc=="Bed 5")
-# PPP<-PPP[,-3]
-# 
-# II<-InPst%>%filter(Sampling.Day=="InHarvest D2")
-# II2<-II%>%filter(Strata=="Bed 1"| Strata == "Bed 5")
-# II3<-II2[-26,]
-# 
-# ant<-ggplot(data= PPP, aes(x=Sample.Type, y=Best.Estimate , col= Field.Loc))+
-#   geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
-#   expand_limits(y=0)+
-#   scale_y_continuous("Best Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
-#   geom_point(position=position_jitterdodge(),alpha=1)+
-#   ggtitle("Matching PreHarvest Bacterial Recovery Comparison - Swab v Composite Tissue ")
-# ant+ facet_grid(.~Test)
-# 
-# ant1<-ggplot(data= II3, aes(x=Sample.Type, y=Best.Estimate.log.CFU.g. , col= Strata))+
-#   geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
-#   expand_limits(y=0)+
-#   scale_y_continuous("Best Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
-#   geom_point(position=position_jitterdodge(),alpha=1)+
-#   ylim(0, 6)+
-#   ggtitle("Matching InHarvest Bacterial Recovery Comparison - Swab v Composite Tissue ")
-# ant1+ facet_grid(.~Test)
+##NIFA Poster - 2021 work
+master<-read.csv("C:/Users/jfq/Box Sync/NIFA Project/CA 9-2021/Plate results/Master plate counts.csv")
+#Colorblind Friendly palette
+cbp1 <- c( "#CC79A7","#56B4E9", "#009E73",
+           "#0072B2", "#D55E00")
 
-##
+#Preharvest
+Overall_PrHarvest_comparison<-ggplot(data=PreHarvest, aes(x=Sample.Type, y=Best.Estimate, col=Test))+
+  geom_boxplot(outlier.colour="black", outlier.shape = 19)+
+  geom_hline(yintercept = 0.47, color="red")+
+  geom_hline(yintercept = 0.6, color="steelblue")+
+  scale_color_aaas()+
+  scale_y_continuous("Best Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=0.7, size=1)+
+  ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Swab v Composite Produce Samples ")
+  
+Overall_PrHarvest_comparison 
+
+#InHarvest
+Harvesters<-InHarvest_noEcoli%>%filter(Location=="Leftover"|Location=="Gloves")
+
+Overall_OnHarvester_comparison<-ggplot(data=Harvesters, aes(x=Sample.Type, y=Best.Estimate.log.CFU.g., col=Sample.Type))+
+  geom_boxplot(outlier.colour="black", outlier.shape = 19)+
+  #geom_hline(yintercept = 0.47, color="red")+
+  #geom_hline(yintercept = 0.6, color="steelblue")+
+  scale_color_aaas()+
+  scale_y_continuous("Best Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=0.7, size=1)+
+  ggtitle("Overall In-Harvest Bacterial Recovery Comparison - Aggregative Swabs, Gloves and Composite Produce Samples")
+
+Overall_OnHarvester_comparison+facet_grid(.~Test)
+
+Overall_BinHarvester_comparison<-ggplot(data=InHarvest_noEcoli, aes(x=Sample.Type, y=Best.Estimate.log.CFU.g., col=Test))+
+  geom_boxplot(outlier.colour="black", outlier.shape = 19)+
+  #geom_hline(yintercept = 0.47, color="red")+
+  #geom_hline(yintercept = 0.6, color="steelblue")+
+  scale_color_brewer(palette = "Set2")+
+  scale_y_continuous("Best Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=0.7, size=1)+
+  ggtitle("Overall In-Harvest Bacterial Recovery Comparison - Aggregative Swabs, Gloves and Composite Produce Samples")
+
+Overall_BinHarvester_comparison+facet_wrap(.~Test)
+
+#remove the ecoli sample from master - call it, master no ecoli
+master_noecoli<-master%>%filter(Test=="APC"|Test=="Coliform")
+
+master_noecoli$Sample.Time.Point_factor<- factor(master_noecoli$Sample.Time.Point, levels=c('Preharvest', 'Harvest', 'Post Harvest'))
+OvSample<-ggplot(data= master_noecoli, aes(x=Sample.Type, y=Log.CFU.g., col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=15),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  stat_summary(aes(x=Sample.Type, y=Log.CFU.g.), fun="mean", shape=4) +
+  facet_grid(Test~Sample.Time.Point, scales = "free_x") + 
+  ggtitle("Overall Bacterial Recovery Comparison")
+OvSample
+
+master_noecoli$Sample.Description_factor<- factor(master_noecoli$Sample.Description, levels=c('Cloth produce bottom', 'Cloth produce sides', 'Produce bottom', 'Produce sides', 'Produce sides HR', 'Produce leftover trims', 'Glove', 'Chute', 'Produce bins', 'Cloth bin tops', 'Cloth produce interior', 'Produce interior'))
+
+all_plot<-ggplot(data= master_noecoli, aes(x=Sample.Description_factor, y=Log.CFU.g., col=Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=12),axis.text.x = element_text(angle=45, hjust=1, size = 10))+
+  expand_limits(y=0)+
+  scale_color_manual(values=cbp1)+
+  scale_y_continuous("Bacterial Counts Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  stat_summary(aes(x=Sample.Description_factor, y=Log.CFU.g.), fun="mean", shape=4) +
+  ggtitle("Aggregative and Composite Produce Samples Bacterial Recovery Overview")+
+  xlab("Sample Description") +
+  facet_grid(Test~Sample.Time.Point_factor, scales="free", switch="y")
+all_plot
+ggsave("Trial2.jpeg",all_plot, "jpeg",width = 10, height = 6, units = "in", dpi=300)
+####END OF NIFA POSTER FOR 2021
+################################
 #Swab v Tissue Overall Perimeter
 OvPH_MTvTissue<-ggplot(data= Pr2, aes(x=Area, y=Best.Estimate , col= Sample.Type))+
   geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+

@@ -1,6 +1,8 @@
-#libraries
+#libraries - 2 extra libs for poster
 library(ggplot2)
 library(tidyverse)
+library(RColorBrewer) #new
+library(ggsci) #new
 
 #raw data
 raw<-read.csv("Exp_1_results_organized.csv")
