@@ -1,0 +1,69 @@
+---
+title: "FIeld trials CA 2022_v1"
+author: "JQP"
+date: "2023-06-29"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+library(tidyverse)
+```
+
+
+```{r}
+raw<-read.csv("Exp_1_results_organized.csv")
+str(raw)
+clean_Fanoe<-read.csv("Experiment_1_trimmed.csv")
+str(clean_Fanoe)
+Fanoe$Zone<-as.factor(Fanoe$Zone)
+Fanoe$Top.bottom<-as.factor(Fanoe$Top.bottom)
+Fanoe$Wet.dry<-as.factor(Fanoe$Wet.dry)
+Fanoe$Hand.msd<-as.factor(Fanoe$Hand.msd)
+Fanoe$Opportunity<-as.factor(Fanoe$Opportunity)
+Fanoe$Sample.Type<-as.factor(Fanoe$Sample.Type)
+Fanoe$Log.Coli.<-as.numeric(Fanoe$Log.Coli.)
+str(Fanoe) #This contains all original and repeated samples, 
+```
+
+*Initial Visuals*
+
+```{r}
+APC_MTvPr<-ggplot(data= Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Swab v Composite Tissue ")
+APC_MTvPr+facet_grid(.~Opportunity)
+```
+
+```{r}
+Colif_MTvPr<-ggplot(data= Fanoe, aes(x=Zone, y=Log.Coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Coliforms (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Swab v Composite Tissue ")
+Colif_MTvPr+facet_grid(.~Opportunity)
+```
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

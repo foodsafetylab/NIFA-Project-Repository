@@ -32,7 +32,7 @@ T_Fanoe<-Fanoe%>% filter(Sample.Type == "Aggregative Swab")
 #For Tissue only
 Tissue_Fanoe<-Fanoe%>% filter(Sample.Type == "Produce Sample")
 #For repeated comparison
-original<-Fanoe[!(duplicated(Fanoe) | duplicated(Fanoe, fromLast = TRUE)), ]
+#original<-Fanoe[!(duplicated(Fanoe) | duplicated(Fanoe, fromLast = TRUE)), ] #worked, no duplicates, still contains all the data
 
 ##############################################
 #Overall Visuals
