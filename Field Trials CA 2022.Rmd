@@ -2,7 +2,9 @@
 title: "FIeld trials CA 2022_v1"
 author: "JQP"
 date: "2023-06-29"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -23,8 +25,8 @@ library(tidyverse)
 ```{r}
 raw<-read.csv("Exp_1_results_organized.csv")
 str(raw)
-clean_Fanoe<-read.csv("Experiment_1_trimmed.csv")
-str(clean_Fanoe)
+Fanoe<-read.csv("Experiment_1_trimmed.csv")
+str(Fanoe)
 Fanoe$Zone<-as.factor(Fanoe$Zone)
 Fanoe$Top.bottom<-as.factor(Fanoe$Top.bottom)
 Fanoe$Wet.dry<-as.factor(Fanoe$Wet.dry)
@@ -33,13 +35,15 @@ Fanoe$Opportunity<-as.factor(Fanoe$Opportunity)
 Fanoe$Sample.Type<-as.factor(Fanoe$Sample.Type)
 Fanoe$Log.Coli.<-as.numeric(Fanoe$Log.Coli.)
 str(Fanoe) #This contains all original and repeated samples, 
+SumFanoe<-Fanoe%>%group_by(Sample.Type, Opportunity,Wet.dry, Hand.msd)%>%summarise(n=n())
+knitr::kable(SumFanoe)
 ```
-
+**Dataset containing all samples, all originals and all repeated. Originals that lacked information, were TNTC or odd results. Produce original= 22; Produce repeat= 14; Dry cloths msd Original= 11;Dry cloths msd repeated= 3; Wet cloths hand original=6;Wet cloths hand repeat=4; Wet cloths MSD original=15; Wet cloths MSD repeat=11**
 *Initial Visuals*
 
-```{r}
+```{r echo=FALSE}
 APC_MTvPr<-ggplot(data= Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
-  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  geom_boxplot(outlier.alpha = 0)+theme(plot.title = element_text(size = rel(1.2), face = "bold"), axis.text = element_text(size= 10, angle=0, hjust=0.5), axis.title = element_text(size=12))+
   expand_limits(y=0)+
   scale_y_continuous("Best Estimate APC (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
   geom_point(position=position_jitterdodge(),alpha=1)+
@@ -47,16 +51,98 @@ APC_MTvPr<-ggplot(data= Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
 APC_MTvPr+facet_grid(.~Opportunity)
 ```
 
-```{r}
+```{r echo=FALSE}
 Colif_MTvPr<-ggplot(data= Fanoe, aes(x=Zone, y=Log.Coli. , col= Sample.Type))+
-  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=25),axis.text.x = element_text(angle=0, hjust=0.5))+
+  geom_boxplot(outlier.alpha = 0)+theme(plot.title = element_text(size = rel(1.2), face = "bold"), axis.text = element_text(size= 10, angle=0, hjust=0.5), axis.title = element_text(size=12))+
   expand_limits(y=0)+
   scale_y_continuous("Best Estimate Coliforms (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
   geom_point(position=position_jitterdodge(),alpha=1)+
   ggtitle("Overall PreHarvest Bacterial Recovery Comparison - Swab v Composite Tissue ")
 Colif_MTvPr+facet_grid(.~Opportunity)
 ```
+*Overall, higher APC and Coliforms on repeated samples, why?* 
 
+*_However, following discussion on 07/11/22, we kept the originals and filled in the gaps with the repeated samples_*
+
+```{r}
+adj_Fanoe<-read.csv("Experiment_1_adjusted trim.csv")
+adj_Fanoe$Zone<-as.factor(adj_Fanoe$Zone)
+adj_Fanoe$Top.bottom<-as.factor(adj_Fanoe$Top.bottom)
+adj_Fanoe$Wet.dry<-as.factor(adj_Fanoe$Wet.dry)
+adj_Fanoe$Hand.msd<-as.factor(adj_Fanoe$Hand.msd)
+adj_Fanoe$Opportunity<-as.factor(adj_Fanoe$Opportunity)
+adj_Fanoe$Sample.Type<-as.factor(adj_Fanoe$Sample.Type)
+str(adj_Fanoe)
+wkngsamples_Fanoe<-adj_Fanoe%>%group_by(Sample.Type, Wet.dry, Hand.msd)%>%summarise(n=n())
+totalecoli<-adj_Fanoe%>%group_by(Sample.Type, Log.E.coli.)%>%summarise(count=n())
+knitr::kable(wkngsamples_Fanoe)
+knitr::kable(totalecoli)
+```
+**Updated dataset consists on 32 swabs and 22 produce samples, N=54. MSD Dry cloths n=11, Prehydrated cloths, hand n=6, Prehydrated cloths, MSD n= 15.** **Generic *E. coli* Neg swabs= 26, Pos swabs= 6; Neg Produce= 13, Pos produce= 9**
+
+*Graphs for overall visualization of all samples, based on field parameters and head collection*
+```{r echo=FALSE}
+OvPH_MTvTissue_APC<-ggplot(data= adj_Fanoe, aes(x=Sample.Type, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(plot.title = element_text(size = rel(1.2), face = "bold"), axis.text = element_text(size= 10, angle=0, hjust=0.5), axis.title = element_text(size=12))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest APC Recovery Comparison - Aggregative Swab v Composite Produce Samples")
+OvPH_MTvTissue_APC+facet_grid(Hand.msd~Wet.dry)
+
+OvPH_MTvTissue_Colif<-ggplot(data= adj_Fanoe, aes(x=Sample.Type, y=Log.Coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(plot.title = element_text(size = rel(1.2), face = "bold"), axis.text = element_text(size= 10, angle=0, hjust=0.5), axis.title = element_text(size=12))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Coliforms (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Coliform Recovery Comparison - Aggregative Swab v Composite Produce Samples")
+OvPH_MTvTissue_Colif+facet_grid(Hand.msd~Wet.dry)
+
+Zone_OvPH_MTvTissue_APC<-ggplot(data= adj_Fanoe, aes(x=Zone, y=Log.APC. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(plot.title = element_text(size = rel(1.2), face = "bold"), axis.text = element_text(size= 10, angle=0, hjust=0.5), axis.title = element_text(size=12))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate APC (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest APC Recovery Comparison by Zone- Aggregative Swab v Composite Produce Samples")
+Zone_OvPH_MTvTissue_APC+facet_grid(Hand.msd~Wet.dry)
+
+Zone_OvPH_MTvTissue_Colif<-ggplot(data= adj_Fanoe, aes(x=Zone, y=Log.Coli. , col= Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(plot.title = element_text(size = rel(1.2), face = "bold"), axis.text = element_text(size= 10, angle=0, hjust=0.5), axis.title = element_text(size=12))+
+  expand_limits(y=0)+
+  scale_y_continuous("Best Estimate Coliforms (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  geom_point(position=position_jitterdodge(),alpha=1)+
+  ggtitle("Overall PreHarvest Coliform Recovery Comparison by Zone- Aggregative Swab v Composite Produce Samples")
+Zone_OvPH_MTvTissue_Colif+facet_grid(Hand.msd~Wet.dry)
+```
+
+##Cleaning for analysis 
+###Analysis of Agg Swabs
+
+```{r}
+
+```
+
+
+#Statistical Analysis - BASIC
+
+```{r}
+lm_APC_swabs<-lm(Best..Estimate ~ Wet.dry, data=Only_swabs_apc)
+lm_APC_presshydr<-lm(Best..Estimate ~ Hand.msd, data=Only_swabs_apc)
+locAPClm<-lm(Best..Estimate ~ Wet.dry*Zone, data=Only_swabs_apc)
+plantAPClm<-lm(Best..Estimate ~ Wet.dry*Top.bottom, data=Only_swabs_apc)
+shapiro.test(residuals(lm_APC))##normatility p=0.017
+leveneTest(lm_APC)#heterogenous p=0.03
+#leveneTest(APClm)
+anova(lm_APC) #effect in wet-dry p<6.753-6 -- poshoc test needed
+anova(lm_APC_presshydr)#
+anova(locAPClm) #zones had no effect
+anova(plantAPClm)#place in plant had no effect
+```
+
+#Appendix
+```{r}
+
+```
 
 ## Including Plots
 
