@@ -19,6 +19,8 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r echo=F}
 library(tidyverse)
+library(MASS)
+library(car)
 ```
 
 
@@ -118,13 +120,17 @@ Zone_OvPH_MTvTissue_Colif+facet_grid(Hand.msd~Wet.dry)
 ##Cleaning for analysis 
 ###Analysis of Agg Swabs
 
-```{r}
+```{r echo=F}
 Only_Swabs<-adj_Fanoe%>%filter(Sample.Type=="Aggregative Swab")
+Only_Swabs_noEcoli<-Only_Swabs[,-13]
+str(Only_Swabs_noEcoli)
+Everything_but_Ecoli<-adj_Fanoe[,-13]
+str(Everything_but_Ecoli)
 ```
 
 #Statistical Analysis - BASIC
 
-```{r eval=FALSE}
+```{r echo=F}
 lm_APC<-lm(Log.APC. ~ Sample.Type, data=adj_Fanoe)
 locAPClm<-lm(Log.APC. ~ Sample.Type*Zone, data=adj_Fanoe)
 shapiro.test(residuals(lm_APC))##normatility p=0.008401
@@ -133,18 +139,27 @@ leveneTest(Log.APC.~Sample.Type, data=adj_Fanoe)#heterogenous p=0.00039
 anova(lm_APC) #effect in sample type p<0.01212 -- poshoc test needed
 
 
-lm_APC_swabs<-lm(Best..Estimate ~ Wet.dry, data=Only_swabs_apc)
-lm_APC_presshydr<-lm(Best..Estimate ~ Hand.msd, data=Only_swabs_apc)
-locAPClm<-lm(Best..Estimate ~ Wet.dry*Zone, data=Only_swabs_apc)
-plantAPClm<-lm(Best..Estimate ~ Wet.dry*Top.bottom, data=Only_swabs_apc)
-shapiro.test(residuals(lm_APC))##normatility p=0.017
-leveneTest(lm_APC)#heterogenous p=0.03
+lm_APC_drywet<-lm(Log.APC. ~ Wet.dry, data=Only_Swabs)
+lm_APC_press<-lm(Log.APC. ~ Hand.msd, data=Only_Swabs)
+lm_APC_2fac<-lm(Log.APC.~Hand.msd*Wet.dry, data=Only_Swabs)
+locAPClm<-lm(Log.APC.~ Wet.dry*Zone*Hand.msd, data=Only_Swabs)
+plantAPClm<-lm(Log.APC. ~ Hand.msd*Wet.dry*Top.bottom, data=Only_Swabs)
+#shapiro.test(residuals(lm_APC))##normatility p=0.017
+#leveneTest(lm_APC)#heterogenous p=0.03
 #leveneTest(APClm)
-anova(lm_APC) #effect in wet-dry p<6.753-6 -- poshoc test needed
-anova(lm_APC_presshydr)#
-anova(locAPClm) #zones had no effect
-anova(plantAPClm)#place in plant had no effect
+Hydration_Effect<-anova(lm_APC_drywet) #effect in wet-dry p<6.753-6 -- poshoc test needed
+Pressure_Effect<-anova(lm_APC_press)#no effect from pressure
+BothFactors<-anova(lm_APC_2fac)#Hydration matters most 3.008e-5
+Zone_Effect<-anova(locAPClm) #zones had no effect
+InPlantLoc_effect<-anova(plantAPClm)#place in plant had no effect
+
+knitr::kable(Hydration_Effect)
+knitr::kable(Pressure_Effect)
+knitr::kable(BothFactors)
+knitr::kable(Zone_Effect)
+knitr::kable(InPlantLoc_effect)
 ```
+
 
 #Appendix
 ```{r}
