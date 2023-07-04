@@ -126,6 +126,7 @@ Only_Swabs_noEcoli<-Only_Swabs[,-13] #This one would be replaced using a dataset
 Only_Swabs_noEcoli1<-read.csv("LabPPT_AdjustedFanoe Exp_1.csv")
 Only_Swabs_noEcoli<-Only_Swabs_noEcoli1%>% filter(Sample.Type=="Aggregative Swab")
 Only_Swabs_noEcoli<-Only_Swabs_noEcoli%>% filter(Test != "E.coli")
+#Once filtered
 Only_Swabs_noEcoli$Sample.Type<-as.factor(Only_Swabs_noEcoli$Sample.Type)
 Only_Swabs_noEcoli$Hand.msd<-as.factor(Only_Swabs_noEcoli$Hand.msd)
 Only_Swabs_noEcoli$Wet.dry<-as.factor(Only_Swabs_noEcoli$Wet.dry)
@@ -139,7 +140,7 @@ str(Everything_but_Ecoli)
 ```
 
 ####Visualization
-```{r}
+```{r echo=FALSE}
 OvPH_MT<-ggplot(data= Only_Swabs_noEcoli, aes(x=Hand.msd, y=Best..Estimate, col= Wet.dry))+
   geom_boxplot(outlier.alpha = 0, position = position_dodge2(preserve="single"))+
   geom_hline(yintercept = 0.7, color="steelblue")+
@@ -157,79 +158,115 @@ OvPH_MT<-ggplot(data= Only_Swabs_noEcoli, aes(x=Hand.msd, y=Best..Estimate, col=
   ggtitle("Pressure and Hydration Effects on Bacterial Recovery in Aggregative Swab Sampling Technique Optimization")
 
 OvPH_MT+facet_grid(.~Test)
-#ggsave("Swab-characterization-overallUPDATE.jpeg", device = "jpeg", dpi=300, path = "C:/Users/jorge/Box Sync/NIFA Project/NIFA Project Repository/Output 2022", height= 5, width= 10, units = "in")
+ggsave("Swab-characterization-overallUPDATE.jpeg", device = "jpeg", dpi=300, path = "C:/Users/jorge/Box Sync/NIFA Project/NIFA Project Repository/Output 2022", height= 5, width= 10, units = "in")
 ```
 
 #Statistical Analysis - BASIC
 
 ```{r echo=F}
-lm_APC<-lm(Log.APC. ~ Sample.Type, data=adj_Fanoe)
-locAPClm<-lm(Log.APC. ~ Sample.Type*Zone, data=adj_Fanoe)
-#shapiro.test(residuals(lm_APC))##normatility p=0.008401
-#leveneTest(Log.APC.~Sample.Type, data=adj_Fanoe)#heterogenous p=0.00039
-#leveneTest(APClm)
-#anova(lm_APC) #effect in sample type p<0.01212 -- poshoc test needed
+#Dataset used for this analysis remained unmanipulated manually ("data=Only_Swabs"). The manipulated manually is for visualization purposes (data= Only_Swabs_noEcoli")
 
+#APC
+##APC lm
+lm_APC_2fac<-lm(Log.APC.~Wet.dry +Hand.msd+ Hand.msd:Wet.dry, data=Only_Swabs)
+locAPClm<-lm(Log.APC.~ Wet.dry +Hand.msd+ Zone + Hand.msd:Wet.dry + Hand.msd:Zone +Wet.dry:Zone+ Hand.msd*Wet.dry*Zone, data=Only_Swabs)
+plantAPClm<-lm(Log.APC. ~ Wet.dry +Hand.msd+ Top.bottom+ Hand.msd:Wet.dry + Hand.msd:Top.bottom +Wet.dry:Top.bottom+ Hand.msd*Wet.dry*Top.bottom, data=Only_Swabs)
+###anova
+APC_BothFactors<-anova(lm_APC_2fac)# Hydration matters most 3.008e-5
+APC_Zone_Effect<-anova(locAPClm) #zones had no effect, hydration did
+APC_InPlantLoc_effect<-anova(plantAPClm)#place in plant had no effect, hydration did
 
-lm_APC_drywet<-lm(Log.APC. ~ Wet.dry, data=Only_Swabs)
-lm_APC_press<-lm(Log.APC. ~ Hand.msd, data=Only_Swabs)
-lm_APC_2fac<-lm(Log.APC.~Hand.msd*Wet.dry, data=Only_Swabs)
-locAPClm<-lm(Log.APC.~ Wet.dry*Zone*Hand.msd, data=Only_Swabs)
-plantAPClm<-lm(Log.APC. ~ Hand.msd*Wet.dry*Top.bottom, data=Only_Swabs)
-#shapiro.test(residuals(lm_APC))##normatility p=0.017
-#leveneTest(lm_APC)#heterogenous p=0.03
-#leveneTest(APClm)
-APC_Hydration_Effect<-anova(lm_APC_drywet) #effect in wet-dry p<6.753-6 -- poshoc test needed
-APC_Pressure_Effect<-anova(lm_APC_press)#no effect from pressure
-APC_BothFactors<-anova(lm_APC_2fac)#Hydration matters most 3.008e-5
-APC_Zone_Effect<-anova(locAPClm) #zones had no effect
-APC_InPlantLoc_effect<-anova(plantAPClm)#place in plant had no effect
-
-lm_Colif_drywet<-lm(Log.Coli. ~ Wet.dry, data=Only_Swabs)
-lm_Colif_press<-lm(Log.Coli. ~ Hand.msd, data=Only_Swabs)
-lm_Colif_2fac<-lm(Log.Coli.~Hand.msd*Wet.dry, data=Only_Swabs)
-locColiflm<-lm(Log.Coli.~ Wet.dry*Zone*Hand.msd, data=Only_Swabs)
-plantColiflm<-lm(Log.Coli. ~ Hand.msd*Wet.dry*Top.bottom, data=Only_Swabs)
-#shapiro.test(residuals(lm_APC))##normatility p=0.017
-#leveneTest(lm_APC)#heterogenous p=0.03
-#leveneTest(APClm)
-Colif_Hydration_Effect<-anova(lm_Colif_drywet) #effect in wet-dry p<6.753-6 -- poshoc test needed
-Colif_Pressure_Effect<-anova(lm_Colif_press)#no effect from pressure
-Colif_BothFactors<-anova(lm_Colif_2fac)#Hydration matters most 3.008e-5
+#Coliforms
+##Coliforms lm
+lm_Colif_2fac2<-lm(Log.Coli.~Wet.dry +Hand.msd+ Hand.msd:Wet.dry, data=Only_Swabs)
+locColiflm<-lm(Log.Coli.~Wet.dry +Hand.msd+ Zone + Hand.msd:Wet.dry + Hand.msd:Zone +Wet.dry:Zone+ Hand.msd*Wet.dry*Zone, data=Only_Swabs)
+plantColiflm<-lm(Log.Coli. ~ Wet.dry +Hand.msd+ Top.bottom+ Hand.msd:Wet.dry + Hand.msd:Top.bottom +Wet.dry:Top.bottom+ Hand.msd*Wet.dry*Top.bottom, data=Only_Swabs)
+###ANOVA
+Colif_BothFactors<-anova(lm_Colif_2fac2)#Both factors matter Hydration matters most 3.008e-5
 Colif_Zone_Effect<-anova(locColiflm) #zones had no effect
 Colif_InPlantLoc_effect<-anova(plantColiflm)#place in plant had no effect
-
 ```
 
-Summary ANOVA Tables for APC and Coliform counts
+#Summary ANOVA Tables for APC and Coliform counts
 ```{r}
-knitr::kable(APC_Hydration_Effect)
-knitr::kable(APC_Pressure_Effect)
 knitr::kable(APC_BothFactors)
 knitr::kable(APC_Zone_Effect)
 knitr::kable(APC_InPlantLoc_effect)
 
-knitr::kable(Colif_Hydration_Effect)
-knitr::kable(Colif_Pressure_Effect)
 knitr::kable(Colif_BothFactors)
 knitr::kable(Colif_Zone_Effect)
 knitr::kable(Colif_InPlantLoc_effect)
 ```
 
-
 #Hydration drives the attachment of bacteria to the cloth, hence, this will be the sampling technique
 ##Clean  up dry swabs, keep the wet ones and compare them to produce
 ###Visualization
 ```{r echo=F}
+#For analysis, we'll use data= "Everything_wet". For visualization, we'll use data= "Trimmed_W_data". 
 Everything_wet<-Everything_but_Ecoli%>%filter(Sample.Type=="Produce Sample"|Sample.Type=="Aggregative Swab" & Wet.dry!="DRY")
-
 WorkingDataset<-Everything_wet%>%group_by(Sample.Type)%>%summarise(count=n())
 knitr::kable(WorkingDataset)
+
+#visuals
+Trimmed_W_data<-Only_Swabs_noEcoli1%>%filter(Sample.Type=="Produce Sample"|Sample.Type=="Aggregative Swab"&Wet.dry!="DRY")
+Trimmed_W_data<-Trimmed_W_data%>% filter(Test != "E.coli")
+Trimmed_W_data%>%group_by(Sample.Type, Wet.dry, Test)%>%summarise(count=n())
 ```
+
+#Visuals 
+```{r echo=FALSE}
+OvPH_MTvPS<-ggplot(data= Trimmed_W_data, aes(x=Sample.Type, y=Best..Estimate, col=Sample.Type))+
+  geom_boxplot(outlier.alpha = 0)+theme(plot.title = element_text(size = rel(1.2), face = "bold"), legend.position = "none", axis.text = element_text(size= 10, angle=0, hjust=0.5), axis.title = element_text(size=12))+
+  geom_point(alpha=0.5)+
+  expand_limits(y=0)+
+  scale_color_manual(values=c("#1B9E77", "#7570B3")) +
+  scale_y_continuous("Bacterial Counts Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7,8,9))+
+  scale_x_discrete("Sample Type")+
+  labs(fill= "Sample Type")+
+  ggtitle("Bacterial Recovery in Aggregative Swab Cloths and Composite Produce Samples")
+OvPH_MTvPS+facet_grid(.~ Test)
+```
+#Statistics
+```{r echo=FALSE}
+#APC
+##Linear models
+lmMTPS__APC<-lm(Log.APC.~Sample.Type, data=Everything_wet)
+lmMTPS_locAPC<-lm(Log.APC.~ Sample.Type+ Zone + Sample.Type:Zone, data=Everything_wet)
+lmMTPS_plantAPC<-lm(Log.APC. ~ Sample.Type+ Top.bottom + Sample.Type:Top.bottom, data=Everything_wet)
+lmMTPS_APC_Overall<-lm(Log.APC.~ Sample.Type + Zone +Top.bottom + Sample.Type:Top.bottom + Sample.Type:Zone + Top.bottom:Zone + Sample.Type:Zone:Top.bottom, data=Everything_wet)
+
+###ANOVA
+MTPS_SamTypeAPC<-anova(lmMTPS__APC)
+MTPS_locAPC<-anova(lmMTPS_locAPC)
+MTPS_plantAPC<-anova(lmMTPS_plantAPC)
+MTPS_APC_Overall<-anova(lmMTPS_APC_Overall)#Sample type is the only factor that matters
+    
+#Coliforms
+##Linear models
+lmMTPS__Colif<-lm(Log.Coli.~Sample.Type, data=Everything_wet)
+lmMTPS_locColif<-lm(Log.Coli.~ Sample.Type+ Zone + Sample.Type:Zone, data=Everything_wet)
+lmMTPS_plantColif<-lm(Log.Coli. ~ Sample.Type+ Top.bottom + Sample.Type:Top.bottom, data=Everything_wet)
+lmMTPS_Colif_Overall<-lm(Log.Coli.~ Sample.Type + Zone +Top.bottom + Sample.Type:Top.bottom + Sample.Type:Zone + Top.bottom:Zone + Sample.Type:Zone:Top.bottom, data=Everything_wet)
+
+MTPS_SamTypeColif<-anova(lmMTPS__Colif)
+MTPS_locColif<-anova(lmMTPS_locColif)
+MTPS_plantColif<-anova(lmMTPS_plantColif)
+MTPS_Colif_Overall<-anova(lmMTPS_Colif_Overall)#Sample type is the only factor that matters
+```
+
 
 ```{r}
+knitr::kable(MTPS_SamTypeAPC)
+knitr::kable(MTPS_locAPC)
+knitr::kable(MTPS_plantAPC)
+knitr::kable(MTPS_APC_Overall)
 
+knitr::kable(MTPS_SamTypeColif)
+knitr::kable(MTPS_locColif)
+knitr::kable(MTPS_plantColif)
+knitr::kable(MTPS_Colif_Overall)
 ```
+
 
 #Appendix
 ```{r}

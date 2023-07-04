@@ -60,21 +60,46 @@ OvSample<-ggplot(data= master_noecoli, aes(x=Sample.Type, y=Log.CFU.g., col= Sam
   ggtitle("Overall Bacterial Recovery Comparison")
 OvSample
 
-master_noecoli$Sample.Description_factor<- factor(master_noecoli$Sample.Description, levels=c('Cloth produce bottom', 'Cloth produce sides', 'Produce bottom', 'Produce sides', 'Produce sides HR', 'Produce leftover trims', 'Glove', 'Chute', 'Produce bins', 'Cloth bin tops', 'Cloth produce interior', 'Produce interior'))
+##Renaming of master Sample Description
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Cloth produce bottom" & master_noecoli$Sample.Time.Point == "Preharvest"] <- "Aggregative Swab"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Cloth produce sides" & master_noecoli$Sample.Time.Point == "Preharvest"] <- "Aggregative Swab"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Produce bottom" & master_noecoli$Sample.Time.Point == "Preharvest"] <- "Composite Produce"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Produce sides" & master_noecoli$Sample.Time.Point == "Preharvest"] <- "Composite Produce"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Produce sides HR" & master_noecoli$Sample.Time.Point == "Preharvest"] <- "Produce High Resolution"
+
+
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Chute" & master_noecoli$Sample.Time.Point == "Harvest"] <- "Swab on Chute"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Cloth bin tops" & master_noecoli$Sample.Time.Point == "Harvest"] <- "Swab of Bin Tops"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Produce bins" & master_noecoli$Sample.Time.Point == "Harvest"] <- "Produce from Bins"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Produce leftover trims" & master_noecoli$Sample.Time.Point == "Harvest"] <- "Produce Leftover Trims"
+
+
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Produce sides" & master_noecoli$Sample.Time.Point == "Post Harvest"] <- "Produce Exterior"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Chute" & master_noecoli$Sample.Time.Point == "Post Harvest"] <- "Swab on Chute"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Cloth produce interior" & master_noecoli$Sample.Time.Point == "Post Harvest"] <- "Swab of Produce Interior"
+master_noecoli$Sample.Description[master_noecoli$Sample.Description=="Produce interior" & master_noecoli$Sample.Time.Point == "Post Harvest"] <- "Produce Interior"
+
+master_noecoli$Sample.Type[master_noecoli$Sample.Type=="Cloth"] <- "Aggregative Swab"
+
+
+master_noecoli$Sample.Description_factor<- factor(master_noecoli$Sample.Description, levels=c('Aggregative Swab', 'Composite Produce', 'Produce High Resolution', 
+                                                                                              'Glove', 'Produce Leftover Trims', 'Swab on Chute', 'Swab of Bin Tops',  "Produce from Bins", 
+                                                                                              'Produce Exterior', 'Swab of Produce Interior', 'Produce Interior'))
 
 all_plot<-ggplot(data= master_noecoli, aes(x=Sample.Description_factor, y=Log.CFU.g., col=Sample.Type))+
-  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=12),axis.text.x = element_text(angle=45, hjust=1, size = 10))+
+  geom_boxplot(outlier.alpha = 0)+theme(text = element_text(size=12),axis.text.x = element_text(angle=45, hjust=1, size = 10), legend.position = "top")+
   expand_limits(y=0)+
   scale_color_brewer(palette="Dark2")+
+  labs(col="Sample Type")+
   #scale_color_manual(values=cbp1)+
   scale_y_continuous("Bacterial Counts Estimate (Log CFU/g)", breaks= c(1,2,3,4,5,6,7))+
-  geom_point(position=position_jitterdodge(),alpha=1)+
+  geom_point(position=position_jitterdodge(),alpha=1, size=0.5)+
   stat_summary(aes(x=Sample.Description_factor, y=Log.CFU.g.), fun="mean", shape=4) +
-  ggtitle("Bacterial recovery of Aggregative and Composite Produce Samples Collected at different stages")+
+  ggtitle("Bacterial recovery of Aggregative and Composite Produce Samples Collected at Different Stages")+
   xlab("Sample Description") +
   facet_grid(Test~Sample.Time.Point_factor, scales="free", switch="y")
 all_plot
-ggsave("Trial2.jpeg",all_plot, "jpeg",width = 10, height = 6, units = "in", dpi=300)
+ggsave("Samples 2021_Master plot.jpeg",all_plot, "jpeg",width = 10, height = 6, units = "in", dpi=300, path = "C:/Users/jorge/Box Sync/NIFA Project/NIFA Project Repository/Outputs 2021")
 ####END OF RESULTS FROM 2021 FOR NIFA POSTER 
 
 #Sampling technique characterization - Prehydrated and Dry cloths collected by hand or using MSD
