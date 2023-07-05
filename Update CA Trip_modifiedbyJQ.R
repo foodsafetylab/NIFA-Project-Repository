@@ -2,7 +2,9 @@ library(tidyverse)
 library(ggplot2)
 library(rstatix)
 
+#load workspace, global environment PreIAFP_NIFA_analysis.RData
 master<- read.csv("C:/Users/jfq/Box Sync/NIFA Project/CA 9-2021/Plate results/Master plate counts.csv")
+count_master<-master%>%group_by(Sample.Time.Point, Sample.Description, Test)%>%summarise(count=n())
 
 ##File Reading
 #PreHarvest<-read.csv("PreHarvest Trimmed.csv")
