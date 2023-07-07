@@ -232,15 +232,17 @@ HarvestColiform<- subset(IH, Test== "Coliform")
 In_OnTrailerAPC<- subset(In_OnTrailer, Test== "APC")
 In_OnTrailerColi<- subset(In_OnTrailer, Test== "Coliform")
 
+
+
 ###Not needed if analysis is only done overall HARVEST
 #APC
-Harvest_chute_APC<- subset(HarvestAPC, Location== "Chute")
+#Harvest_chute_APC<- subset(HarvestAPC, Location== "Chute")
 range(Harvest_chute_APC$Log.CFU.g.)
 mean(Harvest_chute_APC$Log.CFU.g.)
 median(Harvest_chute_APC$Log.CFU.g.)
 sd(Harvest_chute_APC$Log.CFU.g.)
 
-Harvest_bin_swab_APC<- subset(HarvestAPC, Sample.Type== "Cloth" & Location== "Bins")
+Harvest_chute_bin_swab_APC<- subset(HarvestAPC, Sample.Type== "Cloth" & Location== "Bins")
 range(Harvest_bin_swab_APC$Log.CFU.g.)
 mean(Harvest_bin_swab_APC$Log.CFU.g.)
 median(Harvest_bin_swab_APC$Log.CFU.g.)
@@ -275,22 +277,26 @@ sd(Harvest_bin_tissue_coli$Log.CFU.g.)
 
 #anova on sample type and location and sample day for overall harvest 
 #normality assumption, p= 
-Harvest_lm_APC<- lm(Log.CFU.g. ~ Sample.Description, data=HarvestAPC)
-shapiro_test(residuals(Harvest_trailer_lm_APC))
+Harvest_OnTrailer_lm_APC<- lm(Log.CFU.g. ~ Sample.Description, data=In_OnTrailerAPC)
+Harvest_OnTrailer_lm_Colif<-lm(Log.CFU.g.~Sample.Description, data= In_OnTrailerColi)
+shapiro_test(residuals(Harvest_OnTrailer_lm_APC))
+
 #homogeneity of variance, p=
 #In_OnTrailerAPC %>% levene_test(Log.CFU.g. ~ Sample.Type*Location*Sample.Day)
 #anova
-Harvest_anova_APC<-anova(Harvest_lm_APC)
+OntrailerHarvest_anova_APC<-anova(Harvest_OnTrailer_lm_APC)
+OntrailerHarvest_anova_Colif<-anova(Harvest_OnTrailer_lm_Colif)
 #tukey
-Dif_Harvest_anova_APC<-tukey_hsd(HarvestAPC, Log.CFU.g. ~ Sample.Description)
+Dif_Harvest_anova_APC<-tukey_hsd(In_OnTrailerAPC, Log.CFU.g. ~ Sample.Description) #Statistically different, Cloths from chute are different than produce from bins
+Dif_Harvest_anova_Colif<-tukey_hsd(In_OnTrailerColi, Log.CFU.g. ~ Sample.Description) #Statistically different, Cloth from bins and chute are different than produce, but they are not significantly different from each other
 #tukey_hsd(In_OnTrailerAPC, Log.CFU.g. ~ Sample.Day)
 
-#variance test
+#variance test - No significant differences in APC variance
 
-HarvestAPC_trailer_bin_swab_chute<- subset(In_OnTrailerAPC, Location== "Chute" | Sample.Type== "Swab" & Location== "Bins")
+HarvestAPC_trailer_bin_tis_chute<- subset(In_OnTrailerAPC, Location== "Chute" | Sample.Type== "Produce")
 var.test(Log.CFU.g. ~ Location, data = HarvestAPC_trailer_bin_swab_chute)
 
-HarvestAPC_trailer_bin_tis_chute<- subset(In_OnTrailerAPC, Location== "Chute" | Sample.Type== "Tissue" & Location== "Bins")
+HarvestAPC_trailer_bin_swab_chute<- subset(In_OnTrailerAPC, Location== "Chute" | Sample.Type== "Cloth")
 var.test(Log.CFU.g. ~ Location, data = HarvestAPC_trailer_bin_tis_chute)
 
 HarvestAPC_trailer_bin_tis_swab<- subset(In_OnTrailerAPC, Location== "Bins")
@@ -308,11 +314,12 @@ anova_test(Harvest_trailer_anova_coli)
 tukey_hsd(In_OnTrailerColi, Log.CFU.g. ~ Sample.Type)
 tukey_hsd(In_OnTrailerColi, Log.CFU.g. ~ Sample.Day)
 tukey_hsd(In_OnTrailerColi, Log.CFU.g. ~ Sample.Type*Sample.Day)
-#variance test
-Harvestcoli_trailer_bin_swab_chute<- subset(In_OnTrailerColi, Location== "Chute" | Sample.Type== "Swab" & Location== "Bins")
+
+#variance test #No significant differences in variability
+Harvestcoli_trailer_bin_swab_chute<- subset(In_OnTrailerColi, Location== "Chute" | Sample.Type== "Cloth")
 var.test(Log.CFU.g. ~ Location, data = Harvestcoli_trailer_bin_swab_chute)
 
-Harvestcoli_trailer_bin_tis_chute<- subset(In_OnTrailerColi, Location== "Chute" | Sample.Type== "Tissue" & Location== "Bins")
+Harvestcoli_trailer_bin_tis_chute<- subset(In_OnTrailerColi, Location== "Chute" | Sample.Type== "Produce")
 var.test(Log.CFU.g. ~ Location, data = Harvestcoli_trailer_bin_tis_chute)
 
 Harvestcoli_trailer_bin_tis_swab<- subset(In_OnTrailerColi, Location== "Bins")
@@ -362,27 +369,27 @@ sd(Harvest_leftover_coli$Log.CFU.g.)
 
 #anova on sample type and sample day for harvest on ground
 #normality assumption, p= 
-Harvest_ground_anova_APC<- lm(Log.CFU.g. ~ Sample.Type*Sample.Day, data=IH_Ground_APC)
-shapiro_test(residuals(Harvest_ground_anova_APC))
+Harvest_ground_lm_APC<- lm(Log.CFU.g. ~ Sample.Type*Sample.Day, data=IH_Ground_APC)
+shapiro_test(residuals(Harvest_ground_lm_APC))
 #homogeneity of variance, p=
 IH_Ground_APC %>% levene_test(Log.CFU.g. ~ Sample.Type*Sample.Day)
 #anova
-anova_test(Harvest_ground_anova_APC)
+Harvest_ground_anova_APC<-anova_test(Harvest_ground_anova_APC) #They are significantly different p=1.68 e-6
 #tukey
-tukey_hsd(IH_Ground_APC, Log.CFU.g. ~ Sample.Type)
+DIF_GroundHarvest_APC<-tukey_hsd(IH_Ground_APC, Log.CFU.g. ~ Sample.Type) #They are significantly different
 #variance test
-var.test(Log.CFU.g. ~ Sample.Type, data = IH_Ground_APC)
+var.test(Log.CFU.g. ~ Sample.Type, data = IH_Ground_APC)#not sig
 
 #anova on sample type and sample day for harvest on ground
 #normality assumption, p= 
-Harvest_ground_anova_coli<- lm(Log.CFU.g. ~ Sample.Type*Sample.Day, data=IH_Ground_coli)
-shapiro_test(residuals(Harvest_ground_anova_coli))
+Harvest_ground_lm_coli<- lm(Log.CFU.g. ~ Sample.Type, data=IH_Ground_coli)
+shapiro_test(residuals(Harvest_ground_lm_coli))
 #homogeneity of variance, p=
 IH_Ground_coli %>% levene_test(Log.CFU.g. ~ Sample.Type*Sample.Day)
 #anova
-anova_test(Harvest_ground_anova_coli)
+Harvest_ground_anova_coli<-anova(Harvest_ground_lm_coli)#not significantly different
 #tukey
-tukey_hsd(IH_Ground_coli, Log.CFU.g. ~ Sample.Type*Sample.Day)
+DIF_GroundHarvest_Colif<-tukey_hsd(IH_Ground_coli, Log.CFU.g. ~ Sample.Type)
 #variance test
 var.test(Log.CFU.g. ~ Sample.Type, data = IH_Ground_coli)
 
@@ -390,7 +397,7 @@ var.test(Log.CFU.g. ~ Sample.Type, data = IH_Ground_coli)
 ####Overall Look at Post-Harvest Sample Type Performance 
 
 #PostH<- InPst0.1 %>% filter(Sampling.Day == "PostHarvest D1"|Sampling.Day == "PostHarvest D2")
-PostH<- subset(all_data, Sample.Time.Point == "Post Harvest")
+PostH<- subset(master, Sample.Time.Point == "Post Harvest")
 Post_Exterior<-PostH %>% filter(Location == "Glove"| Location == "Produce sides" | Location == "Chute")
 Post_Interior<-PostH %>% filter(Location == "Produce interior")
 
@@ -429,8 +436,12 @@ IntVsExt<-ggplot(data= PostH, aes(x=Sample.Type, y=Log.CFU.g., col=Location))+
   facet_grid(Test~Strata, scales="free")
 IntVsExt 
 
-PostHAPC<- subset(PostH, Test == "APC")
-PostHcoli<- subset(PostH, Test == "Coliform")
+PostHExterior_APC<- subset(Post_Exterior, Test == "APC")
+PostHExterior_coli<- subset(Post_Exterior, Test == "Coliform")
+
+PostHInterior_APC<- subset(Post_Interior, Test == "APC")
+PostHInterior_coli<- subset(Post_Interior, Test == "Coliform")
+
 
 #APC
 Post_glove_APC<- subset(PostHAPC, Location== "Glove")
@@ -494,24 +505,50 @@ mean(Post_swabin_coli$Log.CFU.g.)
 median(Post_swabin_coli$Log.CFU.g.)
 sd(Post_swabin_coli$Log.CFU.g.)
 
-#anova on sample type, sample day, head location for post harvest
+#anova on sample type, sample day, head location for post harvest##edited just for sample type
 #normality assumption, p= 
-Post_anova_APC<- lm(Log.CFU.g. ~ Sample.Type*Sample.Day*Strata, data=PostHAPC)
-shapiro_test(residuals(Post_anova_APC))
+PostExterior_lm_APC<- lm(Log.CFU.g. ~ Sample.Type, data=PostHExterior_APC)
+shapiro_test(residuals(PostExterior_lm_APC))
 #homogeneity of variance, p=
 PostHAPC %>% levene_test(Log.CFU.g. ~ Sample.Type*Sample.Day*Strata)
 #anova
-anova_test(Post_anova_APC)
+PostExterior_anova_APC<-anova(PostExterior_lm_APC)#Not significant differences
 #tukey
-tukey_hsd(PostHAPC, Log.CFU.g. ~ Strata)
+Dif_PostExterior_APC<-tukey_hsd(PostHExterior_APC, Log.CFU.g. ~ Sample.Type) #Not significant differences
 
 #normality assumption, p= 
-Post_anova_coli<- lm(Log.CFU.g. ~ Sample.Type*Sample.Day*Strata, data=PostHcoli)
-shapiro_test(residuals(Post_anova_coli))
+PostEXterior_lm_coli<- lm(Log.CFU.g. ~ Sample.Type, data=PostHExterior_coli)
+shapiro_test(residuals(PostExterior_lm_coli))
 #homogeneity of variance, p=
 PostHcoli %>% levene_test(Log.CFU.g. ~ Sample.Type*Sample.Day*Strata)
 #anova
-anova_test(Post_anova_coli)
+PostExterior_anova_coli<-anova(PostEXterior_lm_coli)#Significant differences among sample types
+#tukey
+Dif_PostExterior_coli<-tukey_hsd(PostHExterior_coli, Log.CFU.g. ~ Sample.Type) #Significant differences among cloth and produce sample types (p=0.006)
+
+##APC Exterior
+PostInterior_lm_APC<- lm(Log.CFU.g. ~ Sample.Type, data=PostHInterior_APC)
+shapiro_test(residuals(PostExterior_lm_APC))
+#homogeneity of variance, p=
+PostHAPC %>% levene_test(Log.CFU.g. ~ Sample.Type*Sample.Day*Strata)
+#anova
+PostInterior_anova_APC<-anova(PostInterior_lm_APC)#Not significant differences
+#tukey
+Dif_PostInterior_APC<-tukey_hsd(PostHInterior_APC, Log.CFU.g. ~ Sample.Type) #Not significant differences
+
+#normality assumption, p= 
+PostInterior_lm_coli<- lm(Log.CFU.g. ~ Sample.Type, data=PostHInterior_coli)
+shapiro_test(residuals(PostExterior_lm_coli))
+#homogeneity of variance, p=
+PostHcoli %>% levene_test(Log.CFU.g. ~ Sample.Type*Sample.Day*Strata)
+#anova
+PostInterior_anova_coli<-anova(PostInterior_lm_coli)#Significant differences among sample types
+#tukey
+Dif_PostInterior_coli<-tukey_hsd(PostHInterior_coli, Log.CFU.g. ~ Sample.Type) #Not significant differences among pairs cloth and produce sample types (p=0.006)
+
+
+
+
 #variance test
 GloveSwabEx<- subset(PostHAPC, Sample.Type== "Glove" | Sample.Type== "Swab" & Location== "Chute")
 var.test(Log.CFU.g. ~ Sample.Type, data = GloveSwabEx)
@@ -531,6 +568,7 @@ TissueExSwabIn<- subset(PostHAPC, Sample.Type== "Swab" & Location== "Tissue inte
 var.test(Log.CFU.g. ~ Sample.Type, data = TissueExSwabIn)
 TissueExTissueIn<- subset(PostHAPC, Sample.Type== "Tissue" & Location== "Tissue interior" | Sample.Type== "Tissue" & Location== "Tissue sides")
 var.test(Log.CFU.g. ~ Location, data = TissueExTissueIn)
+
 SwabInTissueIn<- subset(PostHAPC, Sample.Type== "Swab" & Location== "Tissue interior" | Sample.Type== "Tissue" & Location== "Tissue interior")
 var.test(Log.CFU.g. ~ Sample.Type, data = SwabInTissueIn)
 
@@ -552,8 +590,9 @@ TissueExSwabIncoli<- subset(PostHcoli, Sample.Type== "Swab" & Location== "Tissue
 var.test(Log.CFU.g. ~ Sample.Type, data = TissueExSwabIncoli)
 TissueExTissueIncoli<- subset(PostHcoli, Sample.Type== "Tissue" & Location== "Tissue interior" | Sample.Type== "Tissue" & Location== "Tissue sides")
 var.test(Log.CFU.g. ~ Location, data = TissueExTissueIncoli)
-SwabInTissueIncoli<- subset(PostHcoli, Sample.Type== "Swab" & Location== "Tissue interior" | Sample.Type== "Tissue" & Location== "Tissue interior")
-var.test(Log.CFU.g. ~ Sample.Type, data = SwabInTissueIncoli)
+
+SwabInTissueIncoli<- subset(PostHInterior_coli, Sample.Type== "Cloth" & Location== "Produce interior" | Sample.Type== "Produce" & Location== "Produce interior")
+var.test(Log.CFU.g. ~ Sample.Type, data = SwabInTissueIncoli) #not significantly different variance
 
 ##All data plot
 all_data$Sample.Time.Point_factor<- factor(all_data$Sample.Time.Point, levels=c('Preharvest', 'Harvest', 'Post Harvest'))
